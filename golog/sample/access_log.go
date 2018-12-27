@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -17,18 +16,16 @@ func HelloServer(c *gin.Context) {
 }
 
 func main() {
-	dir, err := os.Getwd()
+	// new rotate writer
+	fileName := os.Getenv("GOPATH") + "/src/gitlab.local.com/golog/sample/access.log"
+	// 按小时切割
+	writer, err := golog.NewRotateWriter(fileName, "20060102-15")
 	if err != nil {
-		fmt.Printf("os.Getwd", err)
-	}
-	// set logger
-	fileName := dir + "/sample/access.log"
-	f, err := os.OpenFile(fileName, os.O_RDWR|os.O_APPEND, 0660)
-	if err != nil {
-		fmt.Printf("open file error", err)
+		fmt.Println("golog NewRotateWriter error", err)
 	}
 
-	log, err := golog.NewLogger(golog.WithOutput(io.Writer(f)), golog.WithJSONEncoder(), golog.WithInfoLevel())
+	// new logger
+	log, err := golog.NewLogger(golog.WithOutput(writer), golog.WithJSONEncoder(), golog.WithInfoLevel())
 	if err != nil {
 		fmt.Printf("golog NewLogger error", err)
 	}

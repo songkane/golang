@@ -43,12 +43,12 @@ func Durations(key string, vals []time.Duration) zapcore.Field {
 	return zap.Durations(key, vals)
 }
 
-// Error is shorthand for the common idiom NamedError("error", err).
+// Err is shorthand for the common idiom NamedError("error", err).
 func Err(err error) zapcore.Field {
 	return zap.Error(err)
 }
 
-// Errors constructs a field that carries a slice of errors.
+// Errs constructs a field that carries a slice of errors.
 func Errs(key string, errs []error) zapcore.Field {
 	return zap.Errors(key, errs)
 }

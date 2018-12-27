@@ -13,7 +13,7 @@ import (
 type Config struct {
 	Level       LogLevel    //logger level
 	Encoder     EncoderType //json or console encoder
-	WithCaller  bool        //print the filename & line number within the log
+	WithCaller  bool        //print the fileName & line number within the log
 	Out         io.Writer   //log out
 	WithNoLock  bool        //wether add the lock for the zap writer, default is false
 	TimePattern string      //Define the time pattern for use
