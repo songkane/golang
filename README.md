@@ -6,7 +6,7 @@ golang 相关代码仓库
 2. telegram-bot-api: telegram机器人项目
 
 # postscript
-由于项目是托管在本地Gitlab仓库下，所以项目里默认路径为**gitlab.local.com/golang**。  
+由于项目是托管在本地Gitlab仓库下，所以项目里默认路径为**gitlab.local.com/xxxx**。  
 所以项目Clone下来之后如果要使用需要做个全局替换
 
 # Gitlab
