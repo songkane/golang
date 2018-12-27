@@ -3,6 +3,7 @@ golog 是一个golang logger框架，内部使用uber开源的zap框架, 性能�
 
 1. 支持不同log级别输出
 2. 支持不同io.Writer输出
+3. 支持HTTP Service Access Log输出定制
 
 # sample
 ```
