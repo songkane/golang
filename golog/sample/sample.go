@@ -7,7 +7,7 @@ package main
 import (
 	"os"
 
-	"gitlab.local.com/golog"
+	"gitlab.local.com/golang/golog"
 )
 
 func main() {

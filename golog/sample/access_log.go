@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.local.com/golog"
+	"gitlab.local.com/golang/golog"
 )
 
 // HelloServer the web server
