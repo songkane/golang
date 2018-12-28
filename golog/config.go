@@ -1,5 +1,5 @@
 /*
-Package golog config
+Package golog logger config
 Created by chenguolin 2018-12-26
 */
 package golog
@@ -9,20 +9,20 @@ import (
 	"os"
 )
 
-// Config for logger
+// Config for zap logger
 type Config struct {
 	Level       LogLevel    //logger level
 	Encoder     EncoderType //json or console encoder
 	WithCaller  bool        //print the fileName & line number within the log
 	Out         io.Writer   //log out
-	WithNoLock  bool        //wether add the lock for the zap writer, default is false
-	TimePattern string      //Define the time pattern for use
+	WithNoLock  bool        //lock for the zap writer, default is false
+	TimePattern string      //time pattern
 }
 
 // Option set the option to Config
 type Option func(c *Config)
 
-// WithOutput set config Out
+// WithOutput set config Output
 func WithOutput(o io.Writer) Option {
 	return func(c *Config) {
 		if o == nil {
@@ -105,6 +105,9 @@ func WithFatalLevel() Option {
 // WithTimePattern set config TimePattern
 func WithTimePattern(pattern string) Option {
 	return func(c *Config) {
+		if pattern == "" {
+			pattern = DefaultTimePattern
+		}
 		c.TimePattern = pattern
 	}
 }

@@ -1,9 +1,6 @@
 /*
-Package golog zap日志封装
+Package golog API接口
 Created by chenguolin 2018-12-26
-
-github: https://github.com/uber-go/zap
-zap doc: https://godoc.org/go.uber.org/zap
 */
 package golog
 
@@ -17,6 +14,7 @@ import (
 var goLog *Logger
 
 func init() {
+	// default logger
 	lg, err := NewLogger()
 	// 如果NewLogger出错直接panic 进程直接退出
 	if err != nil {

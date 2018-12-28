@@ -13,16 +13,13 @@ import (
 // AccessLogFunc 记录HTTP请求日志
 func AccessLogFunc(log *Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		receiveAt := time.Now()
-
+		start := time.Now()
 		// Process request
 		if c != nil {
 			c.Next()
 		}
-
 		// 记录access log
 		log.Info("HTTP Access Log",
-			Time("receiveAt", receiveAt),
 			Object("reqUrl", c.Request.URL),
 			Object("reqForm", c.Request.Form),
 			Object("reqHeader", c.Request.Header),
@@ -33,10 +30,10 @@ func AccessLogFunc(log *Logger) gin.HandlerFunc {
 			String("reqMethod", c.Request.Method),
 			String("reqProto", c.Request.Proto),
 			String("reqRemoteAddr", c.Request.RemoteAddr),
-			Duration("reqLatency", time.Since(receiveAt)),
+			Duration("reqLatency", time.Since(start)),
 			Object("resHeader", c.Writer.Header()),
-			Object("resStatus", c.Writer.Status()),
-			Object("resSize", c.Writer.Size()),
+			Int("resStatus", c.Writer.Status()),
+			Int("resSize", c.Writer.Size()),
 		)
 	}
 }

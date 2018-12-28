@@ -1,9 +1,9 @@
 # golog
-golog 是一个golang logger框架，内部使用uber开源的zap框架, 性能好灵活性高。
+golog 是一个golang 日志框架，内部使用uber开源的zap框架, 性能好灵活性高。
 
 1. 支持不同log级别输出
 2. 支持不同io.Writer输出
-3. 支持HTTP Service Access Log输出定制
+3. 支持HTTP Service Access Log定制输出
 4. 支持输出到文件并按固定格式切割文件
 
 # sample

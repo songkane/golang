@@ -16,12 +16,13 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// Logger zap logger struct
+// Logger use zap logger
 type Logger struct {
 	Log *zap.Logger
 }
 
 // NewLogger new logger with the given Options
+// default use InfoLevel, JSONEncoder, os.Stdout
 func NewLogger(opts ...Option) (*Logger, error) {
 	// default config out to os.Stdout
 	cfg := &Config{

@@ -1,3 +1,7 @@
+/*
+Package main golog sample
+Created by chenguolin 2018-12-27
+*/
 package main
 
 import (

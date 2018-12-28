@@ -1,3 +1,7 @@
+/*
+Package main HTTP service access log
+Created by chenguolin 2018-12-27
+*/
 package main
 
 import (
@@ -18,7 +22,7 @@ func HelloServer(c *gin.Context) {
 func main() {
 	// new rotate writer
 	fileName := os.Getenv("GOPATH") + "/src/gitlab.local.com/golog/sample/access.log"
-	// 按小时切割
+	// 按小时切割文件
 	writer, err := golog.NewRotateWriter(fileName, "20060102-15")
 	if err != nil {
 		fmt.Println("golog NewRotateWriter error", err)
