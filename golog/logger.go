@@ -137,31 +137,31 @@ func setEncoder(timePattern string, encoderType EncoderType) (zapcore.Encoder, s
 }
 
 // Debug log
-func (l *Logger) Debug(msg string, fields ...zapcore.Field) {
+func (l *Logger) Debug(msg string, fields ...zap.Field) {
 	l.Debug(msg, fields...)
 }
 
 // Info log
-func (l *Logger) Info(msg string, fields ...zapcore.Field) {
+func (l *Logger) Info(msg string, fields ...zap.Field) {
 	l.Log.Info(msg, fields...)
 }
 
 // Warn log
-func (l *Logger) Warn(msg string, fields ...zapcore.Field) {
+func (l *Logger) Warn(msg string, fields ...zap.Field) {
 	l.Log.Warn(msg, fields...)
 }
 
 // Error log
-func (l *Logger) Error(msg string, fields ...zapcore.Field) {
+func (l *Logger) Error(msg string, fields ...zap.Field) {
 	l.Log.Error(msg, fields...)
 }
 
 // Panic log
-func (l *Logger) Panic(msg string, fields ...zapcore.Field) {
+func (l *Logger) Panic(msg string, fields ...zap.Field) {
 	l.Log.Panic(msg, fields...)
 }
 
 // Fatal log
-func (l *Logger) Fatal(msg string, fields ...zapcore.Field) {
+func (l *Logger) Fatal(msg string, fields ...zap.Field) {
 	l.Log.Fatal(msg, fields...)
 }

@@ -7,7 +7,7 @@ package golog
 import (
 	"fmt"
 
-	"go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
 )
 
 // 全局 logger
@@ -35,31 +35,31 @@ func SetLogger(log *Logger) {
 }
 
 // Debug log
-func Debug(msg string, fields ...zapcore.Field) {
+func Debug(msg string, fields ...zap.Field) {
 	goLog.Log.Debug(msg, fields...)
 }
 
 // Info log
-func Info(msg string, fields ...zapcore.Field) {
+func Info(msg string, fields ...zap.Field) {
 	goLog.Log.Info(msg, fields...)
 }
 
 // Warn log
-func Warn(msg string, fields ...zapcore.Field) {
+func Warn(msg string, fields ...zap.Field) {
 	goLog.Log.Warn(msg, fields...)
 }
 
 // Error log
-func Error(msg string, fields ...zapcore.Field) {
+func Error(msg string, fields ...zap.Field) {
 	goLog.Log.Error(msg, fields...)
 }
 
 // Panic log
-func Panic(msg string, fields ...zapcore.Field) {
+func Panic(msg string, fields ...zap.Field) {
 	goLog.Log.Panic(msg, fields...)
 }
 
 // Fatal log
-func Fatal(msg string, fields ...zapcore.Field) {
+func Fatal(msg string, fields ...zap.Field) {
 	goLog.Log.Fatal(msg, fields...)
 }
