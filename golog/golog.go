@@ -18,7 +18,7 @@ func init() {
 	lg, err := NewLogger()
 	// 如果NewLogger出错直接panic 进程直接退出
 	if err != nil {
-		panic(fmt.Sprintf("NewLogger error", err))
+		panic(fmt.Sprintf("NewLogger error: %s", err.Error()))
 	}
 
 	goLog = lg

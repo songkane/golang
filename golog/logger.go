@@ -77,6 +77,7 @@ func newZapLogger(c *Config) (*Logger, error) {
 	return logger, nil
 }
 
+// setLogLevel set log level
 func setLogLevel(level LogLevel) (zap.AtomicLevel, error) {
 	var lv = zap.NewAtomicLevel()
 
@@ -101,6 +102,7 @@ func setLogLevel(level LogLevel) (zap.AtomicLevel, error) {
 	return lv, nil
 }
 
+// setEncoder set encoder type
 func setEncoder(timePattern string, encoderType EncoderType) (zapcore.Encoder, string, error) {
 	timeEncoder := func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 		enc.AppendString(t.Local().Format(timePattern))
@@ -138,7 +140,7 @@ func setEncoder(timePattern string, encoderType EncoderType) (zapcore.Encoder, s
 
 // Debug log
 func (l *Logger) Debug(msg string, fields ...zap.Field) {
-	l.Debug(msg, fields...)
+	l.Log.Debug(msg, fields...)
 }
 
 // Info log

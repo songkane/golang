@@ -5,6 +5,7 @@ Created by chenguolin 2018-12-26
 package golog
 
 import (
+	"errors"
 	"os"
 	"sync"
 	"time"
@@ -23,6 +24,10 @@ type RotateWriter struct {
 // @fileName target file name
 // @pattern time pattern
 func NewRotateWriter(fileName, pattern string) (*RotateWriter, error) {
+	if fileName == "" || pattern == "" {
+		return nil, errors.New("fileName or pattern invalid")
+	}
+
 	w := &RotateWriter{
 		fileName:    fileName,
 		timePattern: pattern,
