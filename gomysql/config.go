@@ -13,9 +13,9 @@ package mysql
 // max_idle_conns = 50 (设置连接池数量)
 // conn_wait_time_ms = 200
 // conn_idle_time_ms = 21600000
-// conn_timeout_ms = 5000
-// read_timeout_ms = 3000
-// write_timeout_ms = 3000
+// conn_timeout_ms = 5000 (dsn parameter)
+// read_timeout_ms = 3000 (dsn parameter)
+// write_timeout_ms = 3000 (dsn parameter)
 type Config struct {
 	Master         string   `json:"master"`            //required mysql master
 	Slaves         []string `json:"slaves"`            //required mysql slaves

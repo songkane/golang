@@ -4,10 +4,8 @@ package mysql
 
 import (
 	"context"
-	"testing"
-
 	"fmt"
-
+	"testing"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -310,6 +308,7 @@ func TestMysql_Query(t *testing.T) {
 	}
 
 	fmt.Println(rows)
+	defer rows.Close()
 }
 
 func TestMysql_QueryContext(t *testing.T) {
@@ -340,6 +339,7 @@ func TestMysql_QueryContext(t *testing.T) {
 	}
 
 	fmt.Println(rows)
+	defer rows.Close()
 }
 
 func TestMysql_QueryRow(t *testing.T) {
