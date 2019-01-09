@@ -1,7 +1,5 @@
-/*
-Package golog unit test
-Created by chenguolin 2018-12-25
-*/
+// Package golog unit test
+// Created by chenguolin 2018-12-25
 package golog
 
 import (

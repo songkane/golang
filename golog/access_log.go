@@ -1,7 +1,5 @@
-/*
-Package golog HTTP access log
-Created by chenguolin 2018-12-27
-*/
+// Package golog HTTP access log
+// Created by chenguolin 2018-12-27
 package golog
 
 import (

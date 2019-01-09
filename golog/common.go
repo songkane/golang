@@ -1,7 +1,5 @@
-/*
-Package golog common variable/const/type/struct/func ...
-Created by chenguolin 2018-12-26
-*/
+// Package golog common variable/const/type/struct/func ...
+// Created by chenguolin 2018-12-26
 package golog
 
 // EncoderType define

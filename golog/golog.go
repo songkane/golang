@@ -1,7 +1,5 @@
-/*
-Package golog API接口
-Created by chenguolin 2018-12-26
-*/
+// Package golog API接口
+// Created by chenguolin 2018-12-26
 package golog
 
 import (
