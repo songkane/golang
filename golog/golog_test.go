@@ -12,8 +12,8 @@ func TestGetLogger(t *testing.T) {
 	if log == nil {
 		t.Fatal("TestGetLogger GetLogger is nil")
 	}
-	if log.Log == nil {
-		t.Fatal("TestGetLogger log.Log == nil")
+	if log.log == nil {
+		t.Fatal("TestGetLogger log.log == nil")
 	}
 }
 

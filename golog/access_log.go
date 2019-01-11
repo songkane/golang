@@ -17,7 +17,7 @@ func AccessLogFunc(log *Logger) gin.HandlerFunc {
 			c.Next()
 		}
 		// 记录access log
-		log.Info("HTTP Access Log",
+		log.Info("HTTP Access log",
 			Object("reqUrl", c.Request.URL),
 			Object("reqForm", c.Request.Form),
 			Object("reqHeader", c.Request.Header),

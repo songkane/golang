@@ -9,12 +9,12 @@ import (
 
 // Config for zap logger
 type Config struct {
-	Level       LogLevel    //logger level
-	Encoder     EncoderType //json or console encoder
-	WithCaller  bool        //print the fileName & line number within the log
-	Out         io.Writer   //log out
-	WithNoLock  bool        //lock for the zap writer, default is false
-	TimePattern string      //time pattern
+	level       LogLevel    //logger level
+	encoder     EncoderType //json or console encoder
+	withCaller  bool        //print the fileName & line number within the log
+	out         io.Writer   //log out
+	withNoLock  bool        //lock for the zap writer, default is false
+	timePattern string      //time pattern
 }
 
 // Option set the option to Config
@@ -26,86 +26,86 @@ func WithOutput(o io.Writer) Option {
 		if o == nil {
 			o = os.Stderr
 		}
-		c.Out = o
+		c.out = o
 	}
 }
 
-// WithNoLock set config WithNoLock
+// withNoLock set config withNoLock
 func WithNoLock() Option {
 	return func(c *Config) {
-		c.WithNoLock = true
+		c.withNoLock = true
 	}
 }
 
-// WithCaller set config WithCaller
+// withCaller set config withCaller
 func WithCaller() Option {
 	return func(c *Config) {
-		c.WithCaller = true
+		c.withCaller = true
 	}
 }
 
-// WithJSONEncoder set config Encoder with JSONEncoder
+// WithJSONEncoder set config encoder with JSONEncoder
 func WithJSONEncoder() Option {
 	return func(c *Config) {
-		c.Encoder = JSONEncoder
+		c.encoder = JSONEncoder
 	}
 }
 
-// WithConsoleEncoder set config Encoder with ConsoleEncoder
+// WithConsoleEncoder set config encoder with ConsoleEncoder
 func WithConsoleEncoder() Option {
 	return func(c *Config) {
-		c.Encoder = ConsoleEncoder
+		c.encoder = ConsoleEncoder
 	}
 }
 
 // WithDebugLevel set config debug level
 func WithDebugLevel() Option {
 	return func(c *Config) {
-		c.Level = DebugLevel
+		c.level = DebugLevel
 	}
 }
 
 // WithInfoLevel set config info level
 func WithInfoLevel() Option {
 	return func(c *Config) {
-		c.Level = InfoLevel
+		c.level = InfoLevel
 	}
 }
 
 // WithWarnLevel set config warn level
 func WithWarnLevel() Option {
 	return func(c *Config) {
-		c.Level = WarnLevel
+		c.level = WarnLevel
 	}
 }
 
 // WithErrorLevel set config error level
 func WithErrorLevel() Option {
 	return func(c *Config) {
-		c.Level = ErrorLevel
+		c.level = ErrorLevel
 	}
 }
 
 // WithPanicLevel set config panic level
 func WithPanicLevel() Option {
 	return func(c *Config) {
-		c.Level = PanicLevel
+		c.level = PanicLevel
 	}
 }
 
 // WithFatalLevel set config fatal level
 func WithFatalLevel() Option {
 	return func(c *Config) {
-		c.Level = FatalLevel
+		c.level = FatalLevel
 	}
 }
 
-// WithTimePattern set config TimePattern
+// WithTimePattern set config timePattern
 func WithTimePattern(pattern string) Option {
 	return func(c *Config) {
 		if pattern == "" {
 			pattern = DefaultTimePattern
 		}
-		c.TimePattern = pattern
+		c.timePattern = pattern
 	}
 }

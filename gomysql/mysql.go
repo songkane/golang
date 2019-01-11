@@ -92,29 +92,29 @@ func newSlavesDB(conf *Config) ([]*sql.DB, error) {
 }
 
 // setDBParameters
-// @SetMaxOpenConns: sets the maximum number of open connections to the database. The default is 0 (unlimited).
-// @SetMaxIdleConns: sets the maximum number of connections in the idle connection pool. If n <= 0, no idle connections are retained.
+// @SetMaxOpenConnCount: sets the maximum number of open connections to the database. The default is 0 (unlimited).
+// @SetMaxIdleConnCount: sets the maximum number of connections in the idle connection pool. If n <= 0, no idle connections are retained.
 // @SetConnWaitTimeout: sets the maximum amount of time a connRequest may wait to be satisfied. Default ConnWaitTimeout is 3 seconds
 // @SetConnIdleTimeout: sets the maximum time that an idle connection can remain idle in the pool. Default idle connections will not be removed.
 func setDBParameters(db *sql.DB, conf *Config) {
-	// SetMaxOpenConns
-	if conf.MaxOpenConns > 0 {
-		db.SetMaxOpenConns(conf.MaxOpenConns)
+	// SetMaxOpenConnCount
+	if conf.maxOpenConnCount > 0 {
+		db.SetMaxOpenConnCount(conf.maxOpenConnCount)
 	}
 
-	// SetMaxIdleConns
-	if conf.MaxIdleConns > 0 {
-		db.SetMaxIdleConns(conf.MaxIdleConns)
+	// SetMaxIdleConnCount
+	if conf.maxIdleConnCount > 0 {
+		db.SetMaxIdleConnCount(conf.maxIdleConnCount)
 	}
 
 	// SetConnWaitTimeout
-	if conf.ConnWaitTimeMs > 0 {
-		db.SetConnWaitTimeout(time.Duration(conf.ConnWaitTimeMs) * time.Millisecond)
+	if conf.connWaitTimeMs > 0 {
+		db.SetConnWaitTimeout(time.Duration(conf.connWaitTimeMs) * time.Millisecond)
 	}
 
 	// SetConnIdleTimeout
-	if conf.ConnIdleTimeMs > 0 {
-		db.SetConnIdleTimeout(time.Duration(conf.ConnIdleTimeMs) * time.Millisecond)
+	if conf.connIdleTimeMs > 0 {
+		db.SetConnIdleTimeout(time.Duration(conf.connIdleTimeMs) * time.Millisecond)
 	}
 }
 
@@ -124,8 +124,8 @@ func setDBParameters(db *sql.DB, conf *Config) {
 // unix sock protocol：[unix://sockpath/]dbname/user/password[?params]
 func generateMasterDSN(conf *Config) string {
 	// format dsn default use TCP protocol
-	masterDsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", conf.UserName, conf.Password,
-		conf.Master, conf.Port, conf.DBName)
+	masterDsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", conf.userName, conf.password,
+		conf.master, conf.port, conf.dbName)
 	masterDsn = setDsnTimeoutParameters(masterDsn, conf)
 
 	return masterDsn
@@ -138,9 +138,9 @@ func generateMasterDSN(conf *Config) string {
 func generateSlavesDSN(conf *Config) []string {
 	// format dsn default use TCP protocol
 	slavesDsn := make([]string, 0)
-	for _, slave := range conf.Slaves {
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", conf.UserName, conf.Password,
-			slave, conf.Port, conf.DBName)
+	for _, slave := range conf.slaves {
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", conf.userName, conf.password,
+			slave, conf.port, conf.dbName)
 		dsn = setDsnTimeoutParameters(dsn, conf)
 		slavesDsn = append(slavesDsn, dsn)
 	}
@@ -154,22 +154,22 @@ func generateSlavesDSN(conf *Config) []string {
 // @writeTimeout: I/O write timeout. The value must be a decimal number with a unit suffix ("ms", "s", "m", "h"), such as "30s", "0.5m" or "1m30s".
 func setDsnTimeoutParameters(dsn string, conf *Config) string {
 	// ConnTimeout
-	if conf.ConnTimeoutMs > 0 {
-		dsn = fmt.Sprintf("%s?timeout=%dms", dsn, conf.ConnTimeoutMs)
+	if conf.connTimeoutMs > 0 {
+		dsn = fmt.Sprintf("%s?timeout=%dms", dsn, conf.connTimeoutMs)
 	}
 	// ReadTimeout
-	if conf.ReadTimeoutMs > 0 {
-		dsn = fmt.Sprintf("%s&readTimeout=%dms", dsn, conf.ReadTimeoutMs)
+	if conf.readTimeoutMs > 0 {
+		dsn = fmt.Sprintf("%s&readTimeout=%dms", dsn, conf.readTimeoutMs)
 	}
 	// WriteTimeout
-	if conf.WriteTimeoutMs > 0 {
-		dsn = fmt.Sprintf("%s&writeTimeout=%dms", dsn, conf.WriteTimeoutMs)
+	if conf.writeTimeoutMs > 0 {
+		dsn = fmt.Sprintf("%s&writeTimeout=%dms", dsn, conf.writeTimeoutMs)
 	}
 
 	return dsn
 }
 
-// Master return master DB
+// master return master DB
 func (m *Mysql) Master() *sql.DB {
 	return m.master
 }

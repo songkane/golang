@@ -16,7 +16,7 @@ import (
 
 // Logger use zap logger
 type Logger struct {
-	Log *zap.Logger
+	log *zap.Logger
 }
 
 // NewLogger new logger with the given Options
@@ -24,11 +24,11 @@ type Logger struct {
 func NewLogger(opts ...Option) (*Logger, error) {
 	// default config out to os.Stdout
 	cfg := &Config{
-		Level:       InfoLevel,
-		Encoder:     JSONEncoder,
-		WithCaller:  false,
-		Out:         os.Stdout,
-		TimePattern: DefaultTimePattern,
+		level:       InfoLevel,
+		encoder:     JSONEncoder,
+		withCaller:  false,
+		out:         os.Stdout,
+		timePattern: DefaultTimePattern,
 	}
 	for _, opt := range opts {
 		opt(cfg)
@@ -42,24 +42,24 @@ func NewLogger(opts ...Option) (*Logger, error) {
 // newZapLogger use config new zap logger
 func newZapLogger(c *Config) (*Logger, error) {
 	// 1. set zap level
-	lv, err := setLogLevel(c.Level)
+	lv, err := setLogLevel(c.level)
 	if err != nil {
 		return nil, err
 	}
 
 	// 2. set zap output
 	var output zapcore.WriteSyncer
-	if c.Out == nil {
-		return nil, errors.New("Error Config.Out is nil")
+	if c.out == nil {
+		return nil, errors.New("Error Config.out is nil")
 	}
 	// set output
-	output = zapcore.AddSync(c.Out)
-	if !c.WithNoLock {
+	output = zapcore.AddSync(c.out)
+	if !c.withNoLock {
 		output = zapcore.Lock(output)
 	}
 
 	// 3. set zapEncoder
-	zapEncoder, name, err := setEncoder(c.TimePattern, c.Encoder)
+	zapEncoder, name, err := setEncoder(c.timePattern, c.encoder)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func newZapLogger(c *Config) (*Logger, error) {
 
 	// 5. return logger
 	logger := &Logger{
-		Log: log.Named(name),
+		log: log.Named(name),
 	}
 	return logger, nil
 }
@@ -138,30 +138,30 @@ func setEncoder(timePattern string, encoderType EncoderType) (zapcore.Encoder, s
 
 // Debug log
 func (l *Logger) Debug(msg string, fields ...zap.Field) {
-	l.Log.Debug(msg, fields...)
+	l.log.Debug(msg, fields...)
 }
 
 // Info log
 func (l *Logger) Info(msg string, fields ...zap.Field) {
-	l.Log.Info(msg, fields...)
+	l.log.Info(msg, fields...)
 }
 
 // Warn log
 func (l *Logger) Warn(msg string, fields ...zap.Field) {
-	l.Log.Warn(msg, fields...)
+	l.log.Warn(msg, fields...)
 }
 
 // Error log
 func (l *Logger) Error(msg string, fields ...zap.Field) {
-	l.Log.Error(msg, fields...)
+	l.log.Error(msg, fields...)
 }
 
 // Panic log
 func (l *Logger) Panic(msg string, fields ...zap.Field) {
-	l.Log.Panic(msg, fields...)
+	l.log.Panic(msg, fields...)
 }
 
 // Fatal log
 func (l *Logger) Fatal(msg string, fields ...zap.Field) {
-	l.Log.Fatal(msg, fields...)
+	l.log.Fatal(msg, fields...)
 }

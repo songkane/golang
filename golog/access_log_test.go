@@ -96,7 +96,7 @@ func TestAccessLogFunc(t *testing.T) {
 	if err != nil {
 		t.Fatal("TestAccessLogFunc f.Read error", err)
 	}
-	// {"Level":"INFO","TimeStamp":"2019-01-03 22:01:40.639815265","Name":"ZapJSONLogger","Message":"HTTP Access Log","reqUrl":"/ping","reqForm":null,"reqHeader":{"Accept-Encoding":["gzip"],"User-Agent":["Go-http-client/1.1"]},"reqBody":{},"reqUri":"/ping","reqContentLength":0,"reqHost":"localhost:8899","reqMethod":"GET","reqProto":"HTTP/1.1","reqRemoteAddr":"127.0.0.1:60987","reqLatency":"102.231µs","resHeader":{"Content-Type":["application/json; charset=utf-8"]},"resStatus":200,"resSize":31}
+	// {"Level":"INFO","TimeStamp":"2019-01-03 22:01:40.639815265","Name":"ZapJSONLogger","Message":"HTTP Access log","reqUrl":"/ping","reqForm":null,"reqHeader":{"Accept-Encoding":["gzip"],"User-Agent":["Go-http-client/1.1"]},"reqBody":{},"reqUri":"/ping","reqContentLength":0,"reqHost":"localhost:8899","reqMethod":"GET","reqProto":"HTTP/1.1","reqRemoteAddr":"127.0.0.1:60987","reqLatency":"102.231µs","resHeader":{"Content-Type":["application/json; charset=utf-8"]},"resStatus":200,"resSize":31}
 	fmt.Println(string(content))
 	if size <= 0 {
 		t.Fatal("TestAccessLogFunc f.Read size <= 0")

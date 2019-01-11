@@ -9,34 +9,34 @@ package mysql
 // username = "root"
 // password = "root"
 // dbname = "test"
-// max_open_conns = 100 (设置最大打开的连接数,默认值为0表示不限制)
-// max_idle_conns = 50 (设置连接池数量)
+// max_open_conn_count = 100 (设置最大打开的连接数,默认值为0表示不限制)
+// max_idle_conn_count = 50 (设置连接池数量)
 // conn_wait_time_ms = 200
 // conn_idle_time_ms = 21600000
 // conn_timeout_ms = 5000 (dsn parameter)
 // read_timeout_ms = 3000 (dsn parameter)
 // write_timeout_ms = 3000 (dsn parameter)
 type Config struct {
-	Master         string   `json:"master"`            //required mysql master
-	Slaves         []string `json:"slaves"`            //required mysql slaves
-	Port           int      `json:"port"`              //required mysql port
-	UserName       string   `json:"user_name"`         //required mysql user name
-	Password       string   `json:"password"`          //required mysql password
-	DBName         string   `json:"db_name"`           //required mysql database name
-	MaxOpenConns   int      `json:"max_open_conns"`    //optional mysql max open connections count
-	MaxIdleConns   int      `json:"max_idle_conns"`    //optional mysql max idle connections count
-	ConnWaitTimeMs int      `json:"conn_wait_time_ms"` //optional mysql connection wait time ms
-	ConnIdleTimeMs int      `json:"conn_idle_time_ms"` //optional mysql connection idle time ms
-	ConnTimeoutMs  int      `json:"conn_timeout_ms"`   //optional mysql connection timeout ms
-	ReadTimeoutMs  int      `json:"read_timeout_ms"`   //optional mysql read timeout ms
-	WriteTimeoutMs int      `json:"write_timeout_ms"`  //optional mysql write timeout ms
+	master           string   //required mysql master
+	slaves           []string //required mysql slaves
+	port             int      //required mysql port
+	userName         string   //required mysql user name
+	password         string   //required mysql password
+	dbName           string   //required mysql database name
+	maxOpenConnCount int      //optional mysql max open connections count
+	maxIdleConnCount int      //optional mysql max idle connections count
+	connWaitTimeMs   int      //optional mysql connection wait time ms
+	connIdleTimeMs   int      //optional mysql connection idle time ms
+	connTimeoutMs    int      //optional mysql connection timeout ms
+	readTimeoutMs    int      //optional mysql read timeout ms
+	writeTimeoutMs   int      //optional mysql write timeout ms
 }
 
 // validate config config
 // must have required fields
 func (c *Config) validate() bool {
-	if len(c.Master) <= 0 || len(c.Slaves) <= 0 || c.Port == 0 ||
-		len(c.UserName) <= 0 || len(c.Password) <= 0 || len(c.DBName) <= 0 {
+	if len(c.master) <= 0 || len(c.slaves) <= 0 || c.port == 0 ||
+		len(c.userName) <= 0 || len(c.password) <= 0 || len(c.dbName) <= 0 {
 		return false
 	}
 
@@ -45,67 +45,67 @@ func (c *Config) validate() bool {
 
 // SetMaster set mysql master server
 func (c *Config) SetMaster(master string) {
-	c.Master = master
+	c.master = master
 }
 
 // SetSlaves set mysql slaves
 func (c *Config) SetSlaves(slaves []string) {
-	c.Slaves = slaves
+	c.slaves = slaves
 }
 
 // SetPort set mysql server port
 func (c *Config) SetPort(port int) {
-	c.Port = port
+	c.port = port
 }
 
 // SetUserName set mysql user name
 func (c *Config) SetUserName(userName string) {
-	c.UserName = userName
+	c.userName = userName
 }
 
 // SetPassword set mysql password
 func (c *Config) SetPassword(password string) {
-	c.Password = password
+	c.password = password
 }
 
 // SetDBName set mysql database
 func (c *Config) SetDBName(dbName string) {
-	c.DBName = dbName
+	c.dbName = dbName
 }
 
-// SetMaxOpenConns set mysql max open connections
+// SetMaxOpenConnCount set mysql max open connections
 // 设置最大的连接数, 可以避免并发太高导致连接mysql出现too many connections的错误。
-func (c *Config) SetMaxOpenConns(maxOpenConns int) {
-	c.MaxOpenConns = maxOpenConns
+func (c *Config) SetMaxOpenConnCount(maxOpenConnCount int) {
+	c.maxOpenConnCount = maxOpenConnCount
 }
 
-// SetMaxIdleConns set mysql max idle connections
+// SetMaxIdleConnCount set mysql max idle connections
 // 设置连接池数量，通常设置小于最大的连接数
-func (c *Config) SetMaxIdleConns(maxIdleConns int) {
-	c.MaxIdleConns = maxIdleConns
+func (c *Config) SetMaxIdleConnCount(maxIdleConnCount int) {
+	c.maxIdleConnCount = maxIdleConnCount
 }
 
 // SetMaxWaitTimeMs set max wait time ms
 func (c *Config) SetConnWaitTimeMs(connWaitTimeMs int) {
-	c.ConnWaitTimeMs = connWaitTimeMs
+	c.connWaitTimeMs = connWaitTimeMs
 }
 
 // SetMaxIdleTimeMs set max idle time ms
 func (c *Config) SetConnIdleTimeMs(connIdleTimeMs int) {
-	c.ConnIdleTimeMs = connIdleTimeMs
+	c.connIdleTimeMs = connIdleTimeMs
 }
 
 // SetConnTimeoutMs set connection timeout ms
 func (c *Config) SetConnTimeoutMs(connTimeoutMs int) {
-	c.ConnTimeoutMs = connTimeoutMs
+	c.connTimeoutMs = connTimeoutMs
 }
 
 // SetReadTimeoutMs set read timeout ms
 func (c *Config) SetReadTimeoutMs(readTimeoutMs int) {
-	c.ReadTimeoutMs = readTimeoutMs
+	c.readTimeoutMs = readTimeoutMs
 }
 
 // SetWriteTimeoutMs set write timeout ms
 func (c *Config) SetWriteTimeoutMs(writeTimeoutMs int) {
-	c.WriteTimeoutMs = writeTimeoutMs
+	c.writeTimeoutMs = writeTimeoutMs
 }

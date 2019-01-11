@@ -2,7 +2,7 @@
 #!/bin/bash
 
 echo '#### go test checking ####'
-go test ./...
+go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/golog/=./= | xargs -n 1 go test
 if [ $? -ne 0 ]; then
   echo 'go test checking failed'
   go test ./...

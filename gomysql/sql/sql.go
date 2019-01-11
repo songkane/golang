@@ -312,7 +312,7 @@ var ErrNoRows = errors.New("sql: no rows in result set")
 // returned Tx is bound to a single connection. Once Commit or
 // Rollback is called on the transaction, that transaction's
 // connection is returned to DB's idle connection pool. The pool size
-// can be controlled with SetMaxIdleConns.
+// can be controlled with SetMaxIdleConnCount.
 type DB struct {
 	driver driver.Driver
 	dsn    string
@@ -350,7 +350,7 @@ const (
 	// alwaysNewConn forces a new connection to the database.
 	alwaysNewConn connReuseStrategy = iota
 	// cachedOrNewConn returns a cached connection, if available, else waits
-	// for one to become available (if MaxOpenConns has been reached) or
+	// for one to become available (if maxOpenConns has been reached) or
 	// creates a new database connection.
 	cachedOrNewConn
 )
@@ -705,14 +705,14 @@ func (db *DB) maxIdleConnsLocked() int {
 	}
 }
 
-// SetMaxIdleConns sets the maximum number of connections in the idle
+// SetMaxIdleConnCount sets the maximum number of connections in the idle
 // connection pool.
 //
-// If MaxOpenConns is greater than 0 but less than the new MaxIdleConns
-// then the new MaxIdleConns will be reduced to match the MaxOpenConns limit
+// If maxOpenConns is greater than 0 but less than the new maxIdleConns
+// then the new maxIdleConns will be reduced to match the maxOpenConns limit
 //
 // If n <= 0, no idle connections are retained.
-func (db *DB) SetMaxIdleConns(n int) {
+func (db *DB) SetMaxIdleConnCount(n int) {
 	db.mu.Lock()
 	if n > 0 {
 		db.maxIdle = n
@@ -737,15 +737,15 @@ func (db *DB) SetMaxIdleConns(n int) {
 	}
 }
 
-// SetMaxOpenConns sets the maximum number of open connections to the database.
+// SetMaxOpenConnCount sets the maximum number of open connections to the database.
 //
-// If MaxIdleConns is greater than 0 and the new MaxOpenConns is less than
-// MaxIdleConns, then MaxIdleConns will be reduced to match the new
-// MaxOpenConns limit
+// If maxIdleConns is greater than 0 and the new maxOpenConns is less than
+// maxIdleConns, then maxIdleConns will be reduced to match the new
+// maxOpenConns limit
 //
 // If n <= 0, then there is no limit on the number of open connections.
 // The default is 0 (unlimited).
-func (db *DB) SetMaxOpenConns(n int) {
+func (db *DB) SetMaxOpenConnCount(n int) {
 	db.mu.Lock()
 	db.maxOpen = n
 	if n < 0 {
@@ -754,7 +754,7 @@ func (db *DB) SetMaxOpenConns(n int) {
 	syncMaxIdle := db.maxOpen > 0 && db.maxIdleConnsLocked() > db.maxOpen
 	db.mu.Unlock()
 	if syncMaxIdle {
-		db.SetMaxIdleConns(n)
+		db.SetMaxIdleConnCount(n)
 	}
 }
 
