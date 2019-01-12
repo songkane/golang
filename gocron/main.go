@@ -8,9 +8,10 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
-	"github.com/robfig/cron"
 	"gitlab.local.com/golang/gocommon/logger"
+	"gitlab.local.com/golang/gocron/cron"
 	"gitlab.local.com/golang/gocron/handler"
 	"gitlab.local.com/golang/golog"
 )
@@ -48,13 +49,14 @@ func main() {
 	golog.SetLogger(log)
 
 	// 3. start cron
-	c := cron.New()
+	c := cron.NewCron()
 	// all handlers
 	// etc one by one
-	c.AddFunc("0 30 * * * *", handler.CrawlAddressTxsHandler)
+	c.AddJob(cron.NewScheduler(cron.WithSecond(5), time.Now()), handler.CrawlAddressTxsHandler)
 
 	// 4. run cron
-	c.Run()
+	c.Start()
+	fmt.Println("Start cron handler ...")
 
 	// 5. shutdown
 	stopSignalChan := make(chan os.Signal, 1)
@@ -65,4 +67,5 @@ func main() {
 		// Stop the scheduler (does not stop any jobs already running).
 		c.Stop()
 	}
+	fmt.Println("Stop cron handler ~")
 }

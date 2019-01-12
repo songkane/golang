@@ -12,9 +12,9 @@ import (
 
 // Cron define
 type Cron struct {
-	Entries  []*entry  // Entries: all run Entry set
-	Running  bool      // Running: crontab is running
-	StopChan chan bool // StopChan: crontab stop channel
+	entries  []*entry  // entries: all run Entry set
+	running  bool      // running: crontab is running
+	stopChan chan bool // stopChan: crontab stop channel
 }
 
 // entry define
@@ -25,22 +25,20 @@ type entry struct {
 	preTime   time.Time  // PreTime: last run time
 }
 
-// FuncJob implement Job interface
+// FuncJob func helper type
 type FuncJob func()
 
-// New crontab
+// NewCron crontab
 // default use time location
-func New() *Cron {
+func NewCron() *Cron {
 	return &Cron{
-		Entries:  make([]*entry, 0),
-		Running:  false,
-		StopChan: make(chan bool),
+		entries:  make([]*entry, 0),
+		running:  false,
+		stopChan: make(chan bool),
 	}
 }
 
 // AddJob add new job 2 crontab
-// expression crontab expression (https://en.wikipedia.org/wiki/Cron)
-// job run function
 func (c *Cron) AddJob(sche *Scheduler, job FuncJob) {
 	// 1. check args
 	if sche == nil || job == nil {
@@ -53,10 +51,10 @@ func (c *Cron) AddJob(sche *Scheduler, job FuncJob) {
 		job:       job,
 		nextTime:  sche.Next(time.Now()),
 	}
-	c.Entries = append(c.Entries, entry)
+	c.entries = append(c.entries, entry)
 }
 
-// Entrys []*entry helper struct
+// entrys []*entry helper struct
 type entrys []*entry
 
 func (es entrys) Len() int {
@@ -81,25 +79,36 @@ func (es entrys) Less(i, j int) bool {
 // Start crontab
 // if crontab already running no operator
 func (c *Cron) Start() {
-	if c.Running {
+	if c.running {
 		return
 	}
-	if len(c.Entries) <= 0 {
+	if len(c.entries) <= 0 {
 		return
 	}
 
-	// set Running true
-	c.Running = true
-	c.run()
+	// set running true
+	c.running = true
+	go c.run()
 }
 
 func (c *Cron) run() {
+	defer func() {
+		if r := recover(); r != nil {
+			golog.Error("cron run panic recover")
+			debug.PrintStack()
+		}
+	}()
+
 	for {
+		if !c.running {
+			return
+		}
+
 		// 1. sort all entry by NextTime
-		sort.Sort(entrys(c.Entries))
+		sort.Sort(entrys(c.entries))
 
 		// 2. new timer
-		timer := time.NewTimer(c.Entries[0].nextTime.Sub(time.Now()))
+		timer := time.NewTimer(c.entries[0].nextTime.Sub(time.Now()))
 
 		// 3. start run job
 		// process label
@@ -107,7 +116,7 @@ func (c *Cron) run() {
 			select {
 			case now := <-timer.C:
 				// run all has same NextTime entry
-				for _, e := range c.Entries {
+				for _, e := range c.entries {
 					if e.nextTime.After(now) {
 						break
 					}
@@ -116,7 +125,7 @@ func (c *Cron) run() {
 					e.preTime = now
 					e.nextTime = e.scheduler.Next(now)
 				}
-			case <-c.StopChan:
+			case <-c.stopChan:
 				timer.Stop()
 				// return function
 				// don't not use break
@@ -143,11 +152,11 @@ func (c *Cron) process(job FuncJob) {
 // Stop crontab
 // if crontab already stopped no operator
 func (c *Cron) Stop() {
-	if !c.Running {
+	if !c.running {
 		return
 	}
 
-	c.Running = false
+	c.running = false
 	// write 2 stop channel
-	c.StopChan <- true
+	c.stopChan <- true
 }

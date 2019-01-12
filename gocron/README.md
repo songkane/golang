@@ -1,26 +1,8 @@
 # 介绍
 定时任务模块，如果有新的业务逻辑只需要在handler目录下新增一个go文件, 同时在main函数里面AddFunc新增一行配置即可
 
-结合了`github.com/robfig/cron`一起使用，文档参考https://godoc.org/github.com/robfig/cron
-
 # sample
 ```
-/*
-Package main sample code
-Created by chenguolin 2018-12-26
-*/
-package main
-
-import (
-	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
-
-	"gitlab.local.com/golang/gocron/cron"
-)
-
 func Print1() {
 	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 1 ~")
 }
