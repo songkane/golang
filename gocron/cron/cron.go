@@ -108,6 +108,7 @@ func (c *Cron) run() {
 		sort.Sort(entrys(c.entries))
 
 		// 2. new timer
+		// everytime need new Timer, because Timer run only once
 		timer := time.NewTimer(c.entries[0].nextTime.Sub(time.Now()))
 
 		// 3. start run job

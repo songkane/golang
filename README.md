@@ -6,7 +6,8 @@ golang 相关代码仓库
 2. gomysql: golang mysql 基础库
 3. gocommon: golang 基础代码 公共库
 4. gocron: golang 定时任务
-5. telegram-bot-api: telegram机器人
+5. goprocessor: golang 处理机
+6. telegram-bot-api: telegram机器人
 
 # postscript
 由于项目是托管在本地Gitlab仓库下，所以项目里默认路径为**gitlab.local.com/golang/xxxx**。  
