@@ -31,8 +31,8 @@ fmt.Println("Mysql processor start ...")
 maxChanSize = 100
 kafkaConf := &kafka.Config{
     Topic:           "test_topic",
-	ConsumerGroupId: "test_consumer_group",
-	Zk:              []string{"127.0.0.1:2181"},
+    ConsumerGroupId: "test_consumer_group",
+    Zk:              []string{"127.0.0.1:2181"},
 }
 kafkaScanner := kafka.NewKafkaScanner(kafkaConf, maxChanSize)
 kafkaHandle := kafka.NewHandle()
