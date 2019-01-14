@@ -1,0 +1,40 @@
+# gitlab CI/CD pipeline配置文件
+# 默认使用golang镜像
+image: golang:latest
+
+stages:
+    - test
+
+before_script:
+    - mkdir -p /go/src/gitlab.local.com/golang
+    - ln -s `pwd` /go/src/gitlab.local.com/golang/gomysql && cd /go/src/gitlab.local.com/golang/gomysql
+
+# test stage
+# job 1 test go vet
+job_govet:
+    stage: test
+    script:
+        - bash ./scripts/ci-govet-check.sh
+    tags:
+        - dev
+# job 2 test go fmt
+job_gofmt:
+    stage: test
+    script:
+        - bash ./scripts/ci-gofmt-check.sh
+    tags:
+        - dev
+# job 3 test go lint
+job_golint:
+    stage: test
+    script:
+        - bash ./scripts/ci-golint-check.sh
+    tags:
+        - dev
+# job 4 test go unit test
+job_unit:
+    stage: test
+    script:
+        - bash ./scripts/ci-gotest-check.sh
+    tags:
+        - dev

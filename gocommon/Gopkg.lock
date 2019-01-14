@@ -18,12 +18,12 @@
   version = "v1.3.5"
 
 [[projects]]
-  digest = "1:a59a467c541a1bf8b06e4fad6113028c959be6573b78ceca9f8020cd0d2127fc"
+  digest = "1:28917d5a3f5e53a4c8a4035195c022649c66a4d71d6357a2276cd347945bd527"
   name = "github.com/Shopify/sarama"
   packages = ["."]
   pruneopts = "UT"
-  revision = "879f631812a30a580659e8035e7cda9994bb99ac"
-  version = "v1.20.0"
+  revision = "03a43f93cd29dc549e6d9b11892795c206f9c38c"
+  version = "v1.20.1"
 
 [[projects]]
   branch = "master"
@@ -227,11 +227,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6b5591c8988724c76d0294b2fbd763298170c145a7ddcb423aa7a5f9b4425fc5"
+  digest = "1:dae3cbfa2ff56e82115537d2e8a3247546f4d2975c7e0239bbb3a15dc6e5523c"
   name = "gitlab.local.com/golang/golog"
   packages = ["."]
   pruneopts = "UT"
-  revision = "01fc343eba0d3ad66d3a974065f4c27a39cd8479"
+  revision = "52425c59db249fbe81a178e29cff1dcb434f35f6"
 
 [[projects]]
   branch = "master"
@@ -239,7 +239,7 @@
   name = "gitlab.local.com/golang/httpserver"
   packages = ["config"]
   pruneopts = "UT"
-  revision = "bebb89a46ad33d88fb084faf2fca9f3febc2b0fb"
+  revision = "2a24b5d20d86dc02d40f6465dcf0f9abf02f6292"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"

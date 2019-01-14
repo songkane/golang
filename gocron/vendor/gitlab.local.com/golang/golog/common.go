@@ -43,8 +43,8 @@ const (
 	StacktraceKey = "Stack"
 	// MessageKey Message
 	MessageKey = "Message"
-	// LevelKey Level
-	LevelKey = "Level"
+	// LevelKey level
+	LevelKey = "level"
 	// TimeKey  Time
 	TimeKey = "TimeStamp"
 	// CallerKey  Caller

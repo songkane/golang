@@ -3,6 +3,22 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:c84ba230f85d1703f0772aa4b998dfcf2f5b9def2d26075fd934fc2d36b19fac"
+  name = "github.com/antchfx/htmlquery"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "db5c1236cbb43c58add1164a8b20d844683e537f"
+
+[[projects]]
+  branch = "master"
+  digest = "1:b14636acf57e2267f22f00a7e4afc35e7e94c2b443ca70c114bae644e1074a52"
+  name = "github.com/antchfx/xpath"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4bbdf6db12aa76808d7b25445919943ed27fdcc0"
+
+[[projects]]
+  branch = "master"
   digest = "1:36fe9527deed01d2a317617e59304eb2c4ce9f8a24115bcc5c2e37b3aee5bae4"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
@@ -63,14 +79,6 @@
   version = "1.0.1"
 
 [[projects]]
-  digest = "1:ed615c5430ecabbb0fb7629a182da65ecee6523900ac1ac932520860878ffcad"
-  name = "github.com/robfig/cron"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "b41be1df696709bb6395fe435af20370037c0b4c"
-  version = "v1.1"
-
-[[projects]]
   digest = "1:03aa6e485e528acb119fb32901cf99582c380225fc7d5a02758e08b180cb56c3"
   name = "github.com/ugorji/go"
   packages = ["codec"]
@@ -87,15 +95,15 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "5a97ebd23d1b007b4e9c058ae070ae06c4def9fe"
+  revision = "0df4f87a0efe9054c2d7847329ec6bd694763db1"
 
 [[projects]]
   branch = "master"
-  digest = "1:6b5591c8988724c76d0294b2fbd763298170c145a7ddcb423aa7a5f9b4425fc5"
+  digest = "1:dae3cbfa2ff56e82115537d2e8a3247546f4d2975c7e0239bbb3a15dc6e5523c"
   name = "gitlab.local.com/golang/golog"
   packages = ["."]
   pruneopts = "UT"
-  revision = "01fc343eba0d3ad66d3a974065f4c27a39cd8479"
+  revision = "52425c59db249fbe81a178e29cff1dcb434f35f6"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -130,11 +138,49 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:5193d913046443e59093d66a97a40c51f4a5ea4ceba60f3b3ecf89694de5d16f"
+  name = "golang.org/x/net"
+  packages = [
+    "html",
+    "html/atom",
+    "html/charset",
+  ]
+  pruneopts = "UT"
+  revision = "915654e7eabcea33ae277abbecf52f0d8b7a9fdc"
+
+[[projects]]
+  branch = "master"
   digest = "1:91137b48dc3eb34409f731b49f63a5ebf73218168a065e1a93af24eb5b2f99e8"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
   revision = "48ac38b7c8cbedd50b1613c0fccacfc7d88dfcdf"
+
+[[projects]]
+  digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
+  name = "golang.org/x/text"
+  packages = [
+    "encoding",
+    "encoding/charmap",
+    "encoding/htmlindex",
+    "encoding/internal",
+    "encoding/internal/identifier",
+    "encoding/japanese",
+    "encoding/korean",
+    "encoding/simplifiedchinese",
+    "encoding/traditionalchinese",
+    "encoding/unicode",
+    "internal/gen",
+    "internal/tag",
+    "internal/utf8internal",
+    "language",
+    "runes",
+    "transform",
+    "unicode/cldr",
+  ]
+  pruneopts = "UT"
+  revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
+  version = "v0.3.0"
 
 [[projects]]
   digest = "1:cbc72c4c4886a918d6ab4b95e347ffe259846260f99ebdd8a198c2331cf2b2e9"
@@ -156,7 +202,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/robfig/cron",
+    "github.com/antchfx/htmlquery",
     "gitlab.local.com/golang/gocommon/logger",
     "gitlab.local.com/golang/golog",
   ]

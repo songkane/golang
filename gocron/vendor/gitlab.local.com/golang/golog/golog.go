@@ -34,30 +34,30 @@ func SetLogger(log *Logger) {
 
 // Debug log
 func Debug(msg string, fields ...zap.Field) {
-	goLog.Log.Debug(msg, fields...)
+	goLog.log.Debug(msg, fields...)
 }
 
 // Info log
 func Info(msg string, fields ...zap.Field) {
-	goLog.Log.Info(msg, fields...)
+	goLog.log.Info(msg, fields...)
 }
 
 // Warn log
 func Warn(msg string, fields ...zap.Field) {
-	goLog.Log.Warn(msg, fields...)
+	goLog.log.Warn(msg, fields...)
 }
 
 // Error log
 func Error(msg string, fields ...zap.Field) {
-	goLog.Log.Error(msg, fields...)
+	goLog.log.Error(msg, fields...)
 }
 
 // Panic log
 func Panic(msg string, fields ...zap.Field) {
-	goLog.Log.Panic(msg, fields...)
+	goLog.log.Panic(msg, fields...)
 }
 
 // Fatal log
 func Fatal(msg string, fields ...zap.Field) {
-	goLog.Log.Fatal(msg, fields...)
+	goLog.log.Fatal(msg, fields...)
 }
