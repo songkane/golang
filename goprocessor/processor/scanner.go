@@ -13,4 +13,6 @@ type Scanner interface {
 	Stop()
 	// Next record
 	Next() (Record, bool)
+	// IsStopped check scanner is stop
+	IsStopped() bool
 }

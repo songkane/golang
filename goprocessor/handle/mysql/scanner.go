@@ -3,11 +3,9 @@
 package mysql
 
 import (
-	"time"
-
-	"runtime/debug"
-
 	"fmt"
+	"runtime/debug"
+	"time"
 
 	"gitlab.local.com/golang/golog"
 	"gitlab.local.com/golang/gomysql"
@@ -29,6 +27,10 @@ type Scanner struct {
 
 // NewScanner new mysql scanner
 func NewScanner(maxChanSize int, scanInterval time.Duration, dbProxy *mysql.Mysql) *Scanner {
+	if maxChanSize <= 0 || dbProxy == nil {
+		panic("NewScanner panic")
+	}
+
 	return &Scanner{
 		isRunning:    false,
 		maxChanSize:  maxChanSize,
@@ -47,6 +49,7 @@ func (s *Scanner) Start() {
 
 	// set scanner running
 	s.isRunning = true
+
 	// new ticker
 	// don't not use time.Timer, because Timer run only once
 	ticker := time.Tick(s.scanInterval)
@@ -58,10 +61,13 @@ func (s *Scanner) Start() {
 				golog.Error("Mysql scanner start panic",
 					golog.Object("Error", err))
 				debug.PrintStack()
+				// stop scanner
+				s.Stop()
 			}
 		}()
 
 		for {
+			// stop return straight
 			if !s.isRunning {
 				return
 			}
@@ -104,4 +110,9 @@ func (s *Scanner) Next() (processor.Record, bool) {
 	// get record
 	record, ok := <-s.records
 	return record, ok
+}
+
+// IsStopped check scanner is running
+func (s *Scanner) IsStopped() bool {
+	return !s.isRunning
 }

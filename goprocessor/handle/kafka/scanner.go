@@ -28,18 +28,22 @@ type Scanner struct {
 // Read kafka only need Zk
 // Write kafka only need brokers
 type Config struct {
-	Topic           string   `json:"topic"`             //topic
-	ConsumerGroupId string   `json:"consumer_group_id"` //consumer group id
-	Zk              []string `json:"zk"`                //zk
+	Topic   string   `json:"topic"`    //topic
+	GroupId string   `json:"group_id"` //consumer group id
+	Zk      []string `json:"zk"`       //zk
 }
 
 // NewKafkaScanner new kafka scanner
 func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
+	if conf == nil || maxChanSize <= 0 {
+		panic("NewKafkaScanner panic")
+	}
+
 	// new consumer group config
 	cgConf := cg.NewConfig()
 	cgConf.ZkList = conf.Zk
 	cgConf.TopicList = []string{conf.Topic}
-	cgConf.GroupID = conf.ConsumerGroupId
+	cgConf.GroupID = conf.GroupId
 
 	// new consumer group
 	consumer, err := cg.NewConsumerGroup(cgConf)
@@ -59,7 +63,7 @@ func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
 
 // Start scanner
 func (s *Scanner) Start() {
-	if !s.isRunning {
+	if s.isRunning {
 		return
 	}
 
@@ -79,6 +83,8 @@ func (s *Scanner) Start() {
 				golog.Error("Kafka scanner start panic",
 					golog.Object("Error", err))
 				debug.PrintStack()
+				// stop scanner
+				s.Stop()
 			}
 		}()
 
@@ -98,7 +104,7 @@ func (s *Scanner) Stop() {
 	}
 
 	// stop consumer
-	s.isRunning = true
+	s.isRunning = false
 	s.consumer.Stop()
 }
 
@@ -111,4 +117,9 @@ func (s *Scanner) Next() (processor.Record, bool) {
 	// next record
 	record, ok := <-s.records
 	return record, ok
+}
+
+// IsStopped check scanner is running
+func (s *Scanner) IsStopped() bool {
+	return !s.isRunning
 }

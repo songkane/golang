@@ -18,7 +18,7 @@ golang processor
 ```
 // mysql processor
 maxChanSize := 50
-scanInterval := time.Duration(5) * time.Second
+scanInterval := 5 * time.Second
 // dbProxy := db.NewMysql(nil)
 mysqlScanner := mysql.NewScanner(maxChanSize, scanInterval, nil)
 mysqlHandle := mysql.NewHandle()
@@ -31,8 +31,8 @@ fmt.Println("Mysql processor start ...")
 maxChanSize = 100
 kafkaConf := &kafka.Config{
     Topic:           "test_topic",
-    ConsumerGroupId: "test_consumer_group",
-    Zk:              []string{"127.0.0.1:2181"},
+	ConsumerGroupId: "test_consumer_group",
+	Zk:              []string{"127.0.0.1:2181"},
 }
 kafkaScanner := kafka.NewKafkaScanner(kafkaConf, maxChanSize)
 kafkaHandle := kafka.NewHandle()

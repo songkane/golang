@@ -46,14 +46,16 @@ func (p *Processor) Start() {
 				golog.Error("Processor start panic",
 					golog.Object("Error", err))
 				debug.PrintStack()
+				// stop processor
+				p.Stop()
 			}
 		}()
 
 		// sized wait group
 		swg := sizedwaitgroup.New(p.concurrentCnt)
 		for {
-			// if stop return straight
-			if !p.isRunning {
+			// if processor or scanner stop return straight
+			if !p.isRunning || !p.scanner.IsStopped() {
 				break
 			}
 			// get next record
