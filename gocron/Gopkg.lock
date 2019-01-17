@@ -95,15 +95,15 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "7d034d808e34ff6dad530f9d75d437a41c8c9e31"
+  revision = "803b72501fae99ed42314c8d23746982ff2df3b2"
 
 [[projects]]
   branch = "master"
-  digest = "1:dae3cbfa2ff56e82115537d2e8a3247546f4d2975c7e0239bbb3a15dc6e5523c"
+  digest = "1:2a45426e9bf1d1b24cddffc98ed715c630f2b5825a90b0aab5be6aa1b6509c50"
   name = "gitlab.local.com/golang/golog"
   packages = ["."]
   pruneopts = "UT"
-  revision = "8040cb24f6e168dd2444f52258c61e34bd5b0044"
+  revision = "ac6bfd947cd799e8beb155560c5b7d69e602ec83"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"

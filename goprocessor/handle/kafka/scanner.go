@@ -29,7 +29,7 @@ type Scanner struct {
 // Write kafka only need brokers
 type Config struct {
 	Topic   string   `json:"topic"`    //topic
-	GroupId string   `json:"group_id"` //consumer group id
+	GroupID string   `json:"group_id"` //consumer group id
 	Zk      []string `json:"zk"`       //zk
 }
 
@@ -43,7 +43,7 @@ func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
 	cgConf := cg.NewConfig()
 	cgConf.ZkList = conf.Zk
 	cgConf.TopicList = []string{conf.Topic}
-	cgConf.GroupID = conf.GroupId
+	cgConf.GroupID = conf.GroupID
 
 	// new consumer group
 	consumer, err := cg.NewConsumerGroup(cgConf)

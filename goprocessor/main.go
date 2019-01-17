@@ -30,7 +30,7 @@ func main() {
 	maxChanSize = 100
 	kafkaConf := &kafka.Config{
 		Topic:   "test_topic",
-		GroupId: "test_consumer_group",
+		GroupID: "test_consumer_group",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	kafkaScanner := kafka.NewKafkaScanner(kafkaConf, maxChanSize)

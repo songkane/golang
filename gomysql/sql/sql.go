@@ -279,7 +279,6 @@ type Scanner interface {
 
 // Out may be used to retrieve OUTPUT value parameters from stored procedures.
 // Not all drivers and databases support OUTPUT value parameters.
-
 // Example usage:
 //   var outArg string
 //   _, err := db.ExecContext(ctx, "ProcName", sql.Named("Arg1", Out{Dest: &outArg}))

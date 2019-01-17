@@ -30,14 +30,14 @@ func WithOutput(o io.Writer) Option {
 	}
 }
 
-// withNoLock set config withNoLock
+// WithNoLock set config withNoLock
 func WithNoLock() Option {
 	return func(c *Config) {
 		c.withNoLock = true
 	}
 }
 
-// withCaller set config withCaller
+// WithCaller set config withCaller
 func WithCaller() Option {
 	return func(c *Config) {
 		c.withCaller = true

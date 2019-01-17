@@ -10,7 +10,7 @@ import (
 func TestNewKafkaScanner(t *testing.T) {
 	cfg := &Config{
 		Topic:   "kafka_topic_test",
-		GroupId: "consumer_group_id",
+		GroupID: "consumer_group_id",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	scanner := NewKafkaScanner(cfg, 5)
@@ -40,7 +40,7 @@ func TestNewKafkaScanner(t *testing.T) {
 func TestScanner_Start(t *testing.T) {
 	cfg := &Config{
 		Topic:   "kafka_topic_test",
-		GroupId: "consumer_group_id",
+		GroupID: "consumer_group_id",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	scanner := NewKafkaScanner(cfg, 5)
@@ -56,7 +56,7 @@ func TestScanner_Start(t *testing.T) {
 func TestScanner_Stop(t *testing.T) {
 	cfg := &Config{
 		Topic:   "kafka_topic_test",
-		GroupId: "consumer_group_id",
+		GroupID: "consumer_group_id",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	scanner := NewKafkaScanner(cfg, 5)
@@ -75,7 +75,7 @@ func TestScanner_Stop(t *testing.T) {
 func TestScanner_Next(t *testing.T) {
 	cfg := &Config{
 		Topic:   "kafka_topic_test",
-		GroupId: "consumer_group_id",
+		GroupID: "consumer_group_id",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	scanner := NewKafkaScanner(cfg, 5)
@@ -98,7 +98,7 @@ func TestScanner_Next(t *testing.T) {
 func TestScanner_IsStopped(t *testing.T) {
 	cfg := &Config{
 		Topic:   "kafka_topic_test",
-		GroupId: "consumer_group_id",
+		GroupID: "consumer_group_id",
 		Zk:      []string{"127.0.0.1:2181"},
 	}
 	scanner := NewKafkaScanner(cfg, 5)
