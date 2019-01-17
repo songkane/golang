@@ -5,6 +5,7 @@ package mysql
 import (
 	"fmt"
 	"runtime/debug"
+	"sync"
 	"time"
 
 	"gitlab.local.com/golang/golog"
@@ -21,6 +22,7 @@ type Scanner struct {
 	maxChanSize  int                   //max records channel size
 	scanInterval time.Duration         //scanner interval
 	stopChan     chan bool             //stop channel
+	closeOnce    sync.Once             //stop only once
 	records      chan processor.Record //record channel
 	dbProxy      *mysql.Mysql          //mysql proxy
 }
@@ -36,6 +38,7 @@ func NewScanner(maxChanSize int, scanInterval time.Duration, dbProxy *mysql.Mysq
 		maxChanSize:  maxChanSize,
 		scanInterval: scanInterval,
 		stopChan:     make(chan bool),
+		closeOnce:    sync.Once{},
 		records:      make(chan processor.Record, maxChanSize),
 		dbProxy:      dbProxy,
 	}
@@ -74,8 +77,12 @@ func (s *Scanner) Start() {
 
 			select {
 			case <-s.stopChan:
+				// sync.Once能确保实例化对象Do方法在多线程环境只运行一次
+				// 防止多次close导致panic
 				// close records channel
-				close(s.records)
+				s.closeOnce.Do(func() {
+					close(s.records)
+				})
 				return
 			case <-ticker:
 				// TODO select from mysql db

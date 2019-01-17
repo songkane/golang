@@ -1,6 +1,5 @@
 // Package jwt jwt生成算法
 // Created by chenguolin 2018-11-21
-
 // JWT参考链接: https://www.jianshu.com/p/576dbf44b2ae
 package jwt
 

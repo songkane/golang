@@ -1,18 +1,26 @@
 # Go语言源码编码规范检查
 #!/bin/bash
 
-echo '#### golint checking ####'
-illegal_golint_files=`go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/golog/=./= | xargs -n 1 golint`
-echo "${illegal_golint_files}" |grep "\.go" >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-  # found something
-  echo 'golint checking failed'
-  echo "###### Illegal Golint Files ######"
-  echo "##############################"
-  go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/golog/=./= | xargs -n 1 golint
-  exit 1
-else
-  echo 'golint checking ok'
-fi
+echo '********** golint check start ... **********'
 
-exit 0
+# check has errors
+# mac下sed命令和linux有所区别
+# mac sed: sed -i 需要带一个字符串，用来备份源文件，这个字符串加在源文件名后面组成备份文件名
+# sed -i "bs" 's/Atl/Dog/g' example.txt 则会生成example.txtbs 的备份文件
+# sed -i "" 's/Atl/Dog/g' example.txt 如果这个字符串长度为0，就是说是个空串，那么不备份
+errors=`go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/golog/=./= | grep -v gitlab | xargs -n 1 golint`
+
+# echo errors
+echo "${errors}"
+
+# grep errors has go file
+echo "${errors}" | grep "\.go"
+
+# $? equal 0 found check error
+if [ $? -eq 0 ]; then
+    echo '********** golint check failed ~ **********'
+    exit 1
+else
+    echo '********** golint check ok ~ **********'
+    exit 0
+fi

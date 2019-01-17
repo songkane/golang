@@ -23,7 +23,7 @@ func TestNewCron(t *testing.T) {
 
 func TestCron_AddJob(t *testing.T) {
 	cron := NewCron()
-	sche := NewScheduler(WithSecond(5), time.Now())
+	sche := NewScheduler(WithSecond(2), time.Now())
 
 	f := func() { fmt.Println("TestCron_AddJob") }
 	cron.AddJob(sche, f)
@@ -40,14 +40,14 @@ func TestCron_Start(t *testing.T) {
 	cron.Stop()
 
 	// case 2
-	sche := NewScheduler(WithSecond(5), time.Now())
+	sche := NewScheduler(WithSecond(2), time.Now())
 	f := func() { fmt.Println("TestCron_AddJob") }
 	cron.AddJob(sche, f)
 	if len(cron.entries) <= 0 {
 		t.Fatal("TestCron_AddJob len(cron.entries) <= 0")
 	}
 	cron.Start()
-	time.Sleep(time.Duration(15) * time.Second)
+	time.Sleep(time.Duration(6) * time.Second)
 	cron.Stop()
 }
 
@@ -57,28 +57,28 @@ func TestCron_Stop(t *testing.T) {
 	cron.Stop()
 
 	// case 2
-	sche := NewScheduler(WithSecond(5), time.Now())
+	sche := NewScheduler(WithSecond(2), time.Now())
 	f := func() { fmt.Println("TestCron_AddJob") }
 	cron.AddJob(sche, f)
 	if len(cron.entries) <= 0 {
 		t.Fatal("TestCron_AddJob len(cron.entries) <= 0")
 	}
 	cron.Start()
-	time.Sleep(time.Duration(15) * time.Second)
+	time.Sleep(time.Duration(6) * time.Second)
 	cron.Stop()
 }
 
 func TestEntrys_Len(t *testing.T) {
 	es := make(entrys, 0)
 
-	sche := NewScheduler(WithSecond(5), time.Now())
+	sche := NewScheduler(WithSecond(2), time.Now())
 	es1 := &entry{
 		scheduler: sche,
 		job:       func() { fmt.Println("print es1") },
 		nextTime:  sche.Next(time.Now()),
 	}
 
-	sche2 := NewScheduler(WithSecond(8), time.Now())
+	sche2 := NewScheduler(WithSecond(4), time.Now())
 	es2 := &entry{
 		scheduler: sche2,
 		job:       func() { fmt.Println("print es2") },

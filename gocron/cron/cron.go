@@ -132,7 +132,6 @@ func (c *Cron) run() {
 				// don't not use break
 				return
 			}
-
 			// break straight
 			break
 		}

@@ -1,6 +1,5 @@
 // Package golog zap日志封装
 // Created by chenguolin 2018-12-26
-
 // github: https://github.com/uber-go/zap
 // zap doc: https://godoc.org/go.uber.org/zap
 package golog

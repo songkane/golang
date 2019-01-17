@@ -66,12 +66,12 @@
   version = "v1.1.0"
 
 [[projects]]
-  digest = "1:1fd2424a221c4074d001156bca5128a390ecf30c9af6d4758addc18deacad4bf"
+  digest = "1:3c4f89f913a30aea9dd60b867af93e06ecccad08182b063bbf9ff7fb338122f3"
   name = "github.com/ethereum/go-ethereum"
   packages = ["common/hexutil"]
   pruneopts = "UT"
-  revision = "24d727b6d6e2c0cde222fa12155c4a6db5caaf2e"
-  version = "v1.8.20"
+  revision = "9dc5d1a915ac0e0bd8429d6ac41df50eec91de5f"
+  version = "v1.8.21"
 
 [[projects]]
   branch = "master"
@@ -227,19 +227,19 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:dae3cbfa2ff56e82115537d2e8a3247546f4d2975c7e0239bbb3a15dc6e5523c"
+  digest = "1:2a45426e9bf1d1b24cddffc98ed715c630f2b5825a90b0aab5be6aa1b6509c50"
   name = "gitlab.local.com/golang/golog"
   packages = ["."]
   pruneopts = "UT"
-  revision = "52425c59db249fbe81a178e29cff1dcb434f35f6"
+  revision = "ac6bfd947cd799e8beb155560c5b7d69e602ec83"
 
 [[projects]]
   branch = "master"
-  digest = "1:c7ccb6422f7fe452dbd7742d67c5aa96ff10a3916072b2816499d6b49bc21fd7"
+  digest = "1:d051ba27b39f7227ed5f224807cfe6a97b628fe6ead3e6fa5bcd665bf94348d8"
   name = "gitlab.local.com/golang/httpserver"
   packages = ["config"]
   pruneopts = "UT"
-  revision = "2a24b5d20d86dc02d40f6465dcf0f9abf02f6292"
+  revision = "5002592537707f88aa91d98361012fcc59c34849"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -282,14 +282,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5ee4df7ab18e945607ac822de8d10b180baea263b5e8676a1041727543b9c1e4"
+  digest = "1:43cde116ff48f299eddb7e6515677e6d0a2c915854bb05a333877f07c3bb3033"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "48ac38b7c8cbedd50b1613c0fccacfc7d88dfcdf"
+  revision = "11f53e03133963fb11ae0588e08b5e0b85be8be5"
 
 [[projects]]
   digest = "1:cbc72c4c4886a918d6ab4b95e347ffe259846260f99ebdd8a198c2331cf2b2e9"
