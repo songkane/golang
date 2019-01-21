@@ -1,5 +1,4 @@
-// Package cron golang crontab
-// crontab scheduler
+// Package cron scheduler
 // Created by chenguolin 2018-01-04
 package cron
 

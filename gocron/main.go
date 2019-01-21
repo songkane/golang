@@ -12,7 +12,7 @@ import (
 
 	"gitlab.local.com/golang/gocommon/logger"
 	"gitlab.local.com/golang/gocron/cron"
-	"gitlab.local.com/golang/gocron/handler"
+	"gitlab.local.com/golang/gocron/handle"
 	"gitlab.local.com/golang/golog"
 )
 
@@ -50,9 +50,9 @@ func main() {
 
 	// 3. start cron
 	c := cron.NewCron()
-	// all handlers
-	// etc one by one
-	c.AddJob(cron.NewScheduler(cron.WithSecond(5), time.Now()), handler.CrawlAddressTxsHandler)
+
+	// TODO add handle
+	c.AddHandle(cron.NewScheduler(cron.WithSecond(5), time.Now()), handle.GetCrawlAddressTxsHandle())
 
 	// 4. run cron
 	c.Start()

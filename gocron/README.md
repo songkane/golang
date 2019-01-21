@@ -3,47 +3,23 @@
 
 # sample
 ```
-func Print1() {
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 1 ~")
-}
+c := cron.NewCron()
 
-func Print2() {
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 2 ~")
-}
+// TODO add handle
+c.AddHandle(cron.NewScheduler(cron.WithSecond(5), time.Now()), handle.GetCrawlAddressTxsHandle())
 
-func Print3() {
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 3 ~")
-}
+// run cron
+c.Start()
+fmt.Println("Start cron handler ...")
 
-func Print4() {
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 4 ~")
+// shutdown
+stopSignalChan := make(chan os.Signal, 1)
+signal.Notify(stopSignalChan, os.Interrupt, os.Kill, syscall.SIGTERM, syscall.SIGINT)
+sig := <-stopSignalChan
+if sig != nil {
+    fmt.Println("got system signal:" + sig.String() + ", going to shutdown crontab")
+	// Stop the scheduler (does not stop any jobs already running).
+	c.Stop()
 }
-
-func Print5() {
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), "hello world 5 ~")
-}
-
-func main() {
-	// 1. start cron
-	c := cron.New()
-	// all handlers
-	// etc one by one
-	now := time.Now()
-	c.AddJob(cron.NewScheduler(cron.WithSecond(5), now), Print1)
-	c.AddJob(cron.NewScheduler(cron.WithSecond(5), now), Print2)
-	c.AddJob(cron.NewScheduler(cron.WithMinute(1), now), Print3)
-	c.AddJob(cron.NewScheduler(cron.WithHour(1), time.Date(2019, 01, 05, 15, 10, 00, 00, time.Local)), Print4)
-	c.AddJob(cron.NewScheduler(cron.WithDay(1), time.Date(2019, 01, 05, 00, 00, 00, 00, time.Local)), Print5)
-	c.Start()
-
-	// 2. block shutdown
-	stopSignalChan := make(chan os.Signal, 1)
-	signal.Notify(stopSignalChan, os.Interrupt, os.Kill, syscall.SIGTERM, syscall.SIGINT)
-	sig := <-stopSignalChan
-	if sig != nil {
-		fmt.Println("got system signal:" + sig.String() + ", going to shutdown crontab")
-		// Stop the scheduler (does not stop any jobs already running).
-		c.Stop()
-	}
-}
+fmt.Println("Stop cron handler ~")
 ```
