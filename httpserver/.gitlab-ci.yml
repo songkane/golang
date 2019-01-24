@@ -1,0 +1,81 @@
+# gitlab CI/CD pipeline配置文件
+# 默认使用本地定制过的带有golint的golang镜像
+image: golang:custom
+
+stages:
+    - test
+    - build
+    - rpm
+
+before_script:
+    - mkdir -p /go/src/gitlab.local.com/golang
+    - ln -s `pwd` /go/src/gitlab.local.com/golang/httpserver && cd /go/src/gitlab.local.com/golang/httpserver
+
+# test stage
+# job 1 test go vet
+job_govet:
+    stage: test
+    script:
+        - bash ./scripts/pipeline/test_stage/ci-govet-check.sh
+    tags:
+        - dev
+# job 2 test go fmt
+job_gofmt:
+    stage: test
+    script:
+        - bash ./scripts/pipeline/test_stage/ci-gofmt-check.sh
+    tags:
+        - dev
+# job 3 test go lint
+job_golint:
+    stage: test
+    script:
+        - bash ./scripts/pipeline/test_stage/ci-golint-check.sh
+    tags:
+        - dev
+# job 4 test go unit test
+job_unit:
+    stage: test
+    script:
+        - bash ./scripts/pipeline/test_stage/ci-gotest-check.sh
+    tags:
+        - dev
+
+# build stage
+job_build:
+    stage: build
+    only:
+        - master
+        - beta
+        - develop
+        - tags
+    script:
+        - bash ./scripts/pipeline/build_stage/build.sh
+    tags:
+        - dev
+
+# rpm stage
+job_rpm:
+    stage: rpm
+    # 定制过的centos镜像 安装了fpm和golaf
+
+
+
+
+    only:
+        - master
+        - beta
+        - develop
+        - tags
+    script:
+        - source /etc/profile
+        - bash ./scripts/pipeline/rpm_stage/rpm.sh
+    artifacts:
+        name: "httpserver-${CI_COMMIT_REF_NAME}-${CI_JOB_ID}"
+        expire_in: "3 days"
+        paths:
+            - cmd/api/*.rpm
+            - cmd/cron/*.rpm
+            - cmd/processor/*.rpm
+    tags:
+        - dev

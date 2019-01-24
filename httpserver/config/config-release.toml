@@ -1,0 +1,48 @@
+[deploy]
+# 对外提供的端口
+host=["0.0.0.0:8080"]
+# 性能监控端口
+devops_host= ":9010"
+
+[mysql]
+master = "127.0.0.1"
+slaves = ["127.0.0.1"]
+port = 3006
+username = "root"
+password = "123456"
+dbname = "test"
+max_conn_count=1000
+max_idle_conn_count=500
+conn_wait_time_ms=5000
+conn_idle_time_ms=21600000
+conn_timeout_ms=5000
+write_timeout_ms=5000
+read_timeout_ms=5000
+
+[redis]
+master="127.0.0.1:6379"
+slaves=["127.0.0.1:6379"]
+max_conns=1024
+read_timeout_ms=1000
+write_timeout_ms=1000
+connect_timeout_ms=1000
+idle_timeout_ms=180000
+max_idle=256
+db=0
+password=""
+
+[memcache]
+servers = "127.0.0.1:11211"
+max_active_connections = 1000
+max_idle_connections = 100
+max_wait_time_ms = 500
+max_idle_time_ms = 600000
+connection_timeout_ms = 1000
+read_timeout_ms = 1000
+write_timeout_ms = 1000
+rehash = false
+
+[kafka]
+brokers = ["127.0.0.1:9092"]
+zk = ["127.0.0.1:2181"]
+
