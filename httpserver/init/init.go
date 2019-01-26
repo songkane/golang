@@ -20,20 +20,20 @@ var (
 )
 
 // InitFunc pkg init function
-type InitFunc func()
+type PkgInitFunc func()
 
 // pkgInitFuncs all init functions
-var pkgInitFuncs = make(map[string]InitFunc, 0)
+var pkgInitFuncs = make(map[string]PkgInitFunc, 0)
 
 // AddInitFunc add InitFunc 2 pkgInitFuncs
 // same name InitFunc will be override
-func AddInitFunc(name string, f InitFunc) {
+func AddInitFunc(name string, f PkgInitFunc) {
 	pkgInitFuncs[name] = f
 }
 
 // AppInit init application
 func AppInit(filePath string) {
-	fmt.Println(time.GetCurrentTime(), "AppInit start ...")
+	fmt.Println(fmt.Sprintf("%s AppInit start ...", time.GetCurrentTime()))
 	// 获取api模块配置
 	conf := config.GetConfig(filePath)
 	if conf == nil {
@@ -53,10 +53,11 @@ func AppInit(filePath string) {
 	}
 
 	// pkg下相关的service执行Init函数
-	for _, f := range pkgInitFuncs {
+	for name, f := range pkgInitFuncs {
 		f()
+		fmt.Println(fmt.Sprintf("run package:%s Init function ok ~", name))
 	}
-	fmt.Println(time.GetCurrentTime(), "AppInit successful ~")
+	fmt.Println(fmt.Sprintf("%s AppInit successful ~", time.GetCurrentTime()))
 }
 
 // AppInitTest
