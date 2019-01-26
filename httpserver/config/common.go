@@ -1,4 +1,4 @@
-// Package config toml配置文件读取
+// Package config common
 // Created by chenguolin 2018-11-16
 package config
 
@@ -8,6 +8,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+// global conf
 var conf *Config
 
 // loadFrom load toml file
@@ -32,6 +33,10 @@ func loadFrom(filePath string) *Config {
 
 // GetConfig get Config
 func GetConfig(filePath string) *Config {
+	if filePath == "" {
+		return nil
+	}
+
 	return loadFrom(filePath)
 }
 
@@ -62,13 +67,13 @@ func GetRedisConf() *RedisConf {
 	return conf.Redis
 }
 
-// GetMemcachedConf get MemcachedConf
-func GetMemcachedConf() *MemcachedConf {
+// GetMemcacheConf get MemcacheConf
+func GetMemcacheConf() *MemcacheConf {
 	if conf == nil {
 		return nil
 	}
 
-	return conf.Memcached
+	return conf.Memcache
 }
 
 // GetKafkaConf get KafkaConf

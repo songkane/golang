@@ -42,7 +42,7 @@ func main() {
 	// 5. init HTTP Server
 	initHTTPServer(conf.Deploy.Host, flags.logDir)
 	// 6. start devops monitor server
-	devops.StartDevopsMonitorServer(conf.Deploy.DevopsHost)
+	devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
 	// 7. block until HTTP Server shutdown
 	blockUntilShutdown()
 }

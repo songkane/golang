@@ -42,7 +42,7 @@ func main() {
 	// 5. init HTTP Server
 	initHTTPServer(conf.Deploy.Host, flags.logDir)
 	// 6. start devops monitor server
-	devops.StartDevopsMonitorServer(conf.Deploy.DevopsHost)
+	devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
 	// 7. block until HTTP Server shutdown
 	blockUntilShutdown()
 }
@@ -137,19 +137,4 @@ func shutdownHTTPServer() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*t.Second)
 	defer cancel()
 	return httpServer.Shutdown(ctx)
-}
-
-// resolveServerAddress
-func resolveServerAddress(addr []string) string {
-	switch len(addr) {
-	case 0:
-		if port := os.Getenv("PORT"); len(port) > 0 {
-			return ":" + port
-		}
-		return ":8080"
-	case 1:
-		return addr[0]
-	default:
-		panic("too much parameters")
-	}
 }

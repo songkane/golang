@@ -1,38 +1,38 @@
-// Package config 配置文件定义
+// Package config struct define
 // Created by chenguolin 2018-11-16
 package config
 
-// Config api模块配置文件结构定义
+// Config struct define
 type Config struct {
-	Deploy    *DeployConf    `toml:"deploy"`
-	Mysql     *MysqlConf     `toml:"mysql"`
-	Redis     *RedisConf     `toml:"redis"`
-	Memcached *MemcachedConf `toml:"memcache"`
-	Kafka     *KafkaConf     `toml:"kafka"`
+	Deploy   *DeployConf   `toml:"deploy"`   //部署配置
+	Mysql    *MysqlConf    `toml:"mysql"`    //mysql配置
+	Redis    *RedisConf    `toml:"redis"`    //redis配置
+	Memcache *MemcacheConf `toml:"memcache"` //mc配置
+	Kafka    *KafkaConf    `toml:"kafka"`    //kafka配置
 }
 
 // DeployConf deploy config
 type DeployConf struct {
-	Environment string   `toml:"environment"`
-	Host        []string `toml:"host"`
-	DevopsHost  string   `toml:"devops_host"`
+	APIAddr      string `toml:"api_addr"`      //api HTTP server listen address
+	InternalAddr string `toml:"internal_addr"` //internal HTTP server listen address
+	DevopsAddr   string `toml:"devops_addr"`   //dev ops HTTP server listen address
 }
 
 // MysqlConf mysql config
 type MysqlConf struct {
-	Master             string   `toml:"master"`
-	Slaves             []string `toml:"slaves"`
-	Port               uint16   `toml:"port"`
-	Username           string   `toml:"username"`
-	Password           string   `toml:"password"`
-	Dbname             string   `toml:"dbname"`
-	MaxConnCount       int      `toml:"max_conn_count"`
-	MaxIdleConnCount   int      `toml:"max_idle_conn_count"`
-	ConnWaitTimeMs     int      `toml:"conn_wait_time_ms"`
-	ConnIdleWaitTimeMs int      `toml:"conn_idle_time_ms"`
-	ConnTimeoutMs      int      `toml:"conn_timeout_ms"`
-	WriteTimeoutMs     int      `toml:"write_timeout_ms"`
-	ReadTimeoutMs      int      `toml:"read_timeout_ms"`
+	Master           string   `toml:"master"`
+	Slaves           []string `toml:"slaves"`
+	Port             int      `toml:"port"`
+	Username         string   `toml:"username"`
+	Password         string   `toml:"password"`
+	Dbname           string   `toml:"dbname"`
+	MaxOpenConnCount int      `toml:"max_open_conn_count"`
+	MaxIdleConnCount int      `toml:"max_idle_conn_count"`
+	ConnWaitTimeMs   int      `toml:"conn_wait_time_ms"`
+	ConnIdleTimeMs   int      `toml:"conn_idle_time_ms"`
+	ConnTimeoutMs    int      `toml:"conn_timeout_ms"`
+	WriteTimeoutMs   int      `toml:"write_timeout_ms"`
+	ReadTimeoutMs    int      `toml:"read_timeout_ms"`
 }
 
 // RedisConf redis config
@@ -49,8 +49,8 @@ type RedisConf struct {
 	Password         string   `toml:"Password"`
 }
 
-// MemcachedConf memcached conifg
-type MemcachedConf struct {
+// MemcacheConf memcached conifg
+type MemcacheConf struct {
 	Servers              string `toml:"servers"`
 	MaxActiveConnections int    `toml:"max_active_connections"`
 	MaxIdleConnections   int    `toml:"max_idle_connections"`

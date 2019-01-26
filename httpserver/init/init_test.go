@@ -1,7 +1,5 @@
-/*
-Package context 全局实例对象调用初始化通用入口
-Created by chenguolin 2018-11-16
-*/
+// Package init unit test
+// Created by chenguolin 2018-11-16
 package init
 
 import (
