@@ -42,7 +42,7 @@ func TestNewRotateWriter(t *testing.T) {
 	}
 
 	// case 4
-	fileName = "./unit_test_log"
+	fileName = "./test/logs/unit_test_log"
 	pattern = DefaultTimePattern
 	writer, err = NewRotateWriter(fileName, pattern)
 	if err != nil {

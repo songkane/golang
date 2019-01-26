@@ -7,6 +7,7 @@ import (
 	"os"
 	"sync"
 	"time"
+	"path/filepath"
 )
 
 // RotateWriter writer
@@ -30,6 +31,13 @@ func NewRotateWriter(fileName, pattern string) (*RotateWriter, error) {
 		fileName:    fileName,
 		timePattern: pattern,
 		checkPoint:  time.Now().Format(pattern),
+	}
+
+	// mkdir
+	dir := filepath.Dir(fileName)
+	err := os.MkdirAll(dir, 0755)
+	if err != nil {
+		return nil, err
 	}
 
 	// Create creates the named file with mode 0666 (before umask), truncating
