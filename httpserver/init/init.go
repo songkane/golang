@@ -19,7 +19,7 @@ var (
 	kafkaConf   *config.KafkaConf
 )
 
-// InitFunc pkg init function
+// PkgInitFunc pkg init function
 type PkgInitFunc func()
 
 // pkgInitFuncs all init functions
@@ -60,7 +60,7 @@ func AppInit(filePath string) {
 	fmt.Println(fmt.Sprintf("%s AppInit successful ~", time.GetCurrentTime()))
 }
 
-// AppInitTest
+// AppInitTest test init application
 func AppInitTest() {
 	// TODO 用户需要自行修改本地配置文件路径
 	// filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/cmd/api/conf/config-pre.toml"
