@@ -8,7 +8,8 @@ import (
 	"testing"
 
 	"gitlab.local.com/golang/go-common/trace"
-	"gitlab.local.com/golang/go-log"
+	golog "gitlab.local.com/golang/go-log"
+
 	"go.uber.org/zap"
 )
 
