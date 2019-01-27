@@ -9,7 +9,7 @@ stages:
 
 before_script:
     - mkdir -p /go/src/gitlab.local.com/golang
-    - ln -s `pwd` /go/src/gitlab.local.com/golang/httpserver && cd /go/src/gitlab.local.com/golang/httpserver
+    - ln -s `pwd` /go/src/gitlab.local.com/golang/go-http && cd /go/src/gitlab.local.com/golang/go-http
 
 # test stage
 # job 1 test go vet
@@ -71,7 +71,7 @@ job_rpm:
         - source /etc/profile
         - bash ./scripts/pipeline/rpm_stage/rpm.sh
     artifacts:
-        name: "httpserver-${CI_COMMIT_REF_NAME}-${CI_JOB_ID}"
+        name: "go-http-${CI_COMMIT_REF_NAME}-${CI_JOB_ID}"
         expire_in: "3 days"
         paths:
             - cmd/api/*.rpm

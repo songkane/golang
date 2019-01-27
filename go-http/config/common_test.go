@@ -13,7 +13,7 @@ import (
 func TestLoadFrom(t *testing.T) {
 	// load api conf
 	// TODO 路径需要用户自行修改
-	conf := loadFrom(os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml")
+	conf := loadFrom(os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml")
 	if conf == nil {
 		t.Fatal("TestLoadFrom loadFrom api conf is nil")
 	}
@@ -35,7 +35,7 @@ func TestGetConfig(t *testing.T) {
 
 	// case 2
 	// TODO 用户需要自行修改路径
-	filePath = os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath = os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf = GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetConfig case 2 get apiConf == nil")
@@ -71,7 +71,7 @@ func TestGetConfig(t *testing.T) {
 
 func TestGetDeployConf(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf := GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetDeployConf GetConfig == nil")
@@ -86,7 +86,7 @@ func TestGetDeployConf(t *testing.T) {
 
 func TestGetMysqlConf(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf = GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetMysqlConf GetConfig == nil")
@@ -100,7 +100,7 @@ func TestGetMysqlConf(t *testing.T) {
 
 func TestGetRedisConf(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf = GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetRedisConf GetConfig == nil")
@@ -114,7 +114,7 @@ func TestGetRedisConf(t *testing.T) {
 
 func TestGetMemcacheConf(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf = GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetMemcacheConf GetConfig == nil")
@@ -128,7 +128,7 @@ func TestGetMemcacheConf(t *testing.T) {
 
 func TestGetKafkaConf(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	conf = GetConfig(filePath)
 	if conf == nil {
 		t.Fatal("TestGetKafkaConf GetConfig == nil")

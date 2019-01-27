@@ -70,7 +70,7 @@ func AppInit(filePath string) {
 // AppInitTest test init application
 func AppInitTest() {
 	// TODO 用户需要自行修改本地配置文件路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/config/conf/config-pre.toml"
 	AppInit(filePath)
 }
 

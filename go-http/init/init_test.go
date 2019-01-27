@@ -10,7 +10,7 @@ import (
 
 func TestInitAppContext(t *testing.T) {
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/cmd/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/cmd/config/conf/config-pre.toml"
 	AppInit(filePath)
 }
 
@@ -26,7 +26,7 @@ func TestAddInitFunc(t *testing.T) {
 	AddInitFunc("func2", f2)
 
 	// TODO 用户需要自行修改路径
-	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/cmd/config/conf/config-pre.toml"
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/go-http/cmd/config/conf/config-pre.toml"
 	AppInit(filePath)
 }
 

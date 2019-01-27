@@ -30,8 +30,8 @@ function build {
     rpmFileName="${appName}-${version}-${iteration}.${envType}.x86_64.rpm"
 
     fpm -s dir -t rpm --prefix "${deployDir}" -n "${rpmPrefixName}" -v "${version}" --iteration "${iteration}.${envType}"\
-      --category 'Golang/httpserver' --url 'http://gitlab.local.com' --description "${appName}"\
-      --license 'Commercial' -m 'Httpserver' --before-install ${projectDir}/scripts/build/rpm/before.sh\
+      --category 'Golang/go-http' --url 'http://gitlab.local.com' --description "${appName}"\
+      --license 'Commercial' -m 'go-http' --before-install ${projectDir}/scripts/build/rpm/before.sh\
       --after-install ${projectDir}/scripts/build/rpm/after.sh --before-upgrade ${projectDir}/scripts/build/rpm/before.sh\
       --after-upgrade ${projectDir}/scripts/build/rpm/after.sh -C ${distDir} bin/ conf/ logs/ >&2
     echo ${rpmFileName}

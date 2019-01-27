@@ -24,7 +24,7 @@ const (
 	// AccessLogName HTTP access log file name
 	AccessLogName = "access.log"
 	// AppName application name
-	AppName = "httpserver-internal"
+	AppName = "go-http-internal"
 	// TimePattern default time pattern
 	TimePattern = "20060102-15"
 )
