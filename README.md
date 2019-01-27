@@ -2,12 +2,12 @@
 golang 相关代码仓库
 
 # project
-1. golog: golang logger 基础库
-2. gomysql: golang mysql 基础库
-3. gocommon: golang 基础代码 公共库
-4. gocron: golang 定时任务
-5. goprocessor: golang 处理机
-6. httpserver: golang HTTP server 
+1. go-log: golang logger 基础库
+2. go-mysql: golang mysql 基础库
+3. go-common: golang 基础代码 公共库
+4. go-cron: golang 定时任务
+5. go-processor: golang 处理机
+6. go-http: golang HTTP server 
 7. telegram-bot-api: telegram机器人
 
 # postscript
