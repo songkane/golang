@@ -1,32 +1,30 @@
-// Package mysql mysql handle process
+// Package kafka handle process
 // Created by chenguolin 2019-01-13
-package mysql
+package kafka
 
 import (
 	"fmt"
 
-	"gitlab.local.com/golang/goprocessor/processor"
+	"gitlab.local.com/golang/go-processor/processor"
 )
 
-// Handle mysql handle
+// Handle kafka handle
 type Handle struct {
 	// TODO
 }
 
-// NewHandle new mysql handle
+// NewHandle new kafka handle
 func NewHandle() *Handle {
 	return &Handle{}
 }
 
-// Process mysql record process
+// Process kafka record process
 func (h *Handle) Process(record processor.Record) {
 	// TODO record can convert 2 any type
-	// TODO type user struct {
+	// TODO type message struct {
 	// TODO    name string
 	// TODO    age  int
 	// TODO }
-	// TODO us, ok := record.(user)
+	// TODO msg, ok := record.(message)
 	fmt.Println(record)
-
-	// TODO 业务逻辑
 }

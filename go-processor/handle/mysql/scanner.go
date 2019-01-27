@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"gitlab.local.com/golang/golog"
-	"gitlab.local.com/golang/gomysql"
-	"gitlab.local.com/golang/goprocessor/processor"
+	"gitlab.local.com/golang/go-log"
+	"gitlab.local.com/golang/go-mysql"
+	"gitlab.local.com/golang/go-processor/processor"
 )
 
 // Scanner mysql scanner

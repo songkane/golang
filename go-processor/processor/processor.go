@@ -6,7 +6,7 @@ import (
 	"runtime/debug"
 
 	"github.com/remeh/sizedwaitgroup"
-	"gitlab.local.com/golang/golog"
+	"gitlab.local.com/golang/go-log"
 )
 
 // Processor define

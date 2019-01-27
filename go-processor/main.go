@@ -9,9 +9,9 @@ import (
 	"syscall"
 	"time"
 
-	"gitlab.local.com/golang/goprocessor/handle/kafka"
-	"gitlab.local.com/golang/goprocessor/handle/mysql"
-	"gitlab.local.com/golang/goprocessor/processor"
+	"gitlab.local.com/golang/go-processor/handle/kafka"
+	"gitlab.local.com/golang/go-processor/handle/mysql"
+	"gitlab.local.com/golang/go-processor/processor"
 )
 
 func main() {

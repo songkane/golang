@@ -7,8 +7,9 @@ import (
 
 	"github.com/Shopify/sarama"
 	cg "github.com/meitu/go-consumergroup"
-	"gitlab.local.com/golang/golog"
-	"gitlab.local.com/golang/goprocessor/processor"
+
+	"gitlab.local.com/golang/go-log"
+	"gitlab.local.com/golang/go-processor/processor"
 )
 
 // Scanner kafka scanner

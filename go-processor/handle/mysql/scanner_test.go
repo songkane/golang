@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.local.com/golang/gomysql"
+	"gitlab.local.com/golang/go-mysql"
 )
 
 func TestNewScanner(t *testing.T) {
