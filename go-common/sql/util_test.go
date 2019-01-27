@@ -3,8 +3,8 @@
 package sql
 
 import (
-	"testing"
 	"errors"
+	"testing"
 )
 
 func TestIsDuplicateKeyError(t *testing.T) {

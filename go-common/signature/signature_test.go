@@ -23,7 +23,7 @@ func TestGetSignature(t *testing.T) {
 	c.Request.Form = form
 
 	sig := GetSignature(c)
-	if sig != "1e21082ecda4fae10214b17feda9195b" {
+	if sig != "f61513a66d249f0de3af95bc6748f8b5" {
 		t.Fatal("TestGetSignature get sig != \"1e21082ecda4fae10214b17feda9195b\"")
 	}
 }
@@ -50,7 +50,7 @@ func TestGenerateSignature(t *testing.T) {
 	paramsArr := []string{"123456", "chenguolin"}
 	sigTime := string("1234567890")
 	sig := generateSignature(path, paramsArr, sigTime)
-	if sig != "1e21082ecda4fae10214b17feda9195b" {
+	if sig != "f61513a66d249f0de3af95bc6748f8b5" {
 		t.Fatal("TestGenerateSignature get sig != \"1e21082ecda4fae10214b17feda9195b\"")
 	}
 }
