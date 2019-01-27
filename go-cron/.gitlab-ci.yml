@@ -8,7 +8,7 @@ stages:
 
 before_script:
     - mkdir -p /go/src/gitlab.local.com/golang
-    - ln -s `pwd` /go/src/gitlab.local.com/golang/gocron && cd /go/src/gitlab.local.com/golang/gocron
+    - ln -s `pwd` /go/src/gitlab.local.com/golang/go-cron && cd /go/src/gitlab.local.com/golang/go-cron
 
 # test stage
 # job 1 test go vet

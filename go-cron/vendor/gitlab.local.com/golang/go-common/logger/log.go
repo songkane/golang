@@ -6,8 +6,9 @@ import (
 	"errors"
 	"fmt"
 
-	"gitlab.local.com/golang/gocommon/trace"
-	"gitlab.local.com/golang/golog"
+	"gitlab.local.com/golang/go-common/trace"
+	"gitlab.local.com/golang/go-log"
+
 	"go.uber.org/zap"
 )
 
