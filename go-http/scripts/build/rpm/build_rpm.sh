@@ -9,7 +9,7 @@ projectRootDir=`pwd`
 cd ${currDir}
 
 # 构建需要5个变量
-# 模块名称 例如api、cron、processor
+# 模块名称 例如api、internal
 moduleName=$1
 # 版本号 例如1.0.0
 version=$2

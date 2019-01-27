@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"gitlab.local.com/golang/go-http/bizerror"
-	"gitlab.local.com/golang/gomysql"
-	"gitlab.local.com/golang/gomysql/sql"
+	"gitlab.local.com/golang/go-mysql"
+	"gitlab.local.com/golang/go-mysql/sql"
 )
 
 // repo 用户表操作Repo对象

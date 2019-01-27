@@ -9,7 +9,7 @@ import (
 	"github.com/go-redis/redis"
 
 	"gitlab.local.com/golang/go-http/config"
-	"gitlab.local.com/golang/gomysql"
+	"gitlab.local.com/golang/go-mysql"
 )
 
 // newMysqlClient new mysql client

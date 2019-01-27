@@ -5,7 +5,7 @@ package request
 import (
 	"github.com/gin-gonic/gin"
 
-	"gitlab.local.com/golang/gocommon/ulid"
+	"gitlab.local.com/golang/go-common/ulid"
 )
 
 const (

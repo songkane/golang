@@ -13,12 +13,11 @@ import (
 	t "time"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.local.com/golang/go-log"
-	"gitlab.local.com/golang/gocommon/logger"
-	"gitlab.local.com/golang/gocommon/time"
-
+	"gitlab.local.com/golang/go-common/logger"
+	"gitlab.local.com/golang/go-common/time"
 	"gitlab.local.com/golang/go-http/config"
 	"gitlab.local.com/golang/go-http/init"
+	golog "gitlab.local.com/golang/go-log"
 )
 
 const (
