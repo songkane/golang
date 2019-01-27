@@ -4,7 +4,7 @@ package mysql
 
 import (
 	"github.com/go-sql-driver/mysql"
-	"gitlab.local.com/golang/gomysql/sql"
+	"gitlab.local.com/golang/go-mysql/sql"
 )
 
 const (
