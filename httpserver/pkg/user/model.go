@@ -1,7 +1,5 @@
-/*
-Package user users表schema定义
-Created by chenguolin 2018-11-17
-*/
+// Package user mysql table schema
+// Created by chenguolin 2018-11-17
 package user
 
 // userTableModel user表结构定义

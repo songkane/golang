@@ -4,6 +4,7 @@ package init
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/bradfitz/gomemcache/memcache"
 	"github.com/go-redis/redis"
@@ -15,7 +16,7 @@ import (
 var (
 	mysqlClient *mysql.Mysql
 	redisClient *redis.ClusterClient
-	mcClient    memcache.Client
+	mcClient    *memcache.Client
 	kafkaConf   *config.KafkaConf
 )
 
@@ -51,6 +52,11 @@ func AppInit(filePath string) {
 	if err != nil {
 		panic(fmt.Sprintf("AppInit newRedisClient error:%s", err))
 	}
+	mcClient, err = newMcClient(conf.Memcache)
+	if err != nil {
+		panic(fmt.Sprintf("AppInit newMcClient error:%s", err))
+	}
+	kafkaConf = conf.Kafka
 
 	// pkg下相关的service执行Init函数
 	for name, f := range pkgInitFuncs {
@@ -63,6 +69,26 @@ func AppInit(filePath string) {
 // AppInitTest test init application
 func AppInitTest() {
 	// TODO 用户需要自行修改本地配置文件路径
-	// filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/cmd/api/conf/config-pre.toml"
-	// TODO
+	filePath := os.Getenv("GOPATH") + "/src/gitlab.local.com/golang/httpserver/config/conf/config-pre.toml"
+	AppInit(filePath)
+}
+
+// GetMysqlClient get mysqlClient
+func GetMysqlClient() *mysql.Mysql {
+	return mysqlClient
+}
+
+// GetRedisClient get redisClient
+func GetRedisClient() *redis.ClusterClient {
+	return redisClient
+}
+
+// GetMcClient get mcClient
+func GetMcClient() *memcache.Client {
+	return mcClient
+}
+
+// GetKafkaConf get KafkaConf
+func GetKafkaConf() *config.KafkaConf {
+	return kafkaConf
 }

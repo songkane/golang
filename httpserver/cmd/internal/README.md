@@ -1,10 +1,9 @@
 # 介绍
-Golang实现的HTTP Service，提供HTTP接口调用
+Golang实现的HTTP Service，提供HTTP接口给内部服务调用, 外部不可调用
 
 1. bin: 启动、停止相关脚本
-2. conf: 配置文件
-3. controller: api接口层逻辑
-4. request: 请求和响应通用函数封装
+2. controller: api接口层逻辑
+3. request: 请求和响应通用函数封装
 
 # API
 API分成2个部分

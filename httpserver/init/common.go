@@ -5,10 +5,10 @@ package init
 import (
 	"errors"
 
+	"github.com/bradfitz/gomemcache/memcache"
 	"github.com/go-redis/redis"
 	"gitlab.local.com/golang/gomysql"
 	"gitlab.local.com/golang/httpserver/config"
-	"gitlab.meitu.com/gocommons/memcache"
 )
 
 // newMysqlClient new mysql client
@@ -51,12 +51,12 @@ func newMysqlClient(conf *config.MysqlConf) (*mysql.Mysql, error) {
 
 // newRedisClient new redis client
 func newRedisClient(conf *config.RedisConf) (*redis.ClusterClient, error) {
-	// TODO
+	// TODO (@cgl)
 	return nil, nil
 }
 
 // newMcClient new memcache client
-func newMcClient(conf *config.MemcacheConf) (memcache.Client, error) {
-	// TODO
+func newMcClient(conf *config.MemcacheConf) (*memcache.Client, error) {
+	// TODO (@cgl)
 	return nil, nil
 }

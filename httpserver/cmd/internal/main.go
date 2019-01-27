@@ -13,12 +13,12 @@ import (
 	t "time"
 
 	"github.com/gin-gonic/gin"
+	"gitlab.local.com/golang/gocommon/logger"
+	"gitlab.local.com/golang/gocommon/time"
 	"gitlab.local.com/golang/golog"
-	"gitlab.local.com/golang/httpserver/common/devops"
-	"gitlab.local.com/golang/httpserver/common/logger"
-	"gitlab.local.com/golang/httpserver/common/time"
+
 	"gitlab.local.com/golang/httpserver/config"
-	appCtx "gitlab.local.com/golang/httpserver/context"
+	"gitlab.local.com/golang/httpserver/init"
 )
 
 const (
@@ -38,11 +38,12 @@ func main() {
 	// 3. init logger
 	initLogger(flags.logDir)
 	// 4. init application context
-	appCtx.InitAppContext(appCtx.ModuleAPI, flags.confFile)
+	init.AppInit(flags.confFile)
 	// 5. init HTTP Server
-	initHTTPServer(conf.Deploy.Host, flags.logDir)
+	initHTTPServer(conf.Deploy.InternalAddr, flags.logDir)
 	// 6. start devops monitor server
-	devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
+	// TODO (@cgl)
+	// devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
 	// 7. block until HTTP Server shutdown
 	blockUntilShutdown()
 }
@@ -83,7 +84,7 @@ var (
 )
 
 // initHTTPServer 初始化HTTPServer
-func initHTTPServer(listenAddr []string, accessLogDir string) {
+func initHTTPServer(listenAddr string, accessLogDir string) {
 	engine := gin.New()
 	// gin goroutine recover
 	engine.Use(gin.Recovery())
@@ -96,12 +97,11 @@ func initHTTPServer(listenAddr []string, accessLogDir string) {
 	// set Router
 	SetupRoute(engine)
 	go func() {
-		serverAddress := resolveServerAddress(listenAddr)
 		httpServer = &http.Server{
-			Addr:    serverAddress,
+			Addr:    listenAddr,
 			Handler: engine,
 		}
-		fmt.Println(time.GetCurrentTime(), "listening and serving HTTP on "+serverAddress)
+		fmt.Println(time.GetCurrentTime(), "listening and serving HTTP on "+listenAddr)
 		err := httpServer.ListenAndServe()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "http server start failed:", err)
@@ -137,19 +137,4 @@ func shutdownHTTPServer() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*t.Second)
 	defer cancel()
 	return httpServer.Shutdown(ctx)
-}
-
-// resolveServerAddress
-func resolveServerAddress(addr []string) string {
-	switch len(addr) {
-	case 0:
-		if port := os.Getenv("PORT"); len(port) > 0 {
-			return ":" + port
-		}
-		return ":8080"
-	case 1:
-		return addr[0]
-	default:
-		panic("too much parameters")
-	}
 }

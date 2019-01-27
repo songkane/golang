@@ -1,13 +1,11 @@
-/*
-Package user UserService api定义
-Created by chenguolin 2018-05-03
-*/
+// Package user UserService
+// Created by chenguolin 2018-05-03
 package user
 
 import (
 	"time"
 
-	"gitlab.local.com/golang/httpserver/biz_error"
+	"gitlab.local.com/golang/httpserver/bizerror"
 )
 
 // Service 结构体定义

@@ -13,12 +13,13 @@ import (
 	t "time"
 
 	"github.com/gin-gonic/gin"
+
+	"gitlab.local.com/golang/gocommon/logger"
+	"gitlab.local.com/golang/gocommon/time"
 	"gitlab.local.com/golang/golog"
-	"gitlab.local.com/golang/httpserver/common/devops"
-	"gitlab.local.com/golang/httpserver/common/logger"
-	"gitlab.local.com/golang/httpserver/common/time"
+
 	"gitlab.local.com/golang/httpserver/config"
-	appCtx "gitlab.local.com/golang/httpserver/context"
+	"gitlab.local.com/golang/httpserver/init"
 )
 
 const (
@@ -38,11 +39,12 @@ func main() {
 	// 3. init logger
 	initLogger(flags.logDir)
 	// 4. init application context
-	appCtx.InitAppContext(appCtx.ModuleAPI, flags.confFile)
+	init.AppInit(flags.confFile)
 	// 5. init HTTP Server
-	initHTTPServer(conf.Deploy.Host, flags.logDir)
+	initHTTPServer(conf.Deploy.APIAddr, flags.logDir)
 	// 6. start devops monitor server
-	devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
+	// TODO (@cgl)
+	// devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
 	// 7. block until HTTP Server shutdown
 	blockUntilShutdown()
 }
@@ -83,7 +85,7 @@ var (
 )
 
 // initHTTPServer 初始化HTTPServer
-func initHTTPServer(listenAddr []string, accessLogDir string) {
+func initHTTPServer(listenAddr string, accessLogDir string) {
 	engine := gin.New()
 	// gin goroutine recover
 	engine.Use(gin.Recovery())
@@ -96,12 +98,11 @@ func initHTTPServer(listenAddr []string, accessLogDir string) {
 	// set Router
 	SetupRoute(engine)
 	go func() {
-		serverAddress := resolveServerAddress(listenAddr)
 		httpServer = &http.Server{
-			Addr:    serverAddress,
+			Addr:    listenAddr,
 			Handler: engine,
 		}
-		fmt.Println(time.GetCurrentTime(), "listening and serving HTTP on "+serverAddress)
+		fmt.Println(time.GetCurrentTime(), "listening and serving HTTP on "+listenAddr)
 		err := httpServer.ListenAndServe()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "http server start failed:", err)
