@@ -7,7 +7,7 @@ import (
 	"sort"
 	"time"
 
-	"gitlab.local.com/golang/go-log"
+	golog "gitlab.local.com/golang/go-log"
 )
 
 // Cron define

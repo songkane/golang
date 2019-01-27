@@ -10,10 +10,10 @@ import (
 	"syscall"
 	"time"
 
+	"gitlab.local.com/golang/go-common/logger"
 	"gitlab.local.com/golang/go-cron/cron"
 	"gitlab.local.com/golang/go-cron/handle"
-	"gitlab.local.com/golang/go-log"
-	"gitlab.local.com/golang/gocommon/logger"
+	golog "gitlab.local.com/golang/go-log"
 )
 
 const (

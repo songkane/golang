@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/antchfx/htmlquery"
-	"gitlab.local.com/golang/go-log"
+	golog "gitlab.local.com/golang/go-log"
 )
 
 // CrawlAddressTxsHandle crawl ethereum address all tx
