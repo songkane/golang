@@ -12,18 +12,18 @@ import (
 )
 
 // NewGolog new golog logger
-func NewGolog(dir, name, timePattern string) (*golog.Logger, error) {
+func NewGolog(dir, name, timePattern string) (*go_log.Logger, error) {
 	if dir == "" || name == "" || timePattern == "" {
 		return nil, errors.New("Invalid Arguments")
 	}
 
 	fileName := fmt.Sprintf("%s/%s.logger", dir, name)
-	rotateWriter, err := golog.NewRotateWriter(fileName, timePattern)
+	rotateWriter, err := go_log.NewRotateWriter(fileName, timePattern)
 	if err != nil {
 		return nil, err
 	}
 
-	logger, err := golog.NewLogger(golog.WithOutput(rotateWriter), golog.WithInfoLevel(), golog.WithJSONEncoder())
+	logger, err := go_log.NewLogger(go_log.WithOutput(rotateWriter), go_log.WithInfoLevel(), go_log.WithJSONEncoder())
 	return logger, err
 }
 
@@ -33,7 +33,7 @@ func Debug(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Debug(msg, fields...)
+	go_log.Debug(msg, fields...)
 }
 
 // Info 日志
@@ -42,7 +42,7 @@ func Info(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Info(msg, fields...)
+	go_log.Info(msg, fields...)
 }
 
 // Warn 日志
@@ -51,7 +51,7 @@ func Warn(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Warn(msg, fields...)
+	go_log.Warn(msg, fields...)
 }
 
 // Error 日志
@@ -60,7 +60,7 @@ func Error(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Error(msg, fields...)
+	go_log.Error(msg, fields...)
 }
 
 // Panic 日志
@@ -69,7 +69,7 @@ func Panic(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Panic(msg, fields...)
+	go_log.Panic(msg, fields...)
 }
 
 // Fatal 日志
@@ -78,16 +78,16 @@ func Fatal(tc *trace.Context, msg string, fields ...zap.Field) {
 		fields = make([]zap.Field, 0)
 	}
 	fields = append(fields, getTraceIDField(tc))
-	golog.Fatal(msg, fields...)
+	go_log.Fatal(msg, fields...)
 }
 
 // getTraceIDField get traceId
 func getTraceIDField(tc *trace.Context) zap.Field {
 	var field zap.Field
 	if tc != nil {
-		field = golog.Object(trace.TraceIDKey, tc.GetTraceID())
+		field = go_log.Object(trace.TraceIDKey, tc.GetTraceID())
 	} else {
-		field = golog.String(trace.TraceIDKey, "")
+		field = go_log.String(trace.TraceIDKey, "")
 	}
 
 	return field

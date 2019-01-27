@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	h "gitlab.local.com/golang/gocron/handle"
+	h "gitlab.local.com/golang/go-cron/handle"
 )
 
 func TestEntrys_Len(t *testing.T) {

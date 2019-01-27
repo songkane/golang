@@ -10,15 +10,15 @@ import (
 	"syscall"
 	"time"
 
+	"gitlab.local.com/golang/go-cron/cron"
+	"gitlab.local.com/golang/go-cron/handle"
+	"gitlab.local.com/golang/go-log"
 	"gitlab.local.com/golang/gocommon/logger"
-	"gitlab.local.com/golang/gocron/cron"
-	"gitlab.local.com/golang/gocron/handle"
-	"gitlab.local.com/golang/golog"
 )
 
 const (
 	// AppName application name
-	AppName = "gocron"
+	AppName = "go-cron"
 	// TimePattern default time pattern
 	TimePattern = "20060102-15"
 )
