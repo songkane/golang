@@ -7,7 +7,7 @@ stages:
 
 before_script:
     - mkdir -p /go/src/gitlab.local.com/golang
-    - ln -s `pwd` /go/src/gitlab.local.com/golang/gocommon && cd /go/src/gitlab.local.com/golang/gocommon
+    - ln -s `pwd` /go/src/gitlab.local.com/golang/go-common && cd /go/src/gitlab.local.com/golang/go-common
 
 # test stage
 # job 1 test go vet
