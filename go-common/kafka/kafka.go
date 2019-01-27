@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/Shopify/sarama"
-	"gitlab.local.com/golang/golog"
+	"gitlab.local.com/golang/go-log"
 )
 
 // NewSyncKafkaProducer 实例化一个kafka producer

@@ -1,2 +1,2 @@
-# gocommon
+# go-common
 Golang公共库

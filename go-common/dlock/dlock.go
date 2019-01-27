@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	"gitlab.local.com/golang/golog"
+	"gitlab.local.com/golang/go-log"
 )
 
 // LockRetryOptions 重试选项

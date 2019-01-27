@@ -4,8 +4,7 @@ package sql
 
 import (
 	"testing"
-
-	"github.com/pkg/errors"
+	"errors"
 )
 
 func TestIsDuplicateKeyError(t *testing.T) {

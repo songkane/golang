@@ -5,7 +5,7 @@ package executor
 import (
 	"time"
 
-	"gitlab.local.com/golang/golog"
+	"gitlab.local.com/golang/go-log"
 )
 
 // TryUntilSuccess 无限重试直到成功
