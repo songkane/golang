@@ -10,6 +10,9 @@ golang 相关代码仓库
 6. go-http: golang HTTP server 
 7. telegram-bot-api: telegram机器人
 
+# dependency
+1. update: dep ensure -update -v
+
 # postscript
 由于项目是托管在本地Gitlab仓库下，所以项目里默认路径为**gitlab.local.com/golang/xxxx**。  
 所以项目Clone下来之后如果要使用需要做个全局替换，例如替换成**yyyy**
