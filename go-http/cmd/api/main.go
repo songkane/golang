@@ -17,7 +17,7 @@ import (
 	"gitlab.local.com/golang/go-common/logger"
 	"gitlab.local.com/golang/go-common/time"
 	"gitlab.local.com/golang/go-http/config"
-	"gitlab.local.com/golang/go-http/init"
+	"gitlab.local.com/golang/go-http/instance"
 	golog "gitlab.local.com/golang/go-log"
 )
 
