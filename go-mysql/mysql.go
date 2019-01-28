@@ -59,7 +59,7 @@ func newMasterDB(conf *Config) (*sql.DB, error) {
 
 	// open DB
 	// master DB
-	master, err := sql.Open(DefaultDriver, masterDsn)
+	master, err := sql.Open(sql.DefaultDriver, masterDsn)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func newSlavesDB(conf *Config) ([]*sql.DB, error) {
 	// slaves DB
 	slaves := make([]*sql.DB, 0)
 	for _, slaveDsn := range slavesDsn {
-		db, err := sql.Open(DefaultDriver, slaveDsn)
+		db, err := sql.Open(sql.DefaultDriver, slaveDsn)
 		if err != nil {
 			return nil, err
 		}
