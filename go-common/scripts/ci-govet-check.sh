@@ -14,7 +14,7 @@ errors=`go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/go-com
 echo ${errors}
 
 # grep errors has go file
-echo "${errors}" | grep "\.go"
+echo "${errors}" | grep -E "\.go|package"
 
 # $? equal 0 has error
 if [ $? -eq 0 ]; then
