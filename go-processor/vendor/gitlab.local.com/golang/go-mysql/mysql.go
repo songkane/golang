@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"time"
 
-	"gitlab.local.com/golang/gomysql/sql"
+	"gitlab.local.com/golang/go-mysql/sql"
 )
 
 // Error define

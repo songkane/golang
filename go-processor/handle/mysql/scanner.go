@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"gitlab.local.com/golang/go-log"
+	golog "gitlab.local.com/golang/go-log"
 	"gitlab.local.com/golang/go-mysql"
 	"gitlab.local.com/golang/go-processor/processor"
 )

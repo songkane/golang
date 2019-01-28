@@ -8,7 +8,7 @@ import (
 	"github.com/Shopify/sarama"
 	cg "github.com/meitu/go-consumergroup"
 
-	"gitlab.local.com/golang/go-log"
+	golog "gitlab.local.com/golang/go-log"
 	"gitlab.local.com/golang/go-processor/processor"
 )
 
