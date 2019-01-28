@@ -37,7 +37,7 @@ func main() {
 	// 3. init logger
 	initLogger(flags.logDir)
 	// 4. init application context
-	init.AppInit(flags.confFile)
+	instance.AppInit(flags.confFile)
 	// 5. init HTTP Server
 	initHTTPServer(conf.Deploy.InternalAddr, flags.logDir)
 	// 6. start devops monitor server
