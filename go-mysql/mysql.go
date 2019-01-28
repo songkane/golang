@@ -169,7 +169,7 @@ func setDsnTimeoutParameters(dsn string, conf *Config) string {
 	return dsn
 }
 
-// master return master DB
+// Master return master DB
 func (m *Mysql) Master() *sql.DB {
 	return m.master
 }
