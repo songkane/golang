@@ -11,7 +11,7 @@ import (
 
 func TestMemcacheDLocker_Lock(t *testing.T) {
 	mcClient := memcache.Client{}
-	mcLocker := NewMemcachedDLocker(mcClient)
+	mcLocker := NewMemcacheDLocker(mcClient)
 
 	// case 1
 	key := "test_lock_key"
@@ -43,7 +43,7 @@ func TestMemcacheDLocker_Lock(t *testing.T) {
 
 func TestMemcacheDLocker_Unlock(t *testing.T) {
 	mcClient := memcache.Client{}
-	mcLocker := NewMemcachedDLocker(mcClient)
+	mcLocker := NewMemcacheDLocker(mcClient)
 
 	// case 1
 	key := "test_lock_key"

@@ -16,15 +16,15 @@ type LockRetryOptions struct {
 	Interval time.Duration //重试间隔
 }
 
-// MemcachedDLocker MC分布式锁
-type MemcachedDLocker struct {
+// MemcachedLocker MC分布式锁
+type MemcacheDLocker struct {
 	mcClient memcache.Client
 	ctx      context.Context
 }
 
-// NewMemcachedDLocker 新建一个locker对象
-func NewMemcachedDLocker(mc memcache.Client) *MemcachedDLocker {
-	return &MemcachedDLocker{
+// NewMemcacheDLocker 新建一个locker对象
+func NewMemcacheDLocker(mc memcache.Client) *MemcacheDLocker {
+	return &MemcacheDLocker{
 		mcClient: mc,
 		ctx:      context.Background(),
 	}
@@ -34,7 +34,7 @@ func NewMemcachedDLocker(mc memcache.Client) *MemcachedDLocker {
 // key: MC对应的key
 // expiration: 过期时间 单位秒
 // opt: 重试选项
-func (l *MemcachedDLocker) Lock(key string, expiration int32, opt LockRetryOptions) (bool, error) {
+func (l *MemcacheDLocker) Lock(key string, expiration int32, opt LockRetryOptions) (bool, error) {
 	// 默认重试次数为1
 	if opt.Count <= 0 {
 		opt.Count = 1
@@ -63,7 +63,7 @@ func (l *MemcachedDLocker) Lock(key string, expiration int32, opt LockRetryOptio
 // Unlock 释放某个key锁
 // key: MC对应的key
 // opt: 重试选项
-func (l *MemcachedDLocker) Unlock(key string, opt LockRetryOptions) error {
+func (l *MemcacheDLocker) Unlock(key string, opt LockRetryOptions) error {
 	// 默认重试次数为1
 	if opt.Count <= 0 {
 		opt.Count = 1
