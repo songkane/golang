@@ -16,7 +16,7 @@ type LockRetryOptions struct {
 	Interval time.Duration //重试间隔
 }
 
-// MemcachedLocker MC分布式锁
+// MemcacheDLocker MC分布式锁
 type MemcacheDLocker struct {
 	mcClient memcache.Client
 	ctx      context.Context
