@@ -58,10 +58,6 @@ job_build:
 job_rpm:
     stage: rpm
     # 定制过的centos镜像 安装了fpm和golaf
-
-
-
-
     only:
         - master
         - beta
