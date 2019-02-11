@@ -3,8 +3,8 @@
 package ticker
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 	"time"
 )
 
@@ -22,13 +22,13 @@ func printMinute() {
 
 func TestTicker(t *testing.T) {
 	// case 1
-	Ticker(time.Duration(100 * time.Millisecond), printMillisecond)
+	Ticker(time.Duration(100*time.Millisecond), printMillisecond)
 
 	// case 2
-	Ticker(time.Duration(2 * time.Second), printSecond)
+	Ticker(time.Duration(2*time.Second), printSecond)
 
 	// case 3
-	Ticker(time.Duration(1 * time.Minute), printMinute)
+	Ticker(time.Duration(1*time.Minute), printMinute)
 
 	time.Sleep(time.Duration(2 * time.Minute))
 }
