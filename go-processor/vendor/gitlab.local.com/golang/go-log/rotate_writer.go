@@ -1,12 +1,13 @@
 // Package golog rotate writer
 // Created by chenguolin 2018-12-26
-package go_log
+package golog
 
 import (
 	"errors"
 	"os"
 	"sync"
 	"time"
+	"path/filepath"
 )
 
 // RotateWriter writer
@@ -30,6 +31,13 @@ func NewRotateWriter(fileName, pattern string) (*RotateWriter, error) {
 		fileName:    fileName,
 		timePattern: pattern,
 		checkPoint:  time.Now().Format(pattern),
+	}
+
+	// mkdir
+	dir := filepath.Dir(fileName)
+	err := os.MkdirAll(dir, 0755)
+	if err != nil {
+		return nil, err
 	}
 
 	// Create creates the named file with mode 0666 (before umask), truncating

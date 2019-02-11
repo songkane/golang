@@ -1,6 +1,6 @@
 // Package golog HTTP access log
 // Created by chenguolin 2018-12-27
-package go_log
+package golog
 
 import (
 	"time"

@@ -1,10 +1,9 @@
-// Package mysql init
+// Package sql register mysql driver
 // Created by chenguolin 2019-01-07
-package mysql
+package sql
 
 import (
 	"github.com/go-sql-driver/mysql"
-	"gitlab.local.com/golang/go-mysql/sql"
 )
 
 const (
@@ -13,5 +12,5 @@ const (
 )
 
 func init() {
-	sql.Register(DefaultDriver, &mysql.MySQLDriver{})
+	Register(DefaultDriver, &mysql.MySQLDriver{})
 }

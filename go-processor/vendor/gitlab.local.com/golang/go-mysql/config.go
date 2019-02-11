@@ -85,12 +85,12 @@ func (c *Config) SetMaxIdleConnCount(maxIdleConnCount int) {
 	c.maxIdleConnCount = maxIdleConnCount
 }
 
-// SetMaxWaitTimeMs set max wait time ms
+// SetConnWaitTimeMs set max wait time ms
 func (c *Config) SetConnWaitTimeMs(connWaitTimeMs int) {
 	c.connWaitTimeMs = connWaitTimeMs
 }
 
-// SetMaxIdleTimeMs set max idle time ms
+// SetConnIdleTimeMs set max idle time ms
 func (c *Config) SetConnIdleTimeMs(connIdleTimeMs int) {
 	c.connIdleTimeMs = connIdleTimeMs
 }

@@ -1,4 +1,4 @@
-# gomysql
+# go-mysql
 golang mysql 封装支出主从服务, 读取默认情况使用slave，写入默认情况使用master。
 用户可以指定是否需要从master读取，调用`Mysql.Master()`函数即可保证从主库读取。
 

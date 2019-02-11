@@ -37,14 +37,6 @@
   branch = "master"
   name = "github.com/remeh/sizedwaitgroup"
 
-[[constraint]]
-  branch = "master"
-  name = "gitlab.local.com/golang/golog"
-
-[[constraint]]
-  branch = "master"
-  name = "gitlab.local.com/golang/gomysql"
-
 [prune]
   go-tests = true
   unused-packages = true
