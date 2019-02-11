@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	golog "gitlab.local.com/golang/go-log"
+	"gitlab.local.com/golang/go-log"
 )
 
 // LockRetryOptions 重试选项
@@ -18,12 +18,12 @@ type LockRetryOptions struct {
 
 // MemcacheDLocker MC分布式锁
 type MemcacheDLocker struct {
-	mcClient memcache.Client
+	mcClient *memcache.Client
 	ctx      context.Context
 }
 
 // NewMemcacheDLocker 新建一个locker对象
-func NewMemcacheDLocker(mc memcache.Client) *MemcacheDLocker {
+func NewMemcacheDLocker(mc *memcache.Client) *MemcacheDLocker {
 	return &MemcacheDLocker{
 		mcClient: mc,
 		ctx:      context.Background(),
