@@ -2,7 +2,7 @@
 // Created by chenguolin 2018-12-26
 // github: https://github.com/uber-go/zap
 // zap doc: https://godoc.org/go.uber.org/zap
-package go_log
+package golog
 
 import (
 	"errors"

@@ -1,6 +1,6 @@
 // Package golog common variable/const/type/struct/func ...
 // Created by chenguolin 2018-12-26
-package go_log
+package golog
 
 // EncoderType define
 type EncoderType int

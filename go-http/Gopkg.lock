@@ -19,11 +19,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:36fe9527deed01d2a317617e59304eb2c4ce9f8a24115bcc5c2e37b3aee5bae4"
+  digest = "1:38f00d85208f9f51e51063b0b90687d72f3ad61a7b6135d3ab6cb21e7b68dff2"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
+  revision = "a7658810eb745c2f22927282dea478278103a897"
 
 [[projects]]
   digest = "1:d5083934eb25e45d17f72ffa86cae3814f4a9d6c073c4f16b64147169b245606"
@@ -37,6 +37,22 @@
   pruneopts = "UT"
   revision = "b869fe1415e4b9eb52f247441830d502aece2d4d"
   version = "v1.3.0"
+
+[[projects]]
+  digest = "1:ad53d1f710522a38d1f0e5e0a55a194b1c6b2cd8e84313568e43523271f0cf62"
+  name = "github.com/go-redis/redis"
+  packages = [
+    ".",
+    "internal",
+    "internal/consistenthash",
+    "internal/hashtag",
+    "internal/pool",
+    "internal/proto",
+    "internal/util",
+  ]
+  pruneopts = "UT"
+  revision = "22be8a3eaf992c828cecb69dc07348313bf08d2e"
+  version = "v6.15.1"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -87,39 +103,52 @@
   version = "1.0.1"
 
 [[projects]]
-  digest = "1:03aa6e485e528acb119fb32901cf99582c380225fc7d5a02758e08b180cb56c3"
+  digest = "1:4f5513cb656b73fb4c4f77ccd482c8366d6290278564d2b1d3285f45e45f4a1e"
+  name = "github.com/oklog/ulid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "02a8604050d8466dd915307496174adb9be4593a"
+  version = "v1.3.1"
+
+[[projects]]
+  digest = "1:4887e9e89c80299aa520d718239809fdd2a47a9aa394909b169959bfbc424ddf"
   name = "github.com/ugorji/go"
   packages = ["codec"]
   pruneopts = "UT"
-  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
-  version = "v1.1.1"
+  revision = "8fd0f8d918c8f0b52d0af210a812ba882cc31a1e"
+  version = "v1.1.2"
 
 [[projects]]
   branch = "master"
-  digest = "1:b597fb2df330816d28c718c0bec51990a091d5481f6ad76ea950b151aeab53c8"
-  name = "gitlab.local.com/golang/gocommon"
-  packages = ["time"]
+  digest = "1:951605511d31d4eceeb57c83cdd29458b8ff22eeeae0677a0d9f6b2c7bcc7d1f"
+  name = "gitlab.local.com/golang/go-common"
+  packages = [
+    "logger",
+    "time",
+    "trace",
+    "ulid",
+  ]
   pruneopts = "UT"
-  revision = "803b72501fae99ed42314c8d23746982ff2df3b2"
+  revision = "fc477deeb7a57f34d20aa1781a642083a3c42621"
 
 [[projects]]
   branch = "master"
-  digest = "1:2a45426e9bf1d1b24cddffc98ed715c630f2b5825a90b0aab5be6aa1b6509c50"
-  name = "gitlab.local.com/golang/golog"
+  digest = "1:cb9dba58d92afc020796dfceb7ebe7c454d19323acb0c5756c10f7436120e6eb"
+  name = "gitlab.local.com/golang/go-log"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ac6bfd947cd799e8beb155560c5b7d69e602ec83"
+  revision = "3cb505e65e552e57856bd7247ccdbf5dfd4ef425"
 
 [[projects]]
   branch = "master"
-  digest = "1:b7323b864ae83b977ea422456732bfa11a41f8809023c20dc00e8b9d9ac926e6"
-  name = "gitlab.local.com/golang/gomysql"
+  digest = "1:7d5e66b162cedcfb46e4ab1193ee3d0ed5a9cb86465c976407875eb18b8e994c"
+  name = "gitlab.local.com/golang/go-mysql"
   packages = [
     ".",
     "sql",
   ]
   pruneopts = "UT"
-  revision = "a652f372e5721e8cb086597342324cba22680dd6"
+  revision = "79e34bc8256c456defd7441f931f675dc840f6e7"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -154,11 +183,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:db12953ac7a80656b159265fe13146959beaada45938a532f484a3aeb289462e"
+  digest = "1:8b466798e96432c23185ca32826702885299f94eb644c9a8dedb79771dff383a"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "c6b37f3e92850b723493d63fd35aad34e19e048d"
+  revision = "3b5209105503162ded1863c307ac66fec31120dd"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
@@ -193,10 +222,13 @@
     "github.com/gin-gonic/gin",
     "github.com/gin-gonic/gin/binding",
     "github.com/gin-gonic/gin/json",
-    "gitlab.local.com/golang/gocommon/time",
-    "gitlab.local.com/golang/golog",
-    "gitlab.local.com/golang/gomysql",
-    "gitlab.local.com/golang/gomysql/sql",
+    "github.com/go-redis/redis",
+    "gitlab.local.com/golang/go-common/logger",
+    "gitlab.local.com/golang/go-common/time",
+    "gitlab.local.com/golang/go-common/ulid",
+    "gitlab.local.com/golang/go-log",
+    "gitlab.local.com/golang/go-mysql",
+    "gitlab.local.com/golang/go-mysql/sql",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
