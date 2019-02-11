@@ -2,28 +2,28 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:c84ba230f85d1703f0772aa4b998dfcf2f5b9def2d26075fd934fc2d36b19fac"
+  digest = "1:d500496d898be3381278b5b323442f1060d7fead0d2159e126ff6a60da6f8ab0"
   name = "github.com/antchfx/htmlquery"
   packages = ["."]
   pruneopts = "UT"
-  revision = "db5c1236cbb43c58add1164a8b20d844683e537f"
+  revision = "b8d36292614567671decfe6f96c7b8c432d3249b"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:b14636acf57e2267f22f00a7e4afc35e7e94c2b443ca70c114bae644e1074a52"
+  digest = "1:7e4a9eaa42cb3b4cd48bd0cd2072a029fe25a47af20cfac529ea8c365f8559ac"
   name = "github.com/antchfx/xpath"
   packages = ["."]
   pruneopts = "UT"
-  revision = "4bbdf6db12aa76808d7b25445919943ed27fdcc0"
+  revision = "c8489ed3251e7d55ec2b7f18a2bc3a9a7222f0af"
 
 [[projects]]
   branch = "master"
-  digest = "1:36fe9527deed01d2a317617e59304eb2c4ce9f8a24115bcc5c2e37b3aee5bae4"
+  digest = "1:38f00d85208f9f51e51063b0b90687d72f3ad61a7b6135d3ab6cb21e7b68dff2"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
+  revision = "a7658810eb745c2f22927282dea478278103a897"
 
 [[projects]]
   digest = "1:d5083934eb25e45d17f72ffa86cae3814f4a9d6c073c4f16b64147169b245606"
@@ -79,31 +79,31 @@
   version = "1.0.1"
 
 [[projects]]
-  digest = "1:03aa6e485e528acb119fb32901cf99582c380225fc7d5a02758e08b180cb56c3"
+  digest = "1:4887e9e89c80299aa520d718239809fdd2a47a9aa394909b169959bfbc424ddf"
   name = "github.com/ugorji/go"
   packages = ["codec"]
   pruneopts = "UT"
-  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
-  version = "v1.1.1"
+  revision = "8fd0f8d918c8f0b52d0af210a812ba882cc31a1e"
+  version = "v1.1.2"
 
 [[projects]]
   branch = "master"
-  digest = "1:753d1cc8a1d6deb3fc19b6908f390704def1b8a14e4a268f29a526d49bc7daa0"
-  name = "gitlab.local.com/golang/gocommon"
+  digest = "1:fd765cda4549a97c845220067d92a56991de474b0b87d18948f608dac7474a19"
+  name = "gitlab.local.com/golang/go-common"
   packages = [
     "logger",
     "trace",
   ]
   pruneopts = "UT"
-  revision = "803b72501fae99ed42314c8d23746982ff2df3b2"
+  revision = "fc477deeb7a57f34d20aa1781a642083a3c42621"
 
 [[projects]]
   branch = "master"
-  digest = "1:2a45426e9bf1d1b24cddffc98ed715c630f2b5825a90b0aab5be6aa1b6509c50"
-  name = "gitlab.local.com/golang/golog"
+  digest = "1:cb9dba58d92afc020796dfceb7ebe7c454d19323acb0c5756c10f7436120e6eb"
+  name = "gitlab.local.com/golang/go-log"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ac6bfd947cd799e8beb155560c5b7d69e602ec83"
+  revision = "3cb505e65e552e57856bd7247ccdbf5dfd4ef425"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -138,7 +138,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5193d913046443e59093d66a97a40c51f4a5ea4ceba60f3b3ecf89694de5d16f"
+  digest = "1:4939e20b972c22cd512abff0bf6ed8fc0e3e86aeb836d016be3323c6a901d99d"
   name = "golang.org/x/net"
   packages = [
     "html",
@@ -146,15 +146,15 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "ed066c81e75eba56dd9bd2139ade88125b855585"
+  revision = "65e2d4e15006aab9813ff8769e768bbf4bb667a0"
 
 [[projects]]
   branch = "master"
-  digest = "1:f6f6d9d6f80c9e32acc0f4f3b904e0b9f5b18a7757c2ef941121bd79a10e7bdf"
+  digest = "1:8b466798e96432c23185ca32826702885299f94eb644c9a8dedb79771dff383a"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "11f53e03133963fb11ae0588e08b5e0b85be8be5"
+  revision = "3b5209105503162ded1863c307ac66fec31120dd"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
@@ -203,8 +203,8 @@
   analyzer-version = 1
   input-imports = [
     "github.com/antchfx/htmlquery",
-    "gitlab.local.com/golang/gocommon/logger",
-    "gitlab.local.com/golang/golog",
+    "gitlab.local.com/golang/go-common/logger",
+    "gitlab.local.com/golang/go-log",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

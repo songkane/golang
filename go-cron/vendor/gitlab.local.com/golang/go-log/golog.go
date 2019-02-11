@@ -1,6 +1,6 @@
 // Package golog API接口
 // Created by chenguolin 2018-12-26
-package go_log
+package golog
 
 import (
 	"fmt"
