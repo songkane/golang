@@ -8,39 +8,40 @@ import (
 	golog "gitlab.local.com/golang/go-log"
 )
 
-// TryUntilSuccess 无限重试直到成功
-// stepName 执行步骤名称
-// f 执行函数
-func TryUntilSuccess(stepName string, f func() (interface{}, error)) interface{} {
+// RunUntilSuccess 无限重试直到成功
+// @name 执行步骤名称
+// @f 执行函数
+func RunUntilSuccess(name string, f func() (interface{}, error)) interface{} {
 	for {
+		// run function
 		result, err := f()
-		if err != nil {
-			golog.Error("[executor - TryUntilSuccess] execute error",
-				golog.String("step", stepName),
-				golog.Object("error", err))
-			time.Sleep(3 * time.Second)
-		} else {
+		if err == nil {
 			return result
 		}
+
+		golog.Error("RunUntilSuccess execute error",
+			golog.String("name", name),
+			golog.Object("error", err))
+		// default sleep 3 second
+		time.Sleep(3 * time.Second)
 	}
 }
 
-// TryIgnoreErr 重试几次 忽略错误
-// stepName 执行步骤名称
-// f 执行函数
-func TryIgnoreErr(stepName string, f func() error, retryTimes int) {
-	for i := 0; i < retryTimes; i++ {
+// RunUntilSuccessNoRes 无限重试直到成功 没有返回结果
+// @name 执行步骤名称
+// @f 执行函数
+func RunUntilSuccessNoRes(name string, f func() error) {
+	for {
+		// run function
 		err := f()
-		if err != nil {
-			golog.Error("[executor - TryIgnoreErr] execute error",
-				golog.String("step", stepName),
-				golog.Object("error", err))
-
-			if i < retryTimes-1 {
-				time.Sleep(2 * time.Second)
-			}
-		} else {
+		if err == nil {
 			return
 		}
+
+		golog.Error("RunUntilSuccessNoRes execute error",
+			golog.String("name", name),
+			golog.Object("error", err))
+		// default sleep 3 second
+		time.Sleep(3 * time.Second)
 	}
 }

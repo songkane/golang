@@ -1,28 +1,31 @@
-// Package hex hex基础库
+// Package hex 16进制转换
 // Created by chenguolin 2018-11-17
 package hex
 
 import (
+	"errors"
+	"math/big"
+
 	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 
-// Hex2BigIntStr 16进制转成bigInt
-func Hex2BigIntStr(hex string) string {
+// Hex2BigInt hex 2 bigint
+func Hex2BigInt(hex string) (*big.Int, error) {
 	if hex == "" {
-		return string("")
+		return nil, errors.New("hex is empty")
 	}
 
 	// 1. 16进制转成bigint
 	bigInt, err := hexutil.DecodeBig(hex)
 	if err != nil {
-		return string("")
+		return nil, err
 	}
 
-	return bigInt.String()
+	return bigInt, nil
 }
 
-// Decode 16进制解码
-func Decode(hex string) string {
+// DecodeHex hex decode 2 string
+func DecodeHex(hex string) string {
 	if hex == "" {
 		return string("")
 	}

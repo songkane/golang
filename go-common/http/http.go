@@ -74,7 +74,8 @@ func request(httpClient *http.Client, method, url string, body []byte,
 	for i := 0; i < retry; i++ {
 		response, err := httpClient.Do(req)
 		if err != nil {
-			golog.Warn("httpClient.Do error", golog.Object("request", req),
+			golog.Warn("httpClient.Do error",
+				golog.Object("request", req),
 				golog.Object("error", err))
 			continue
 		}

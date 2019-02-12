@@ -40,13 +40,13 @@ func WriteKafka(kafkaProducer sarama.SyncProducer, msg *sarama.ProducerMessage, 
 		// 写消息
 		partition, offset, err := kafkaProducer.SendMessage(msg)
 		if err != nil {
-			golog.Warn("[kafka - WriteKafka] write 2 kakfa failed.",
+			golog.Warn("WriteKafka write 2 kakfa failed.",
 				golog.Int("retryTimes", tryTimes),
 				golog.Object("message", msg),
 				golog.Object("Error", err))
 			time.Sleep(time.Duration(2*tryTimes) * time.Second)
 		} else {
-			golog.Info("[kafka - WriteKafka] write 2 kafka sucessful ~",
+			golog.Info("WriteKafka write 2 kafka sucessful ~",
 				golog.String("topic", msg.Topic),
 				golog.Object("partition", partition),
 				golog.Object("offset", offset),
@@ -55,5 +55,5 @@ func WriteKafka(kafkaProducer sarama.SyncProducer, msg *sarama.ProducerMessage, 
 		}
 	}
 
-	return errors.New("[kafka - WriteKafka] write 2 kafka failed ~ " + "topic: " + msg.Topic)
+	return errors.New("WriteKafka write 2 kafka failed ~ " + "topic: " + msg.Topic)
 }

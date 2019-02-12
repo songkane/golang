@@ -34,10 +34,10 @@ func init() {
 	}
 }
 
-// UID2Base62 把一个uid编码成6位 base62字符
+// ID2Base62 把一个id编码成6位 base62字符
 // 返回空串表示编码失败
-func UID2Base62(uid int64) string {
-	if uid <= 0 {
+func ID2Base62(id int64) string {
+	if id <= 0 {
 		return string("")
 	}
 
@@ -45,7 +45,7 @@ func UID2Base62(uid int64) string {
 	// 先加上盐 =》 A
 	// 再异或另外一个盐 =》B
 	// B =》base62 编码
-	number := (uid + addSaltValue) ^ xorSaltValue
+	number := (id + addSaltValue) ^ xorSaltValue
 
 	// 1. 10进制转62进制
 	result := make([]byte, 0)
@@ -74,9 +74,9 @@ func UID2Base62(uid int64) string {
 	return strings.Repeat("0", needAddZeroCnt) + string(result)
 }
 
-// Base622Uid 把一个6位base62编码字符串反解成uid
+// Base622ID 把一个6位base62编码字符串反解成id
 // 返回-1表示解码失败
-func Base622Uid(base62 string) int64 {
+func Base622ID(base62 string) int64 {
 	if base62 == "" {
 		return -1
 	}

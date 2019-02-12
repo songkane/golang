@@ -1,4 +1,4 @@
-// Package file 文件操作封装
+// Package file 文件操作
 // Created by chenguolin 2018-02-11
 package file
 

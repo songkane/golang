@@ -18,6 +18,7 @@ const (
 	HTTPSigSdkAppSecret = "abcdefghijklnmop"
 	// HTTPSigSdkAddKey 签名盐
 	HTTPSigSdkAddKey = "abcdefghijklnmop"
+
 	// Sig 字段
 	Sig = "sig"
 	// SigTime 字段
