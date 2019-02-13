@@ -15,6 +15,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gitlab.local.com/golang/go-common/logger"
 	"gitlab.local.com/golang/go-common/time"
+	"gitlab.local.com/golang/go-healthcheck"
 	"gitlab.local.com/golang/go-http/config"
 	"gitlab.local.com/golang/go-http/instance"
 	golog "gitlab.local.com/golang/go-log"
@@ -98,6 +99,9 @@ func initHTTPServer(listenAddr string, accessLogDir string) {
 	// 2. golog handler write http access log
 	engine.Use(gin.Recovery())
 	engine.Use(golog.AccessLogFunc(log))
+
+	// register health and pprof
+	healthcheck.RegisterHealthCheck(engine)
 
 	// set Router
 	SetupRoute(engine)

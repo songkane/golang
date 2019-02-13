@@ -17,4 +17,14 @@ API分成2个部分
 4. 删除用户: curl "http://localhost:8080/user/delete.json" -d "uid=111"
 
 ## 开发运维API
-1. 服务状态检查: curl "http://localhost:9010/devops/status"
+1. 服务状态检查: curl "http://localhost:9010/devops/health"
+2. 服务性能分析
+    * curl "http://localhost:9010/debug/pprof/allocs"
+    * curl "http://localhost:9010/debug/pprof/block"
+    * curl "http://localhost:9010/debug/pprof/cmdline"
+    * curl "http://localhost:9010/debug/pprof/goroutine"
+    * curl "http://localhost:9010/debug/pprof/heap"
+    * curl "http://localhost:9010/debug/pprof/mutex"
+    * curl "http://localhost:9010/debug/pprof/profile"
+    * curl "http://localhost:9010/debug/pprof/threadcreate"
+    * curl "http://localhost:9010/debug/pprof/trace"
