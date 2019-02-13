@@ -85,17 +85,25 @@ var (
 
 // initHTTPServer 初始化HTTPServer
 func initHTTPServer(listenAddr string, accessLogDir string) {
-	engine := gin.New()
-	// gin goroutine recover
-	engine.Use(gin.Recovery())
 	// set access log
 	log, err := logger.NewGolog(accessLogDir, AccessLogName, TimePattern)
 	if err != nil {
 		panic(fmt.Sprintf("initHTTPServer logger.NewGolog error:%s", err.Error()))
 	}
+
+	// new gin engine
+	engine := gin.New()
+
+	// set gin global middleware handler
+	// 1. recovery handler default write 2 os.stderr
+	// 2. golog handler write http access log
+	engine.Use(gin.Recovery())
 	engine.Use(golog.AccessLogFunc(log))
+
 	// set Router
 	SetupRoute(engine)
+
+	// start HTTP Server
 	go func() {
 		httpServer = &http.Server{
 			Addr:    listenAddr,

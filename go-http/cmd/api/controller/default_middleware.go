@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// DefaultMiddleware 默认中间件
+// DefaultMiddleware 业务通用中间件
 func DefaultMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// TODO 业务逻辑 一般会包括以下几点

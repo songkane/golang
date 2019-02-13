@@ -15,8 +15,8 @@ import (
 
 // SetupRoute 设置路由
 func SetupRoute(r *gin.Engine) {
-	// 1. 通用控制器前置操作，用于获取通用参数等
-	// 全局的中间件
+	// 1. 设置业务全局的中间件
+	// 这里的middleware 执行顺序在全局的recovery和accesslog middleware
 	r.Use(controller.DefaultMiddleware())
 
 	// 2. router设置
