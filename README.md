@@ -7,8 +7,9 @@ golang 相关代码仓库
 3. go-common: golang 基础代码 公共库
 4. go-cron: golang 定时任务
 5. go-processor: golang 处理机
-6. go-http: golang HTTP server 
-7. telegram-bot-api: telegram机器人
+6. go-http: golang HTTP server
+7. go-healthcheck: golang HTTP health pprof check
+8. telegram-bot-api: telegram机器人
 
 # dependency
 1. update: dep ensure -update -v
