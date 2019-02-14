@@ -13,7 +13,6 @@ import (
 	t "time"
 
 	"github.com/gin-gonic/gin"
-
 	"gitlab.local.com/golang/go-common/logger"
 	"gitlab.local.com/golang/go-common/time"
 	"gitlab.local.com/golang/go-healthcheck"
@@ -40,13 +39,8 @@ func main() {
 	initLogger(flags.logDir)
 	// 4. init application context
 	instance.AppInit(flags.confFile)
-	// 5. init HTTP Server
-	initHTTPServer(conf.Deploy.APIAddr, flags.logDir)
-	// 6. start devops monitor server
-	// TODO (@cgl)
-	// devops.StartDevopsMonitorServer(conf.Deploy.DevopsAddr)
-	// 7. block until HTTP Server shutdown
-	blockUntilShutdown()
+	// 5. start HTTP Server
+	startHTTPServer(conf.Deploy.APIAddr, flags.logDir)
 }
 
 // Flags cmd args
@@ -79,13 +73,8 @@ func initLogger(logDir string) {
 	golog.SetLogger(log)
 }
 
-// HTTPServer 变量
-var (
-	httpServer *http.Server
-)
-
-// initHTTPServer 初始化HTTPServer
-func initHTTPServer(listenAddr string, accessLogDir string) {
+// startHTTPServer start HTTP Server
+func startHTTPServer(listenAddr string, accessLogDir string) {
 	// set access log
 	log, err := logger.NewGolog(accessLogDir, AccessLogName, TimePattern)
 	if err != nil {
@@ -108,6 +97,7 @@ func initHTTPServer(listenAddr string, accessLogDir string) {
 	SetupRoute(engine)
 
 	// start HTTP Server
+	var httpServer *http.Server
 	go func() {
 		httpServer = &http.Server{
 			Addr:    listenAddr,
@@ -120,33 +110,28 @@ func initHTTPServer(listenAddr string, accessLogDir string) {
 			os.Exit(0)
 		}
 	}()
-}
 
-// blockUntilShutdown
-func blockUntilShutdown() {
-	stopSignalChan := make(chan os.Signal, 1)
-	signal.Notify(stopSignalChan, os.Interrupt, os.Kill, syscall.SIGTERM, syscall.SIGINT)
+	// block until receive signal
+	shutdown := make(chan struct{})
+	registerSignal(shutdown)
+	<-shutdown
 
-	sig := <-stopSignalChan
-	if sig != nil {
-		fmt.Println(time.GetCurrentTime(), "got system signal:"+sig.String()+", going to shutdown.")
-		// wait resource remove from nginx upstreams
-		time.Sleep(t.Second * 10)
-
-		// 关闭http服务
-		err := shutdownHTTPServer()
-		if err != nil {
-			fmt.Fprintln(os.Stderr, "http server graceful shutdown failed", err)
-		} else {
-			fmt.Println(time.GetCurrentTime(), "http server graceful shutdown successfully.")
-		}
-	}
-}
-
-// shutdownHTTPServer
-func shutdownHTTPServer() error {
-	// Create a deadline to wait for server shutdown.
+	// shutdown HTTP server
 	ctx, cancel := context.WithTimeout(context.Background(), 5*t.Second)
 	defer cancel()
-	return httpServer.Shutdown(ctx)
+	httpServer.Shutdown(ctx)
+	fmt.Println(time.GetCurrentTime(), "HTTP server shutdown successfully ~")
+}
+
+// registerSignal register shutdown signal
+func registerSignal(shutdown chan struct{}) {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		for sig := range c {
+			close(shutdown)
+			fmt.Println(time.GetCurrentTime(), "got system signal:"+sig.String()+", going to shutdown ...")
+			return
+		}
+	}()
 }
