@@ -82,6 +82,8 @@ func startHTTPServer(listenAddr string, accessLogDir string) {
 	}
 
 	// new gin engine
+	// set release mode
+	gin.SetMode(gin.ReleaseMode)
 	engine := gin.New()
 
 	// set gin global middleware handler
@@ -97,17 +99,15 @@ func startHTTPServer(listenAddr string, accessLogDir string) {
 	SetupRoute(engine)
 
 	// start HTTP Server
-	var httpServer *http.Server
+	httpServer := &http.Server{
+		Addr:    listenAddr,
+		Handler: engine,
+	}
+	fmt.Println(time.GetCurrentTime(), "Start HTTP server listening on "+listenAddr)
 	go func() {
-		httpServer = &http.Server{
-			Addr:    listenAddr,
-			Handler: engine,
-		}
-		fmt.Println(time.GetCurrentTime(), "listening and serving HTTP on "+listenAddr)
-		err := httpServer.ListenAndServe()
+		err = httpServer.ListenAndServe()
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "http server start failed:", err)
-			os.Exit(0)
+			panic(fmt.Sprintf("HTTP Server start failed: %s", err.Error()))
 		}
 	}()
 
@@ -120,18 +120,19 @@ func startHTTPServer(listenAddr string, accessLogDir string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*t.Second)
 	defer cancel()
 	httpServer.Shutdown(ctx)
-	fmt.Println(time.GetCurrentTime(), "HTTP server shutdown successfully ~")
+	fmt.Println(time.GetCurrentTime(), "Shutdown HTTP server successful ~")
 }
 
 // registerSignal register shutdown signal
 func registerSignal(shutdown chan struct{}) {
-	c := make(chan os.Signal, 1)
+	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM)
+
 	go func() {
 		for sig := range c {
 			close(shutdown)
 			fmt.Println(time.GetCurrentTime(), "got system signal:"+sig.String()+", going to shutdown ...")
-			return
+			break
 		}
 	}()
 }
