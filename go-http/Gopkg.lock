@@ -120,43 +120,43 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:951605511d31d4eceeb57c83cdd29458b8ff22eeeae0677a0d9f6b2c7bcc7d1f"
+  digest = "1:51d4fa27b82a395c6fa1291ae694e74f563dcd45692f9a758b96384449240fa7"
   name = "gitlab.local.com/golang/go-common"
   packages = [
     "logger",
     "time",
     "trace",
-    "ulid",
+    "uuid",
   ]
   pruneopts = "UT"
-  revision = "a6946a1f24ab42d7fc03265e0a0178445e6ea3df"
+  revision = "10f2c8edb727d1a45a78380e20b9df7e85edf8f7"
 
 [[projects]]
   branch = "master"
-  digest = "1:954c69f41e912554bab8440b125cfe6624195fbb14201701bade84e67a4db9f4"
+  digest = "1:d89d264549c08e44f4dfe0899dce65e6db16ead54a0d48a54a90b68b15b42d7a"
   name = "gitlab.local.com/golang/go-healthcheck"
   packages = ["."]
   pruneopts = "UT"
-  revision = "31aabcf7ea22eeb4b52095a35aef49abc6ad80d2"
+  revision = "ca3b95fed6ae77ba39e11b6a0918c79883b0d88e"
 
 [[projects]]
   branch = "master"
-  digest = "1:ef6d3b8e162c9aa418f73842999f9b0c4617dc5264ada0659b0e9b25fdf59793"
+  digest = "1:b6714c294dafca0924f1abd3755582cf177d30ca0c7f5ff3d29e74ca0ed1940f"
   name = "gitlab.local.com/golang/go-log"
   packages = ["."]
   pruneopts = "UT"
-  revision = "a7474e748071eba8b926afe7c3b0dfeb49f3d897"
+  revision = "42b42d866ac65f414d75c0ab39d6be7d5c23acf1"
 
 [[projects]]
   branch = "master"
-  digest = "1:7d5e66b162cedcfb46e4ab1193ee3d0ed5a9cb86465c976407875eb18b8e994c"
+  digest = "1:107d0c45db0cf86fdd8354d8dfae5868f0fa5a1519366306e1d07ab30a112c22"
   name = "gitlab.local.com/golang/go-mysql"
   packages = [
     ".",
     "sql",
   ]
   pruneopts = "UT"
-  revision = "840189b2fa9a547829aa9099f13fef3c68e95cf5"
+  revision = "fdbb375a2d3f2192144a463bece30e28b43a955d"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -191,11 +191,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8b466798e96432c23185ca32826702885299f94eb644c9a8dedb79771dff383a"
+  digest = "1:8207c052fb873f83c61a5aa16f6add5feb9881eda2112b56f69fd3b9e7f55c3f"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "3b5209105503162ded1863c307ac66fec31120dd"
+  revision = "e77772198cdc3dbfcf7f2de96630204df9fd3a0b"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
@@ -233,7 +233,7 @@
     "github.com/go-redis/redis",
     "gitlab.local.com/golang/go-common/logger",
     "gitlab.local.com/golang/go-common/time",
-    "gitlab.local.com/golang/go-common/ulid",
+    "gitlab.local.com/golang/go-common/uuid",
     "gitlab.local.com/golang/go-healthcheck",
     "gitlab.local.com/golang/go-log",
     "gitlab.local.com/golang/go-mysql",

@@ -4,11 +4,17 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"gitlab.local.com/golang/go-common/uuid"
+	"gitlab.local.com/golang/go-http/cmd/internal/request"
 )
 
 // DefaultMiddleware 业务通用中间件
 func DefaultMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		// set request id
+		reqID := uuid.NewUlid()
+		c.Set(request.RequestIDKey, reqID)
+
 		// TODO 业务逻辑 一般会包括以下几点
 
 		// 1. 特殊url过滤

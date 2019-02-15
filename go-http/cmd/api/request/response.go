@@ -5,7 +5,7 @@ package request
 import (
 	"github.com/gin-gonic/gin"
 
-	"gitlab.local.com/golang/go-common/ulid"
+	"gitlab.local.com/golang/go-common/uuid"
 )
 
 const (
@@ -44,14 +44,15 @@ func APISuccess(c *gin.Context, response interface{}) {
 
 // GetRequestID 获取请求ID
 func GetRequestID(c *gin.Context) string {
+	// 先从context里面获取 如果有直接返回
 	reqIDValue, isExist := c.Get(RequestIDKey)
-	var reqID string
 	if isExist {
-		reqID = reqIDValue.(string)
-	} else {
-		//生成RequestID
-		reqID = ulid.NewUlid()
-		c.Set(RequestIDKey, reqID)
+		return reqIDValue.(string)
 	}
+
+	// 生成RequestID
+	reqID := uuid.NewUlid()
+	c.Set(RequestIDKey, reqID)
+
 	return reqID
 }
