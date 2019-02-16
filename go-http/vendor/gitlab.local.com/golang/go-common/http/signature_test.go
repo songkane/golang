@@ -15,11 +15,11 @@ func TestGenSignature(t *testing.T) {
 	c.Request = &http.Request{}
 	c.Request.URL = &url.URL{}
 	c.Request.URL.Path = "http://localhost:8080/user/info.json"
-	c.Set("sigTime", "1234567890")
 
 	form := make(map[string][]string)
 	form["id"] = []string{"123456"}
 	form["name"] = []string{"chenguolin"}
+	form["sigTime"] = []string{"1234567890"}
 	c.Request.Form = form
 
 	sig := GenSignature(c)

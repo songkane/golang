@@ -76,6 +76,8 @@ func CheckSignature() gin.HandlerFunc {
 			request.APIError(c, errLog)
 			return
 		}
+		// set sigTime
+		c.Set("sigTime", sigTimeStr)
 
 		// 4. check signature
 		signature := params.Get("signature")
@@ -138,6 +140,7 @@ func CheckAuthorization() gin.HandlerFunc {
 		// 4. check authrization
 		c.Set("publicKey", pubk)
 		c.Set("signature", sig)
+		c.Set("sigTime", sigTimeStr)
 
 		// 下一个handler
 		c.Next()

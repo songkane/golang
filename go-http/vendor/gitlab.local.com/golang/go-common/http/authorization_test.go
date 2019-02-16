@@ -34,9 +34,9 @@ func TestVerifyAuthorization(t *testing.T) {
 	form := make(map[string][]string)
 	form["id"] = []string{"123456"}
 	form["name"] = []string{"chenguolin"}
+	form["sigTime"] = []string{"1234567890"}
 	c.Request.Form = form
 
-	c.Set("sigTime", "1234567890")
 	c.Set("publicKey", testPublicKey)
 	c.Set("signature", string(sig))
 
