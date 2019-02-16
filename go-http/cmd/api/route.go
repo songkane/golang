@@ -7,17 +7,18 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"gitlab.local.com/golang/go-http/cmd/api/controller"
 	"gitlab.local.com/golang/go-http/cmd/api/controller/user"
-
-	"github.com/gin-gonic/gin"
 )
 
 // SetupRoute 设置路由
 func SetupRoute(r *gin.Engine) {
-	// 1. 设置业务全局中间件
-	// 这里的middleware 执行顺序在全局的recovery和accesslog middleware
-	r.Use(controller.DefaultMiddleware())
+	// 1. 设置业务相关的中间件，可以是全局的也可以是某一组APi特有
+	r.Use(controller.SetRequestID())
+	r.Use(controller.SetCommonParams())
+	r.Use(controller.CheckSignature())
+	r.Use(controller.CheckAuthorization())
 
 	// 2. router设置
 	// 使用分组设置router
