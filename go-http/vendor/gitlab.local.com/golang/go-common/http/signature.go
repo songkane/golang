@@ -33,8 +33,12 @@ func GenSignature(c *gin.Context) string {
 	path := strings.TrimLeft(c.Request.URL.Path, "/")
 
 	// 2. sort form values
+	sigTime := c.GetString("sigTime")
 	// content-type muse be application/x-www-form-urlencoded
 	params := make([]string, 0, 10)
+	// sigTime append 2 params
+	params = append(params, sigTime)
+
 	form := c.Request.Form
 	for k, v := range form {
 		// filter sig field

@@ -171,11 +171,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ef6d3b8e162c9aa418f73842999f9b0c4617dc5264ada0659b0e9b25fdf59793"
+  digest = "1:b6714c294dafca0924f1abd3755582cf177d30ca0c7f5ff3d29e74ca0ed1940f"
   name = "gitlab.local.com/golang/go-log"
   packages = ["."]
   pruneopts = "UT"
-  revision = "a7474e748071eba8b926afe7c3b0dfeb49f3d897"
+  revision = "42b42d866ac65f414d75c0ab39d6be7d5c23acf1"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -210,11 +210,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8b466798e96432c23185ca32826702885299f94eb644c9a8dedb79771dff383a"
+  digest = "1:8207c052fb873f83c61a5aa16f6add5feb9881eda2112b56f69fd3b9e7f55c3f"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "3b5209105503162ded1863c307ac66fec31120dd"
+  revision = "d0b11bdaac8adb652bff00e49bcacf992835621a"
 
 [[projects]]
   digest = "1:cbc72c4c4886a918d6ab4b95e347ffe259846260f99ebdd8a198c2331cf2b2e9"

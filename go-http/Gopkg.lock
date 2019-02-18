@@ -120,16 +120,18 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:51d4fa27b82a395c6fa1291ae694e74f563dcd45692f9a758b96384449240fa7"
+  digest = "1:1a5d7a44a834993ef3ee19320b38d463b48e0885f45ab8c9fe14156b5c0d0b5b"
   name = "gitlab.local.com/golang/go-common"
   packages = [
+    "http",
     "logger",
+    "rsa",
     "time",
     "trace",
     "uuid",
   ]
   pruneopts = "UT"
-  revision = "10f2c8edb727d1a45a78380e20b9df7e85edf8f7"
+  revision = "f11f9192737e087025a7521ff2cb7e6531046a46"
 
 [[projects]]
   branch = "master"
@@ -195,7 +197,7 @@
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "e77772198cdc3dbfcf7f2de96630204df9fd3a0b"
+  revision = "d0b11bdaac8adb652bff00e49bcacf992835621a"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
@@ -231,6 +233,7 @@
     "github.com/gin-gonic/gin/binding",
     "github.com/gin-gonic/gin/json",
     "github.com/go-redis/redis",
+    "gitlab.local.com/golang/go-common/http",
     "gitlab.local.com/golang/go-common/logger",
     "gitlab.local.com/golang/go-common/time",
     "gitlab.local.com/golang/go-common/uuid",

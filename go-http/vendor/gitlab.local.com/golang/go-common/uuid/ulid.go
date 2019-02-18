@@ -1,4 +1,4 @@
-// Package ulid ulid生成基础库
+// Package uuid ulid生成基础库
 // Created by chenguolin 2018-11-16
 // https://github.com/oklog/ulid
 package uuid

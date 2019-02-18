@@ -17,10 +17,13 @@ func VerifyAuthorization(c *gin.Context) error {
 	// 1. get public key and signature
 	pubk := c.GetString("publicKey")
 	sig := c.GetString("signature")
+	sigTime := c.GetString("sigTime")
 
 	// 2. sort form values
 	// content-type muse be application/x-www-form-urlencoded
 	params := make([]string, 0, 10)
+	// sigTime append 2 params
+	params = append(params, sigTime)
 	form := c.Request.Form
 	for k, v := range form {
 		// filter sig field
