@@ -9,7 +9,8 @@ golang 相关代码仓库
 5. go-processor: golang 处理机
 6. go-http: golang HTTP server
 7. go-healthcheck: golang HTTP health pprof check
-8. telegram-bot-api: telegram机器人
+8. go-lrucache: golang lru cache
+9. telegram-bot-api: telegram机器人
 
 # dependency
 1. update: dep ensure -update -v
