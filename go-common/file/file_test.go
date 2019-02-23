@@ -65,3 +65,70 @@ func TestRemove(t *testing.T) {
 		t.Fatal("TestRemove case 2 failed ~")
 	}
 }
+
+func TestExists(t *testing.T) {
+	// case 1
+	suc := Exists("")
+	if suc == true {
+		t.Fatal("TestExists case 1 suc == true")
+	}
+
+	// case 2
+	dir, _ := os.Getwd()
+	fileName := dir + "/test.dat"
+	suc = Exists(fileName)
+	if suc == true {
+		t.Fatal("TestExists case 2 suc == true")
+	}
+
+	// case 3
+	fileName = dir + "/file.go"
+	suc = Exists(fileName)
+	if suc != true {
+		t.Fatal("TestExists case 3 suc != true")
+	}
+}
+
+func TestIsDir(t *testing.T) {
+	// case 1
+	suc := IsDir("")
+	if suc == true {
+		t.Fatal("TestIsDir case 1 suc == true")
+	}
+
+	// case 2
+	dir, _ := os.Getwd()
+	fileName := dir + "/test.dat"
+	suc = IsDir(fileName)
+	if suc == true {
+		t.Fatal("TestIsDir case 2 suc == true")
+	}
+
+	// case 3
+	suc = IsDir(dir)
+	if suc != true {
+		t.Fatal("TestIsDir case 3 suc != true")
+	}
+}
+
+func TestIsFile(t *testing.T) {
+	// case 1
+	suc := IsFile("")
+	if suc != true {
+		t.Fatal("IsFile case 1 suc != true")
+	}
+
+	// case 2
+	dir, _ := os.Getwd()
+	fileName := dir + "/test.dat"
+	suc = IsFile(fileName)
+	if suc != true {
+		t.Fatal("IsFile case 2 suc != true")
+	}
+
+	// case 3
+	suc = IsFile(dir)
+	if suc == true {
+		t.Fatal("IsFile case 3 suc == true")
+	}
+}
