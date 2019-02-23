@@ -26,6 +26,7 @@ func NewMail(user, password, smtpHost string, port int) *Mail {
 	}
 }
 
+// Send mail
 func (m *Mail) Send(receiver []string, subject, data string) error {
 	if receiver == nil {
 		return fmt.Errorf("receiver is nil")
