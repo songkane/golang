@@ -18,6 +18,7 @@ import (
 	"gitlab.local.com/golang/go-healthcheck"
 	"gitlab.local.com/golang/go-http/config"
 	"gitlab.local.com/golang/go-http/instance"
+	"gitlab.local.com/golang/go-http/version"
 	golog "gitlab.local.com/golang/go-log"
 )
 
@@ -33,6 +34,12 @@ const (
 func main() {
 	// 1. parse cmd args
 	flags := parseFlags()
+	// 是否只打印版本信息
+	if flags.logDir == "" || flags.confFile == "" || flags.version {
+		printVersion()
+		return
+	}
+
 	// 2. init config file
 	conf := initConf(flags.confFile)
 	// 3. init logger
@@ -43,17 +50,28 @@ func main() {
 	startHTTPServer(conf.Deploy.APIAddr, flags.logDir)
 }
 
+// printVersion print version
+func printVersion() {
+	fmt.Println("")
+	fmt.Println("Usage: ./go-http-api -log_dir=./logs -conf=../conf/config.toml")
+	fmt.Println("")
+	fmt.Printf("version: %s\nbuilt at: %s\ncommit: %s\n", version.Version, version.BuildDate, version.BuildCommit)
+	fmt.Println("")
+}
+
 // Flags cmd args
 type Flags struct {
 	logDir   string
 	confFile string
+	version  bool
 }
 
 // parseFlags 启动命令参数解析
 func parseFlags() *Flags {
 	flags := new(Flags)
-	flag.StringVar(&flags.logDir, "log_dir", "./logs", "log dir")
-	flag.StringVar(&flags.confFile, "conf", "./conf/config.toml", "config file")
+	flag.StringVar(&flags.logDir, "log", "", "log dir")
+	flag.StringVar(&flags.confFile, "conf", "", "config file")
+	flag.BoolVar(&flags.version, "version", false, "version")
 	flag.Parse()
 	return flags
 }

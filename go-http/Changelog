@@ -1,0 +1,6 @@
+version 0.0.1
+- initial version
+
+version 0.0.2
+- 新增-ldflags -X动态设置变量
+
