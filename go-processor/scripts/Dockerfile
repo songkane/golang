@@ -9,5 +9,4 @@ FROM golang:latest
 MAINTAINER chenguolin
 
 # get golint
-RUN go get github.com/golang/lint/golint
-
+COPY golint $GOPATH/bin
