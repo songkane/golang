@@ -11,6 +11,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:d6afaeed1502aa28e80a4ed0981d570ad91b2579193404256ce672ed0a609e0d"
+  name = "github.com/beorn7/perks"
+  packages = ["quantile"]
+  pruneopts = "UT"
+  revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
+
+[[projects]]
+  branch = "master"
   digest = "1:f98385a9b77f6cacae716a59c04e6ac374d101466d4369c4e8cc706a39c4bb2e"
   name = "github.com/bradfitz/gomemcache"
   packages = ["memcache"]
@@ -19,11 +27,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:44ff04468ffd7a0d0e690065cb330823ebea495bc9e5c8754b86021c2233025b"
+  digest = "1:a4b5a6b32f33323c7850fae4ec085a0fbac3be93c057b6b8cef5bcabe24645ac"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "996076df5b3348fd04ff02aa5f9abd971c2d2d28"
+  revision = "5545eab6dad3bbbd6c5ae9186383c2a9d23c0dae"
 
 [[projects]]
   digest = "1:d5083934eb25e45d17f72ffa86cae3814f4a9d6c073c4f16b64147169b245606"
@@ -67,24 +75,32 @@
   name = "github.com/golang/protobuf"
   packages = ["proto"]
   pruneopts = "UT"
-  revision = "c823c79ea1570fb5ff454033735a8e68575d1d0f"
-  version = "v1.3.0"
+  revision = "b5d812f8a3706043e23a9cd5babf2e5423744d30"
+  version = "v1.3.1"
 
 [[projects]]
-  digest = "1:3e551bbb3a7c0ab2a2bf4660e7fcad16db089fdcfbb44b0199e62838038623ea"
+  digest = "1:f5a2051c55d05548d2d4fd23d244027b59fbd943217df8aa3b5e170ac2fd6e1b"
   name = "github.com/json-iterator/go"
   packages = ["."]
   pruneopts = "UT"
-  revision = "1624edc4454b8682399def8740d46db5e4362ba4"
-  version = "v1.1.5"
+  revision = "0ff49de124c6f76f8494e194af75bde0f1a49a29"
+  version = "v1.1.6"
 
 [[projects]]
-  digest = "1:3bb9c8451d199650bfd303e0068d86f135952fead374ad87c09a9b8a2cc4bd7c"
+  digest = "1:e150b5fafbd7607e2d638e4e5cf43aa4100124e5593385147b0a74e2733d8b0d"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
   pruneopts = "UT"
-  revision = "369ecd8cea9851e459abb67eb171853e3986591e"
-  version = "v0.0.6"
+  revision = "c2a7a6ca930a4cd0bc33a3f298eb71960732a3a7"
+  version = "v0.0.7"
+
+[[projects]]
+  digest = "1:ff5ebae34cfbf047d505ee150de27e60570e8c394b3b8fdbb720ff6ac71985fc"
+  name = "github.com/matttproud/golang_protobuf_extensions"
+  packages = ["pbutil"]
+  pruneopts = "UT"
+  revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+  version = "v1.0.1"
 
 [[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"
@@ -111,6 +127,52 @@
   version = "v1.3.1"
 
 [[projects]]
+  digest = "1:93a746f1060a8acbcf69344862b2ceced80f854170e1caae089b2834c5fbf7f4"
+  name = "github.com/prometheus/client_golang"
+  packages = [
+    "prometheus",
+    "prometheus/internal",
+    "prometheus/promhttp",
+  ]
+  pruneopts = "UT"
+  revision = "505eaef017263e299324067d40ca2c48f6a2cf50"
+  version = "v0.9.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:2d5cd61daa5565187e1d96bae64dbbc6080dacf741448e9629c64fd93203b0d4"
+  name = "github.com/prometheus/client_model"
+  packages = ["go"]
+  pruneopts = "UT"
+  revision = "fd36f4220a901265f90734c3183c5f0c91daa0b8"
+
+[[projects]]
+  digest = "1:35cf6bdf68db765988baa9c4f10cc5d7dda1126a54bd62e252dbcd0b1fc8da90"
+  name = "github.com/prometheus/common"
+  packages = [
+    "expfmt",
+    "internal/bitbucket.org/ww/goautoneg",
+    "model",
+  ]
+  pruneopts = "UT"
+  revision = "cfeb6f9992ffa54aaa4f2170ade4067ee478b250"
+  version = "v0.2.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:0573a48c92e778ad732779bf1e5064a5085ab3fbd236ad71e53cab5753ef3e6e"
+  name = "github.com/prometheus/procfs"
+  packages = [
+    ".",
+    "internal/util",
+    "iostats",
+    "nfs",
+    "xfs",
+  ]
+  pruneopts = "UT"
+  revision = "e56f2e22fc761e82a34aca553f6725e2aff4fe6c"
+
+[[projects]]
   digest = "1:4887e9e89c80299aa520d718239809fdd2a47a9aa394909b169959bfbc424ddf"
   name = "github.com/ugorji/go"
   packages = ["codec"]
@@ -131,7 +193,7 @@
     "uuid",
   ]
   pruneopts = "UT"
-  revision = "c2dfdc9d6adfe14968ecd10b6a837bdc5a019bbf"
+  revision = "c45277fe13afd48ae0cbc2c1b68aadfa866fbe24"
 
 [[projects]]
   branch = "master"
@@ -139,7 +201,7 @@
   name = "gitlab.local.com/golang/go-healthcheck"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ca3b95fed6ae77ba39e11b6a0918c79883b0d88e"
+  revision = "cf8ed4af06b97fbbb169170341eb6bece21d91be"
 
 [[projects]]
   branch = "master"
@@ -147,7 +209,7 @@
   name = "gitlab.local.com/golang/go-log"
   packages = ["."]
   pruneopts = "UT"
-  revision = "42b42d866ac65f414d75c0ab39d6be7d5c23acf1"
+  revision = "8ccc5cb40b1b29f3c7f5e3db12fad72e12359cdd"
 
 [[projects]]
   branch = "master"
@@ -159,6 +221,14 @@
   ]
   pruneopts = "UT"
   revision = "fdbb375a2d3f2192144a463bece30e28b43a955d"
+
+[[projects]]
+  branch = "master"
+  digest = "1:58f8ce40ee91ad7bda6e5863496afdeeaa6f8221878ac728e2385110ad1745b6"
+  name = "gitlab.local.com/golang/go-prometheus"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "7a48f4ab2c9c6d6a6ccad3e65f958ee1ca630598"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -193,11 +263,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a2bc6cb1f4e1d0b512e1d47d392ead580006b5bdade6ffde16271759fe609b34"
+  digest = "1:f36c7b9a36158e62ffe5d8b02d1b5955500c13106cdaeebf5323d88863cae96f"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "a34e9553db1e492c9a76e60db2296ae7e5fbb772"
+  revision = "a2f829d7f35f2ed1c3520c553a6226495455cae0"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
@@ -236,11 +306,13 @@
     "gitlab.local.com/golang/go-common/http",
     "gitlab.local.com/golang/go-common/logger",
     "gitlab.local.com/golang/go-common/time",
+    "gitlab.local.com/golang/go-common/trace",
     "gitlab.local.com/golang/go-common/uuid",
     "gitlab.local.com/golang/go-healthcheck",
     "gitlab.local.com/golang/go-log",
     "gitlab.local.com/golang/go-mysql",
     "gitlab.local.com/golang/go-mysql/sql",
+    "gitlab.local.com/golang/go-prometheus",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

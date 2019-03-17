@@ -1,15 +1,19 @@
-// Package prometheus golang prometheus
+// Package prometheus common
 // Created by chenguolin 2019-03-16
 package prometheus
 
 import (
 	"fmt"
-	"os"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
+
+// Labels helper type
+type Labels prometheus.Labels
 
 // init function default call by go
 func init() {

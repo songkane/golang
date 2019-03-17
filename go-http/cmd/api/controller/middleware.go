@@ -10,8 +10,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"gitlab.local.com/golang/go-common/http"
+	"gitlab.local.com/golang/go-common/logger"
+	"gitlab.local.com/golang/go-common/trace"
 	"gitlab.local.com/golang/go-common/uuid"
 	"gitlab.local.com/golang/go-http/cmd/api/request"
+	golog "gitlab.local.com/golang/go-log"
 )
 
 // SetRequestID set request id
@@ -20,6 +23,12 @@ func SetRequestID() gin.HandlerFunc {
 		// set request id
 		reqID := uuid.NewUlid()
 		c.Set(request.RequestIDKey, reqID)
+		// print start log
+		logger.Info(trace.WithTraceID(reqID), "Start process request ...",
+			golog.Object("RequestParams", c.Request.Form),
+			golog.Object("StartTime", time.Now().Unix()),
+			golog.Object("RequestURI", c.Request.URL.Path))
+		// next handler
 		c.Next()
 	}
 }
