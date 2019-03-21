@@ -6,6 +6,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
@@ -24,7 +25,7 @@ import (
 
 const (
 	// AccessLogName HTTP access log file name
-	AccessLogName = "access.log"
+	AccessLogName = "access"
 	// AppName application name
 	AppName = "go-http-api"
 	// TimePattern default time pattern
@@ -53,7 +54,7 @@ func main() {
 // printVersion print version
 func printVersion() {
 	fmt.Println("")
-	fmt.Println("Usage: ./go-http-api -log_dir=./logs -conf=../conf/config.toml")
+	fmt.Println("Usage: ./go-http-api -log=./logs -conf=../conf/config.toml")
 	fmt.Println("")
 	fmt.Printf("version: %s\nbuilt at: %s\ncommit: %s\n", version.Version, version.BuildDate, version.BuildCommit)
 	fmt.Println("")
@@ -129,6 +130,14 @@ func startHTTPServer(listenAddr string, accessLogDir string) {
 		}
 	}()
 
+	go func() {
+		for {
+			golog.Info("Hello world, my name is xuanku",
+				golog.String("message", genS()))
+			time.Sleep(1 * t.Second)
+		}
+	}()
+
 	// block until receive signal
 	shutdown := make(chan struct{})
 	registerSignal(shutdown)
@@ -153,4 +162,13 @@ func registerSignal(shutdown chan struct{}) {
 			break
 		}
 	}()
+}
+
+func genS() string {
+	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, 32)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }

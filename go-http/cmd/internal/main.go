@@ -24,7 +24,7 @@ import (
 
 const (
 	// AccessLogName HTTP access log file name
-	AccessLogName = "access.log"
+	AccessLogName = "access"
 	// AppName application name
 	AppName = "go-http-internal"
 	// TimePattern default time pattern
@@ -52,7 +52,7 @@ func main() {
 // printVersion print version
 func printVersion() {
 	fmt.Println("")
-	fmt.Println("Usage: ./go-http-internal -log_dir=./logs -conf=../conf/config.toml")
+	fmt.Println("Usage: ./go-http-internal -log=./logs -conf=../conf/config.toml")
 	fmt.Println("")
 	fmt.Printf("Version: %s\nbuilt at: %s\ncommit: %s\n", version.Version, version.BuildDate, version.BuildCommit)
 	fmt.Println("")

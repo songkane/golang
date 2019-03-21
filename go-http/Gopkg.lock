@@ -160,7 +160,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0573a48c92e778ad732779bf1e5064a5085ab3fbd236ad71e53cab5753ef3e6e"
+  digest = "1:c31163bd62461e0c5f7ddc7363e39ef8d9e929693e77b5c11c709b05f9cb9219"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
@@ -170,7 +170,7 @@
     "xfs",
   ]
   pruneopts = "UT"
-  revision = "e56f2e22fc761e82a34aca553f6725e2aff4fe6c"
+  revision = "40f3c57fb1983891f95378042bd0bfd590f52384"
 
 [[projects]]
   digest = "1:4887e9e89c80299aa520d718239809fdd2a47a9aa394909b169959bfbc424ddf"
@@ -182,7 +182,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1a5d7a44a834993ef3ee19320b38d463b48e0885f45ab8c9fe14156b5c0d0b5b"
+  digest = "1:05711ccd5739135ece9d97b3c7173d2f487fa4e53efe8261edc0ae55399a94ba"
   name = "gitlab.local.com/golang/go-common"
   packages = [
     "http",
@@ -193,7 +193,7 @@
     "uuid",
   ]
   pruneopts = "UT"
-  revision = "c45277fe13afd48ae0cbc2c1b68aadfa866fbe24"
+  revision = "5acba36232193205a3cdff73450471726a36cf1b"
 
 [[projects]]
   branch = "master"
@@ -224,11 +224,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:58f8ce40ee91ad7bda6e5863496afdeeaa6f8221878ac728e2385110ad1745b6"
+  digest = "1:98a5429fe2bc88ec23b6637eae2e4092ee992c479bf90cb2d32ce6ec2d361220"
   name = "gitlab.local.com/golang/go-prometheus"
   packages = ["."]
   pruneopts = "UT"
-  revision = "7a48f4ab2c9c6d6a6ccad3e65f958ee1ca630598"
+  revision = "9ff789e1be8a3fa5eec33828b4b08b7d2d4911eb"
 
 [[projects]]
   digest = "1:3c1a69cdae3501bf75e76d0d86dc6f2b0a7421bc205c0cb7b96b19eed464a34d"
@@ -263,19 +263,19 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f36c7b9a36158e62ffe5d8b02d1b5955500c13106cdaeebf5323d88863cae96f"
+  digest = "1:5637b3b43405643229e55140bb3049dfa7d73957ba9ecfccc31cdadbfbe0b1f9"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "a2f829d7f35f2ed1c3520c553a6226495455cae0"
+  revision = "6c81ef8f67ca3f42fc9cd71dfbd5f35b0c4b5771"
 
 [[projects]]
   digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
   pruneopts = "UT"
-  revision = "e9657d882bb81064595ca3b56cbe2546bbabf7b1"
-  version = "v1.4.0"
+  revision = "54a98f90d1c46b7731eb8fb305d2a321c30ef610"
+  version = "v1.5.0"
 
 [[projects]]
   digest = "1:cbc72c4c4886a918d6ab4b95e347ffe259846260f99ebdd8a198c2331cf2b2e9"
