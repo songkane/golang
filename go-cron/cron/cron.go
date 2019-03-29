@@ -10,10 +10,15 @@ import (
 	golog "gitlab.local.com/golang/go-log"
 )
 
+const (
+	running = iota
+	stopped
+)
+
 // Cron define
 type Cron struct {
 	entryList entrys    //cron entry list
-	isRunning bool      //cron is running status
+	state     int       //cron state
 	stopChan  chan bool //cron stop channel
 }
 
@@ -21,7 +26,7 @@ type Cron struct {
 func NewCron() *Cron {
 	return &Cron{
 		entryList: make([]*entry, 0),
-		isRunning: false,
+		state:     stopped,
 		stopChan:  make(chan bool),
 	}
 }
@@ -47,7 +52,7 @@ func (c *Cron) AddHandle(scheduler *Scheduler, handle handle) {
 // Start cron
 // if cron already running no operator
 func (c *Cron) Start() {
-	if c.isRunning {
+	if c.state == running {
 		return
 	}
 
@@ -56,7 +61,7 @@ func (c *Cron) Start() {
 	}
 
 	// set isRunning true
-	c.isRunning = true
+	c.state = running
 	go c.run()
 }
 
@@ -70,7 +75,8 @@ func (c *Cron) run() {
 	}()
 
 	for {
-		if !c.isRunning {
+		// 如果是stopped状态 直接退出
+		if c.state == stopped {
 			return
 		}
 
@@ -120,12 +126,12 @@ func (c *Cron) handleProcess(handle handle) {
 // Stop cron
 // if cron already stop no operator
 func (c *Cron) Stop() {
-	if !c.isRunning {
+	if c.state == stopped {
 		return
 	}
 
-	// set is running 2 false
-	c.isRunning = false
+	// set state 2 stopped
+	c.state = stopped
 	// write 2 stop channel
 	c.stopChan <- true
 }

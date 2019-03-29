@@ -21,6 +21,7 @@ func main() {
 	// dbProxy := db.NewMysql(nil)
 	mysqlScanner := mysql.NewScanner(maxChanSize, scanInterval, nil)
 	mysqlHandle := mysql.NewHandle()
+	// 并发数
 	concurrentCnt := 4
 	mysqlProcessor := processor.NewProcessor(mysqlScanner, mysqlHandle, concurrentCnt)
 	mysqlProcessor.Start()
@@ -35,6 +36,7 @@ func main() {
 	}
 	kafkaScanner := kafka.NewKafkaScanner(kafkaConf, maxChanSize)
 	kafkaHandle := kafka.NewHandle()
+	// 并发数
 	concurrentCnt = 2
 	kafkaProcessor := processor.NewProcessor(kafkaScanner, kafkaHandle, concurrentCnt)
 	kafkaProcessor.Start()
@@ -45,9 +47,13 @@ func main() {
 	signal.Notify(stopSignalChan, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	sig := <-stopSignalChan
 	fmt.Println("Got system signal:" + sig.String() + ", going to shutdown.")
+
+	// 需要保证主进程退出之前 processor channel里数据需要被完全处理
 	// stop mysql processor
 	mysqlProcessor.Stop()
 	fmt.Println("Mysql processor stop successful ~")
+
+	// 需要保证主进程退出之前 processor channel里数据需要被完全处理
 	// stop kafka processor
 	kafkaProcessor.Stop()
 	fmt.Println("Kafka processor stop successful ~")

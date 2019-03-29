@@ -18,7 +18,7 @@ func NewGolog(dir, name, timePattern string) (*golog.Logger, error) {
 		return nil, errors.New("Invalid Arguments")
 	}
 
-	fileName := fmt.Sprintf("%s/%s.logger", dir, name)
+	fileName := fmt.Sprintf("%s/%s.log", dir, name)
 	rotateWriter, err := golog.NewRotateWriter(fileName, timePattern)
 	if err != nil {
 		return nil, err

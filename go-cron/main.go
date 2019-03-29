@@ -51,7 +51,7 @@ func main() {
 	// 3. start cron
 	c := cron.NewCron()
 
-	// TODO add handle
+	// TODO
 	c.AddHandle(cron.NewScheduler(cron.WithSecond(5), time.Now()), handle.GetCrawlAddressTxsHandle())
 
 	// 4. run cron

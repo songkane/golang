@@ -24,14 +24,13 @@
 #   go-tests = true
 #   unused-packages = true
 
-
 [[constraint]]
   name = "github.com/Shopify/sarama"
   version = "1.20.1"
 
 [[constraint]]
   name = "github.com/meitu/go-consumergroup"
-  version = "0.2.3"
+  branch = "master"
 
 [[constraint]]
   branch = "master"

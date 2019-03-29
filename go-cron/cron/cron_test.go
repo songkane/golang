@@ -14,8 +14,8 @@ func TestNewCron(t *testing.T) {
 	if len(cron.entryList) > 0 {
 		t.Fatal("TestNewCron len(cron.entries) > 0 ")
 	}
-	if cron.isRunning {
-		t.Fatal("TestNewCron cron.isRunning == true ")
+	if cron.state == running {
+		t.Fatal("TestNewCron cron.state == running")
 	}
 	if len(cron.stopChan) > 0 {
 		t.Fatal("TestNewCron len(cron.stopChan) > 0")

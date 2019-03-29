@@ -17,8 +17,8 @@ func TestNewKafkaScanner(t *testing.T) {
 	if scanner == nil {
 		t.Fatal("TestNewKafkaScanner scanner == nil")
 	}
-	if scanner.isRunning == true {
-		t.Fatal("TestNewKafkaScanner scanner.isRunning == true")
+	if scanner.IsRunning() == true {
+		t.Fatal("TestNewKafkaScanner scanner.IsRunning() == true")
 	}
 	if scanner.maxChanSize != 5 {
 		t.Fatal("TestNewKafkaScanner scanner.maxChanSize != 5")
@@ -45,8 +45,8 @@ func TestScanner_Start(t *testing.T) {
 	}
 	scanner := NewKafkaScanner(cfg, 5)
 	scanner.Start()
-	if scanner.isRunning == false {
-		t.Fatal("TestNewKafkaScanner scanner.isRunning == false")
+	if scanner.IsRunning() != true {
+		t.Fatal("TestNewKafkaScanner scanner.IsRunning() != true")
 	}
 	if scanner.consumer.IsStopped() == true {
 		t.Fatal("TestNewKafkaScanner scanner.consumer.IsStopped() == true")
@@ -61,8 +61,8 @@ func TestScanner_Stop(t *testing.T) {
 	}
 	scanner := NewKafkaScanner(cfg, 5)
 	scanner.Start()
-	if scanner.isRunning == false {
-		t.Fatal("TestNewKafkaScanner scanner.isRunning == false")
+	if scanner.IsRunning() == false {
+		t.Fatal("TestNewKafkaScanner scanner.IsRunning == false")
 	}
 	// must be sleep wait consumer goroutine start
 	time.Sleep(1 * time.Second)

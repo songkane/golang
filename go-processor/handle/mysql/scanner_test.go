@@ -15,8 +15,8 @@ func TestNewScanner(t *testing.T) {
 	if scanner == nil {
 		t.Fatal("TestNewScanner scanner == nil")
 	}
-	if scanner.isRunning != false {
-		t.Fatal("TestNewScanner scanner.isRunning != false")
+	if scanner.state == running {
+		t.Fatal("TestNewScanner scanner.state == running")
 	}
 	if scanner.maxChanSize != 1 {
 		t.Fatal("TestNewScanner scanner.maxChanSize != 1")
@@ -38,8 +38,8 @@ func TestNewScanner(t *testing.T) {
 func TestScanner_Start(t *testing.T) {
 	scanner := NewScanner(1, 5*time.Second, &mysql.Mysql{})
 	scanner.Start()
-	if scanner.isRunning != true {
-		t.Fatal("TestScanner_Start scanner.isRunning != true")
+	if scanner.state != running {
+		t.Fatal("TestScanner_Start scanner.state != running")
 	}
 	time.Sleep(6 * time.Second)
 	if len(scanner.records) == 0 {
@@ -50,24 +50,24 @@ func TestScanner_Start(t *testing.T) {
 func TestScanner_Stop(t *testing.T) {
 	scanner := NewScanner(1, 5*time.Second, &mysql.Mysql{})
 	scanner.Start()
-	if scanner.isRunning != true {
-		t.Fatal("TestScanner_Start scanner.isRunning != true")
+	if scanner.state != running {
+		t.Fatal("TestScanner_Start scanner.state != running")
 	}
 	time.Sleep(6 * time.Second)
 	if len(scanner.records) == 0 {
 		t.Fatal("TestScanner_Start len(scanner.records) == 0")
 	}
 	scanner.Stop()
-	if scanner.isRunning != false {
-		t.Fatal("TestScanner_Start scanner.isRunning != false")
+	if scanner.state == running {
+		t.Fatal("TestScanner_Start scanner.state == running")
 	}
 }
 
 func TestScanner_Next(t *testing.T) {
 	scanner := NewScanner(1, 5*time.Second, &mysql.Mysql{})
 	scanner.Start()
-	if scanner.isRunning != true {
-		t.Fatal("TestScanner_Start scanner.isRunning != true")
+	if scanner.state != running {
+		t.Fatal("TestScanner_Start scanner.state != running")
 	}
 	time.Sleep(6 * time.Second)
 	if len(scanner.records) == 0 {

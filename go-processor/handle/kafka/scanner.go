@@ -12,12 +12,18 @@ import (
 	"gitlab.local.com/golang/go-processor/processor"
 )
 
+// scanner state
+const (
+	running = iota
+	stopped
+)
+
 // Scanner kafka scanner
 // chan T     send and receive type T data
 // chan<- T   only send type T data
-// <-chan int only receive type T data
+// <-chan T   only receive type T data
 type Scanner struct {
-	isRunning   bool                           //scanner is running
+	state       int                            //scanner state
 	maxChanSize int                            //max channel size
 	conf        *Config                        //kafka config
 	consumer    *cg.ConsumerGroup              //kafka consumer
@@ -53,7 +59,7 @@ func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
 	}
 
 	return &Scanner{
-		isRunning:   false,
+		state:       running,
 		maxChanSize: maxChanSize,
 		conf:        conf,
 		consumer:    consumer,
@@ -64,12 +70,12 @@ func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
 
 // Start scanner
 func (s *Scanner) Start() {
-	if s.isRunning {
+	if s.state == running {
 		return
 	}
 
-	// set running true
-	s.isRunning = true
+	// set state 2 running
+	s.state = running
 
 	// start consumer
 	err := s.consumer.Start()
@@ -77,50 +83,62 @@ func (s *Scanner) Start() {
 		panic(err)
 	}
 
-	// go start
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				golog.Error("Kafka scanner start panic",
-					golog.Object("Error", err))
-				debug.PrintStack()
-				// stop scanner
-				s.Stop()
-			}
-		}()
+	// start scan
+	go s.scan()
+}
 
-		// get message channel
-		msgChan, ok := s.consumer.GetMessages(s.conf.Topic)
-		if !ok {
-			golog.Panic("consumer.GetMessage not successful")
+// scan records
+func (s *Scanner) scan() {
+	defer func() {
+		if err := recover(); err != nil {
+			golog.Error("Kafka scanner start panic",
+				golog.Object("Error", err))
+			debug.PrintStack()
+
+			// stop scanner
+			s.Stop()
 		}
-		s.records = msgChan
 	}()
+
+	// get message channel
+	msgChan, ok := s.consumer.GetMessages(s.conf.Topic)
+	if !ok {
+		golog.Panic("consumer.GetMessage not successful")
+	}
+	s.records = msgChan
 }
 
 // Stop scanner
 func (s *Scanner) Stop() {
-	if !s.isRunning {
+	if s.state != running {
 		return
 	}
 
+	// set state 2 stopped
+	s.state = stopped
 	// stop consumer
-	s.isRunning = false
 	s.consumer.Stop()
 }
 
 // Next get next kafka message
 func (s *Scanner) Next() (processor.Record, bool) {
-	if !s.isRunning {
-		return nil, false
-	}
+	// 1. channel关闭后，继续往它发送数据会panic
+	// 2. channel关闭后，使用 <-c 方式还可以继续读到数据，只不过读到的是对应类型的零值
+	// 3. 通过for range的方式读取channel，channel关闭后会退出for循环
+	// 4. 通过 v,ok := <- c方式读取channel, 如果channel没有数据或者channel关闭，v为对应类型的零值，ok为false
+	//    (注意不能简单的通过ok为false来判断channel已经关闭，因为有可能是channel没有数据)
 
 	// next record
 	record, ok := <-s.records
 	return record, ok
 }
 
-// IsStopped check scanner is running
+// IsRunning check scanner is running
+func (s *Scanner) IsRunning() bool {
+	return s.state == running
+}
+
+// IsStopped check scanner is stopped
 func (s *Scanner) IsStopped() bool {
-	return !s.isRunning
+	return s.state == stopped
 }
