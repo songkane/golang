@@ -83,7 +83,7 @@ func (s *Scanner) Start() {
 		panic(err)
 	}
 
-	// start scan
+	// start scan records
 	go s.scan()
 }
 

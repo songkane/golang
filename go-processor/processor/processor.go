@@ -54,7 +54,7 @@ func (p *Processor) Start() {
 		go p.process()
 	}
 
-	// wait all goroutine done
+	// goroutine wait all process done
 	go func() {
 		p.waitGroup.Wait()
 		// set 2 stopped
@@ -112,6 +112,11 @@ func (p *Processor) Stop() {
 	p.state = stopping
 	// stop scanner
 	p.scanner.Stop()
+
+	// block until all goroutine process done
+	// set state 2 stopped
+	p.waitGroup.Wait()
+	p.state = stopped
 }
 
 // isRunning check processor is running

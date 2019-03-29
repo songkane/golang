@@ -58,8 +58,7 @@ func (s *Scanner) Start() {
 
 	// set scanner running
 	s.state = running
-
-	// start scan
+	// start scan records
 	go s.scan()
 }
 
@@ -81,7 +80,7 @@ func (s *Scanner) scan() {
 	ticker := time.Tick(s.scanInterval)
 
 	for {
-		// 如果已经是stopped状态直接退出
+		// found stopped state break
 		if s.state == stopped {
 			break
 		}

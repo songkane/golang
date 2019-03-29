@@ -75,9 +75,9 @@ func (c *Cron) run() {
 	}()
 
 	for {
-		// 如果是stopped状态 直接退出
+		// found stopped state break
 		if c.state == stopped {
-			return
+			break
 		}
 
 		// 1. sort all entry by NextTime
