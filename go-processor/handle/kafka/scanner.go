@@ -3,12 +3,8 @@
 package kafka
 
 import (
-	"runtime/debug"
-
 	"github.com/Shopify/sarama"
-	cg "github.com/meitu/go-consumergroup"
-
-	golog "gitlab.local.com/golang/go-log"
+	"gitlab.local.com/golang/go-kafka"
 	"gitlab.local.com/golang/go-processor/processor"
 )
 
@@ -25,35 +21,19 @@ const (
 type Scanner struct {
 	state       int                            //scanner state
 	maxChanSize int                            //max channel size
-	conf        *Config                        //kafka config
-	consumer    *cg.ConsumerGroup              //kafka consumer
+	consumer    *kafka.Consumer                //kafka consumer
 	stopChan    chan bool                      //stop channel
-	records     <-chan *sarama.ConsumerMessage //record channel
-}
-
-// Config kafka
-// Read kafka only need Zk
-// Write kafka only need brokers
-type Config struct {
-	Topic   string   `json:"topic"`    //topic
-	GroupID string   `json:"group_id"` //consumer group id
-	Zk      []string `json:"zk"`       //zk
+	msgChan     <-chan *sarama.ConsumerMessage //message channel
 }
 
 // NewKafkaScanner new kafka scanner
-func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
-	if conf == nil || maxChanSize <= 0 {
-		panic("NewKafkaScanner panic")
+func NewKafkaScanner(brokers, topic, groupID string, maxChanSize int) *Scanner {
+	if brokers == "" || topic == "" || groupID == "" || maxChanSize <= 0 {
+		panic("NewKafkaScanner panic, invalid args")
 	}
 
-	// new consumer group config
-	cgConf := cg.NewConfig()
-	cgConf.ZkList = conf.Zk
-	cgConf.TopicList = []string{conf.Topic}
-	cgConf.GroupID = conf.GroupID
-
 	// new consumer group
-	consumer, err := cg.NewConsumerGroup(cgConf)
+	consumer, err := kafka.NewConsumer(brokers, topic, groupID, kafka.OffsetNewset)
 	if err != nil {
 		panic(err)
 	}
@@ -61,10 +41,9 @@ func NewKafkaScanner(conf *Config, maxChanSize int) *Scanner {
 	return &Scanner{
 		state:       running,
 		maxChanSize: maxChanSize,
-		conf:        conf,
 		consumer:    consumer,
 		stopChan:    make(chan bool),
-		records:     make(chan *sarama.ConsumerMessage, maxChanSize),
+		msgChan:     make(<-chan *sarama.ConsumerMessage, maxChanSize),
 	}
 }
 
@@ -76,36 +55,7 @@ func (s *Scanner) Start() {
 
 	// set state 2 running
 	s.state = running
-
-	// start consumer
-	err := s.consumer.Start()
-	if err != nil {
-		panic(err)
-	}
-
-	// start scan records
-	go s.scan()
-}
-
-// scan records
-func (s *Scanner) scan() {
-	defer func() {
-		if err := recover(); err != nil {
-			golog.Error("Kafka scanner start panic",
-				golog.Object("Error", err))
-			debug.PrintStack()
-
-			// stop scanner
-			s.Stop()
-		}
-	}()
-
-	// get message channel
-	msgChan, ok := s.consumer.GetMessages(s.conf.Topic)
-	if !ok {
-		golog.Panic("consumer.GetMessage not successful")
-	}
-	s.records = msgChan
+	s.msgChan = s.consumer.Messages()
 }
 
 // Stop scanner
@@ -116,8 +66,8 @@ func (s *Scanner) Stop() {
 
 	// set state 2 stopped
 	s.state = stopped
-	// stop consumer
-	s.consumer.Stop()
+	// close consumer
+	s.consumer.Close()
 }
 
 // Next get next kafka message
@@ -129,7 +79,7 @@ func (s *Scanner) Next() (processor.Record, bool) {
 	//    (注意不能简单的通过ok为false来判断channel已经关闭，因为有可能是channel没有数据)
 
 	// next record
-	record, ok := <-s.records
+	record, ok := <-s.msgChan
 	return record, ok
 }
 

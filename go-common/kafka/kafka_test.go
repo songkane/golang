@@ -3,12 +3,13 @@
 package kafka
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestNewSyncKafkaProducer(t *testing.T) {
 	// case 1
-	brokers := []string{}
+	brokers := ""
 	producer, err := NewSyncKafkaProducer(brokers)
 	if err == nil {
 		t.Fatal("TestNewSyncKafkaProducer case 1 err == nil")
@@ -18,15 +19,13 @@ func TestNewSyncKafkaProducer(t *testing.T) {
 	}
 
 	// case 2
-	/*
-		brokers = []string{"172.16.30.2:9092"}
-		producer, err = NewSyncKafkaProducer(brokers)
-		fmt.Println(err)
-		if err != nil {
-			t.Fatal("TestNewSyncKafkaProducer case 2 err != nil")
-		}
-		if producer == nil {
-			t.Fatal("TestNewSyncKafkaProducer case 2 producer == nil")
-		}
-	*/
+	brokers = "127.0.0.1:9092"
+	producer, err = NewSyncKafkaProducer(brokers)
+	fmt.Println(err)
+	if err != nil {
+		t.Fatal("TestNewSyncKafkaProducer case 2 err != nil")
+	}
+	if producer == nil {
+		t.Fatal("TestNewSyncKafkaProducer case 2 producer == nil")
+	}
 }

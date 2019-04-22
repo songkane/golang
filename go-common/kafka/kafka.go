@@ -6,29 +6,27 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka"
 	golog "gitlab.local.com/golang/go-log"
 )
 
 // NewSyncKafkaProducer 实例化一个kafka producer
-func NewSyncKafkaProducer(brokers []string) (*sarama.SyncProducer, error) {
-	config := sarama.NewConfig()
-	config.Producer.RequiredAcks = sarama.WaitForAll
-	config.Producer.Return.Successes = true
-
-	producer, err := sarama.NewSyncProducer(brokers, config)
+func NewSyncKafkaProducer(brokers string) (*kafka.SyncProducer, error) {
+	producer, err := kafka.NewSyncProducer(brokers)
 	if err != nil {
 		return nil, err
 	}
 
-	return &producer, nil
+	return producer, nil
 }
 
 // WriteKafka 写Kafka消息接口
 // kafkaProducer 生产者对象
-// msg 消息
+// topic 要写的topic
+// key 消息key
+// value 消息内容
 // retryTimes 重试次数
-func WriteKafka(kafkaProducer sarama.SyncProducer, msg *sarama.ProducerMessage, retryTimes int) error {
+func WriteKafka(producer *kafka.SyncProducer, topic, key, value string, retryTimes int) error {
 	tryTimes := 0
 
 	for {
@@ -38,22 +36,23 @@ func WriteKafka(kafkaProducer sarama.SyncProducer, msg *sarama.ProducerMessage, 
 		tryTimes++
 
 		// 写消息
-		partition, offset, err := kafkaProducer.SendMessage(msg)
+		partition, offset, err := producer.Send(topic, key, value)
 		if err != nil {
 			golog.Warn("WriteKafka write 2 kakfa failed.",
 				golog.Int("retryTimes", tryTimes),
-				golog.Object("message", msg),
-				golog.Object("Error", err))
+				golog.String("topic", topic),
+				golog.String("key", key),
+				golog.String("value", value),
+				golog.Object("error", err))
 			time.Sleep(time.Duration(2*tryTimes) * time.Second)
 		} else {
 			golog.Info("WriteKafka write 2 kafka sucessful ~",
-				golog.String("topic", msg.Topic),
+				golog.String("topic", topic),
 				golog.Object("partition", partition),
-				golog.Object("offset", offset),
-				golog.Object("message", msg))
+				golog.Object("offset", offset))
 			return nil
 		}
 	}
 
-	return errors.New("WriteKafka write 2 kafka failed ~ " + "topic: " + msg.Topic)
+	return errors.New("WriteKafka write 2 kafka failed ~ " + "topic: " + topic)
 }

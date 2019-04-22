@@ -29,12 +29,10 @@ func main() {
 
 	// kafka processor
 	maxChanSize = 100
-	kafkaConf := &kafka.Config{
-		Topic:   "test_topic",
-		GroupID: "test_consumer_group",
-		Zk:      []string{"127.0.0.1:2181"},
-	}
-	kafkaScanner := kafka.NewKafkaScanner(kafkaConf, maxChanSize)
+	brokers := "127.0.0.1:2181"
+	topic := "test_topic"
+	groupID := "test_consumer_group"
+	kafkaScanner := kafka.NewKafkaScanner(brokers, topic, groupID, maxChanSize)
 	kafkaHandle := kafka.NewHandle()
 	// 并发数
 	concurrentCnt = 2
