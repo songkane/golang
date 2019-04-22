@@ -18,7 +18,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new sync producer
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 
 	producer, err := kafka.NewSyncProducer(brokers)
 	if err != nil {

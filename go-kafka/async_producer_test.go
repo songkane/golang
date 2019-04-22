@@ -18,7 +18,7 @@ func TestNewAsyncProducer_case1(t *testing.T) {
 }
 
 func TestNewAsyncProducer_case2(t *testing.T) {
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	asyncProducer, err := NewAsyncProducer(brokers)
 	if err != nil {
 		t.Fatal("TestNewAsyncProducer_case2 err == nil")
@@ -30,7 +30,7 @@ func TestNewAsyncProducer_case2(t *testing.T) {
 }
 
 func TestAsyncProducer_Send(t *testing.T) {
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	asyncProducer, err := NewAsyncProducer(brokers)
 	if err != nil {
 		t.Fatal("TestNewAsyncProducer_case2 err == nil")

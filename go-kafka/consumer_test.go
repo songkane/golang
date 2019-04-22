@@ -56,7 +56,7 @@ func TestNewConsumer(t *testing.T) {
 	// case 4
 	topic = "k8s-log-test-output-stdout"
 	groupID = "TestNewConsumer"
-	brokers = "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers = "192.168.0.1:9092,192.168.0.2:9092"
 	defaultOffset = OffsetOldest
 
 	consumer, err = NewConsumer(brokers, topic, groupID, defaultOffset)
@@ -73,7 +73,7 @@ func TestNewConsumer(t *testing.T) {
 func TestConsumer_Messages(t *testing.T) {
 	topic := "k8s-log-test-output-stdout"
 	groupID := "TestConsumer_Messages"
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	defaultOffset := OffsetNewset
 
 	consumer, err := NewConsumer(brokers, topic, groupID, defaultOffset)
@@ -106,7 +106,7 @@ func TestConsumer_Messages(t *testing.T) {
 func TestConsumer_Errors(t *testing.T) {
 	topic := "k8s-log-test-output-stdout"
 	groupID := "TestConsumer_Errors"
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	defaultOffset := OffsetOldest
 
 	consumer, err := NewConsumer(brokers, topic, groupID, defaultOffset)
@@ -136,7 +136,7 @@ func TestConsumer_Errors(t *testing.T) {
 func TestConsumer_case1(t *testing.T) {
 	topic := "k8s-log-test-output-stdout"
 	groupID := "TestConsumer_case1"
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	defaultOffset := OffsetOldest
 
 	consumer, err := NewConsumer(brokers, topic, groupID, defaultOffset)
@@ -181,7 +181,7 @@ func TestConsumer_case1(t *testing.T) {
 func TestConsumer_case2(t *testing.T) {
 	topic := "k8s-log-test-output-stdout"
 	groupID := "TestConsumer_case2"
-	brokers := "172.16.28.47:9092,172.16.28.48:9092,172.16.28.49:9092"
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	defaultOffset := OffsetNewset
 
 	consumer, err := NewConsumer(brokers, topic, groupID, defaultOffset)
