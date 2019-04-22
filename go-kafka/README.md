@@ -290,7 +290,7 @@ Options:
 1. 列出当前所有topics  
    ./kafka_cli -l -brokers 192.168.0.1:9092,192.168.0.2:9092
 2. 消费某个topic  
-   ./kafka_cli -c -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log_k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
+   ./kafka_cli -c -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
 
    -brokers: 必须字段  
    -topics: 必须字段  
@@ -298,7 +298,7 @@ Options:
    -partition: 可选字段，默认为0  
    -offset: 可选字段，默认从最新开始读
 3. 写数据到某个topic  
-   ./kafka_cli -p -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log_k8s-log-test-output-stdout -value "test kafka_cli by cgl"
+   ./kafka_cli -p -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
 
 
 
