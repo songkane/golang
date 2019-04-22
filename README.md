@@ -11,7 +11,8 @@ golang 相关代码仓库
 7. go-healthcheck: golang HTTP health pprof check
 8. go-lrucache: golang lru cache
 9. go-prometheus: golang prometheus监控封装
-10. telegram-bot-api: telegram机器人
+10. go-kafka: golang kafka使用封装
+11. telegram-bot-api: telegram机器人
 
 # dependency
 1. update: dep ensure -update -v
