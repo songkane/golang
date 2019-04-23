@@ -19,7 +19,8 @@ import (
 func main() {
 	// 1. parse args
 	args := parseArgs()
-	if args.help || (!args.help && !args.list && !args.consumer && !args.producer) {
+	if args.h || args.help || (!args.help && !args.list && !args.query &&
+		!args.consumer && !args.producer) {
 		usage()
 		return
 	}
@@ -27,6 +28,8 @@ func main() {
 	// 2. command
 	if args.list {
 		listCmd(args)
+	} else if args.query {
+		queryCmd(args)
 	} else if args.consumer {
 		consumerCmd(args)
 	} else if args.producer {
@@ -39,16 +42,19 @@ func main() {
 // CliArgs kafka cli args
 type CliArgs struct {
 	// cmd
+	h        bool //help
 	help     bool //help
-	list     bool //list
-	consumer bool //consumer
-	producer bool //producer
+	list     bool //list topic
+	query    bool //query topic
+	consumer bool //consumer message
+	producer bool //producer message
 	// options
 	brokers   string //brokers
-	topic     string //consume topics
-	group     string //consume group
-	partition int64  //consumne partition
-	offset    int64  //consume offset
+	topic     string //topics
+	group     string //consumer group
+	partition int64  //partition
+	replica   int64  //replica
+	offset    int64  //offset
 	key       string //produce message key
 	value     string //produce message value
 }
@@ -56,16 +62,20 @@ type CliArgs struct {
 func parseArgs() *CliArgs {
 	args := &CliArgs{}
 	// cmd
-	flag.BoolVar(&args.help, "h", false, "help.")
-	flag.BoolVar(&args.list, "l", false, "show topic list.")
-	flag.BoolVar(&args.consumer, "c", false, "consumer message.")
-	flag.BoolVar(&args.producer, "p", false, "producer message.")
+	flag.BoolVar(&args.h, "h", false, "help.")
+	flag.BoolVar(&args.help, "help", false, "help.")
+	flag.BoolVar(&args.list, "list", false, "show topic list.")
+	flag.BoolVar(&args.query, "query", false, "query topic info.")
+	flag.BoolVar(&args.consumer, "consume", false, "consumer message.")
+	flag.BoolVar(&args.producer, "produce", false, "producer message.")
+
 	// options
 	flag.StringVar(&args.brokers, "brokers", "", "broker list, like localhost:9092.")
-	flag.StringVar(&args.topic, "topic", "", "consume topic name.")
-	flag.StringVar(&args.group, "group", "", "consume group id.")
-	flag.Int64Var(&args.partition, "partition", 0, "consume partition id.")
-	flag.Int64Var(&args.offset, "offset", 0, "consume offset.")
+	flag.StringVar(&args.topic, "topic", "", "topic name.")
+	flag.StringVar(&args.group, "group", "", "consumer group id.")
+	flag.Int64Var(&args.partition, "partition", 0, "partition.")
+	flag.Int64Var(&args.replica, "replica", 1, "replica.")
+	flag.Int64Var(&args.offset, "offset", 0, "offset.")
 	flag.StringVar(&args.key, "key", "", "produce message key.")
 	flag.StringVar(&args.value, "value", "", "produce message value.")
 
@@ -82,17 +92,20 @@ func usage() {
 	fmt.Println("")
 
 	fmt.Println("Available Commands:")
-	fmt.Println("\t-h\thelp about any command.")
-	fmt.Println("\t-l\tlist all topics.")
-	fmt.Println("\t-c\tconsume from kafka topic.")
-	fmt.Println("\t-p\tproduce message 2 kafka topic.")
+	fmt.Println("\t-h/-help\thelp about any command.")
+	fmt.Println("\t-list\t\tlist all topics.")
+	fmt.Println("\t-query\t\tquery topics info.")
+	fmt.Println("\t-consume\tconsume from kafka topic.")
+	fmt.Println("\t-produce\tproduce message 2 kafka topic.")
+	fmt.Println("")
 
 	fmt.Println("Options:")
 	fmt.Println("\t-brokers\tbroker list, like 127.0.0.1:9092,127.0.0.2:9092.")
-	fmt.Println("\t-topic\t\tconsume topic name.")
-	fmt.Println("\t-group\t\tconsume group name.")
-	fmt.Println("\t-partition\tconsume partition id, default read from partition 0.")
-	fmt.Println("\t-offset\t\tconsume offset 0=newest 1=oldest, default read from newest.")
+	fmt.Println("\t-topic\t\ttopic name.")
+	fmt.Println("\t-group\t\tconsumer group name.")
+	fmt.Println("\t-partition\tpartition count or partition id, default 0.")
+	fmt.Println("\t-replica\treplica count, default 1.")
+	fmt.Println("\t-offset\t\tconsume offset 0=newest 1=oldest, default 0.")
 	fmt.Println("\t-key\t\tproduce message key.")
 	fmt.Println("\t-valu3\t\tproduce message value.")
 }
@@ -100,7 +113,8 @@ func usage() {
 // list command
 func listCmd(args *CliArgs) {
 	if args.brokers == "" {
-		fmt.Println("kafka-cli -l -bokers localhost:9092")
+		fmt.Println("List Topics: kafka-cli -list -bokers localhost:9092")
+		fmt.Println("")
 		usage()
 		return
 	}
@@ -121,20 +135,55 @@ func listCmd(args *CliArgs) {
 
 	// print topics
 	for idx, topic := range topics {
+		fmt.Printf("%d. %s\n", idx+1, topic)
+	}
+}
+
+// query topic
+func queryCmd(args *CliArgs) {
+	if args.brokers == "" || args.topic == "" {
+		fmt.Println("Query Topic: kafka-cli -query -bokers localhost:9092 -topic xxxx")
+		fmt.Println("")
+		usage()
+		return
+	}
+
+	// new client
+	client, err := kafka.NewClient(args.brokers)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// list topic
+	topics, err := client.Topics()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// print topics
+	for idx, topic := range topics {
+		if topic != args.topic {
+			continue
+		}
+
 		partitions, err := client.Partitions(topic)
 		if err != nil {
 			fmt.Printf("%d. %s, partitions: %v\n", idx+1, topic, partitions)
 			continue
 		}
 
-		partitionInfo := make([]string, 0)
 		for _, partition := range partitions {
+			// get offset
 			oldOffset, _ := client.GetOffset(topic, partition, sarama.OffsetOldest)
 			newOffset, _ := client.GetOffset(topic, partition, sarama.OffsetNewest)
-			info := fmt.Sprintf("{partition:%d, oldOffset:%d, newOffset:%d}", partition, oldOffset, newOffset)
-			partitionInfo = append(partitionInfo, info)
+			// get replica
+			replicas, _ := client.Replicas(topic, partition)
+
+			info := fmt.Sprintf("partition:%d, oldOffset:%d, newOffset:%d, replicas:%v",
+				partition, oldOffset, newOffset, replicas)
+			fmt.Println(info)
 		}
-		fmt.Printf("%d. %s, %v\n", idx+1, topic, partitionInfo)
 	}
 }
 

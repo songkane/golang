@@ -33,6 +33,23 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
+func TestClient_Brokers(t *testing.T) {
+	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	client, err := NewClient(brokers)
+	if err != nil {
+		t.Fatal("TestClient_Brokers err != nil")
+	}
+	if client == nil {
+		t.Fatal("TestClient_Brokers client == nil")
+	}
+
+	bks := client.Brokers()
+	if bks == nil {
+		t.Fatal("TestClient_Brokers bks != nil")
+	}
+	fmt.Println(bks)
+}
+
 func TestClient_Topics(t *testing.T) {
 	brokers := "192.168.0.1:9092,192.168.0.2:9092"
 	client, err := NewClient(brokers)

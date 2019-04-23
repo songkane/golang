@@ -271,35 +271,40 @@ func asyncProduce(producer *kafka.AsyncProducer) {
 kafka-cli is a console util tool to access kafka cluster.
 
 Usage:
-        kafak-cli [command]
+	kafak-cli [command]
 
 Available Commands:
-        -h      help about any command.
-        -l      list all topics.
-        -c      consume from kafka topic.
-        -p      produce message 2 kafka topic.
+	-h/-help	help about any command.
+	-list		list all topics.
+	-query		query topics info.
+	-consume	consume from kafka topic.
+	-produce	produce message 2 kafka topic.
+
 Options:
-        -brokers        broker list, like 127.0.0.1:9092,127.0.0.2:9092.
-        -topic          consume topic name.
-        -group          consume group name.
-        -partition      consume partition id, default read from partition 0.
-        -offset         consume offset 0=newest 1=oldest, default read from newest.
-        -key            produce message key.
-        -valu3          produce message value.
+	-brokers	broker list, like 127.0.0.1:9092,127.0.0.2:9092.
+	-topic		topic name.
+	-group		consumer group name.
+	-partition	partition count or partition id, default 0.
+	-replica	replica count, default 1.
+	-offset		consume offset 0=newest 1=oldest, default 0.
+	-key		produce message key.
+	-valu3		produce message value.
 ```
 
 1. 列出当前所有topics  
-   ./kafka_cli -l -brokers 192.168.0.1:9092,192.168.0.2:9092
-2. 消费某个topic  
-   ./kafka_cli -c -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
+   ./kafka_cli -list -brokers 192.168.0.1:9092,192.168.0.2:9092
+2. 查询当前topic信息   
+   ./kafka_cli -query -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout
+3. 消费某个topic  
+   ./kafka_cli -consume -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
 
    -brokers: 必须字段  
    -topics: 必须字段  
    -group: 可选字段，默认随机生成  
    -partition: 可选字段，默认为0  
    -offset: 可选字段，默认从最新开始读
-3. 写数据到某个topic  
-   ./kafka_cli -p -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
+4. 写数据到某个topic  
+   ./kafka_cli -produce -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
 
 
 

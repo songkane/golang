@@ -37,6 +37,11 @@ func NewClient(brokers string) (*Client, error) {
 	}, nil
 }
 
+// Brokers returns the current set of active brokers as retrieved from cluster metadata.
+func (c *Client) Brokers() []*sarama.Broker {
+	return c.client.Brokers()
+}
+
 // Topics returns the set of available topics as retrieved from cluster metadata
 func (c *Client) Topics() ([]string, error) {
 	return c.client.Topics()
