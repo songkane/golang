@@ -1,5 +1,5 @@
 # golang
-golang 相关代码仓库
+golang 相关代码仓库，课余时间学习总结与归纳所写，欢迎各路大神欢迎Fork、Star和提各种反馈Bug, 谢谢~
 
 # project
 1. go-log: golang logger 基础库
@@ -27,6 +27,3 @@ golang 相关代码仓库
 # Gitlab
 1. [Gitlab 安装使用](https://chenguolin.github.io/2018/12/18/Git-Gitlab-%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/)
 2. [Gitlab CI和CD配置](https://chenguolin.github.io/2018/12/24/Git-Gitlab-CI%E5%92%8CCD%E9%85%8D%E7%BD%AE/)
-
-# Issue
-欢迎Fork、Star和提各种反馈Bug, 谢谢~
