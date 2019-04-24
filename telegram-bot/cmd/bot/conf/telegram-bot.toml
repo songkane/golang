@@ -1,0 +1,21 @@
+[telegram]
+    # 每次批量拉取telegram消息条数
+    updates_limit=100
+
+    # 广播开关
+    broadcast_switch=false
+
+    # 广播消息周期，单位s
+    broadcast_interval=120
+
+    # 白名单组
+    white_group_id=[-1001238628989,-1001191336119,-1001263935128,-1001119872815,-1001219377966,-1001338350610,-1001150944525,-1001153329650,-1001246866806,-1001250922253,-1001151948817,-1001263929698]
+
+    # 0xC77Aa121EB48AC3FDA90cCa5C65317A82CCD0f4a
+    [telegram.message_pattern]
+        default = 'bec\.com\/telegramshare\?code=([a-zA-Z0-9]{4,10})'
+
+    [telegram.bot]
+        name="CglBot"
+        token="767734883:ABcdlHWi-kNbVTU39JHUWtl5Q8NHK9Gy1OI"
+
