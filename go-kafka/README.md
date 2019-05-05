@@ -58,7 +58,7 @@ func main() {
 	fmt.Println("Consumer start ...")
 
 	// new consumer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	topic := "k8s-log-test-output-stdout"
 	groupID := "consumer_example"
 	defaultOffset := kafka.OffsetNewset
@@ -143,7 +143,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new sync producer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 
 	producer, err := kafka.NewSyncProducer(brokers)
 	if err != nil {
@@ -221,7 +221,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new async producer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 
 	producer, err := kafka.NewAsyncProducer(brokers)
 	if err != nil {
@@ -298,11 +298,11 @@ Options:
 ```
 
 1. 列出当前所有topics  
-   ./kafka_cli -list -brokers 192.168.0.1:9092,192.168.0.2:9092
+   ./kafka_cli -list -brokers localhost:9092,localhost:9092
 2. 查询当前topic信息   
-   ./kafka_cli -query -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout
+   ./kafka_cli -query -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout
 3. 消费某个topic  
-   ./kafka_cli -consume -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
+   ./kafka_cli -consume -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
 
    -brokers: 必须字段  
    -topics: 必须字段  
@@ -310,7 +310,7 @@ Options:
    -partition: 可选字段，默认为0  
    -offset: 可选字段，默认从最新开始读
 4. 写数据到某个topic  
-   ./kafka_cli -produce -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
+   ./kafka_cli -produce -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
 
 
 

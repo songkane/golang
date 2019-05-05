@@ -23,7 +23,7 @@ func TestNewClient(t *testing.T) {
 	}
 
 	// case 2
-	brokers = "192.168.0.1:9092,192.168.0.2:9092"
+	brokers = "localhost:9092,localhost:9092"
 	client, err = NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestNewClient case 2 err != nil")
@@ -34,7 +34,7 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestClient_Brokers(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Brokers err != nil")
@@ -51,7 +51,7 @@ func TestClient_Brokers(t *testing.T) {
 }
 
 func TestClient_Topics(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Topics err != nil")
@@ -70,7 +70,7 @@ func TestClient_Topics(t *testing.T) {
 }
 
 func TestClient_Partitions(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Partitions err != nil")
@@ -91,7 +91,7 @@ func TestClient_Partitions(t *testing.T) {
 }
 
 func TestClient_WritablePartitions(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_WritablePartitions err != nil")
@@ -113,7 +113,7 @@ func TestClient_WritablePartitions(t *testing.T) {
 }
 
 func TestClient_Leader(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Leader err != nil")
@@ -133,7 +133,7 @@ func TestClient_Leader(t *testing.T) {
 }
 
 func TestClient_Replicas(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Leader err != nil")
@@ -156,7 +156,7 @@ func TestClient_Replicas(t *testing.T) {
 }
 
 func TestClient_GetOffset(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_GetOffset err != nil")
@@ -191,7 +191,7 @@ func TestClient_GetOffset(t *testing.T) {
 }
 
 func TestClient_Coordinator(t *testing.T) {
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	client, err := NewClient(brokers)
 	if err != nil {
 		t.Fatal("TestClient_Coordinator err != nil")
