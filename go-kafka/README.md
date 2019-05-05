@@ -1,5 +1,5 @@
 # go-kafka
-golang kafka封装，目前业界用的最多的Go kafka库是https://github.com/Shopify/sarama，但是sarama存在一些问题，所以基于https://github.com/bsm/sarama-cluster封装了更`傻瓜`
+golang kafka封装，目前业界用的最多的Go kafka库是https://github.com/Shopify/sarama 但是sarama存在一些问题，所以基于https://github.com/bsm/sarama-cluster 封装了更`傻瓜`
 化的kafka调用
 
 1. sarama存在几个问题
