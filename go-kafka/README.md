@@ -3,7 +3,7 @@ golang kafka封装，目前业界用的最多的Go kafka库是https://github.com
 化的kafka调用
 
 1. sarama存在几个问题
-    * 对consumer group支持不是很友好，没有提供优化的api调用
+    * 对consumer group支持不是很友好，没有提供友好的api调用
     * consumer group没有及时commit offset，导致程序重启的时候会从最新的消息开始消费，导致数据丢失
     * 不支持rebalance机制
 2. sarama-cluster实现了上诉提到的几个问题，提供优化的api调用，支持自动commit offset、支持rebalance机制
