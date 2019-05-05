@@ -18,7 +18,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new async producer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 
 	producer, err := kafka.NewAsyncProducer(brokers)
 	if err != nil {
@@ -48,7 +48,7 @@ func asyncProduce(producer *kafka.AsyncProducer) {
 		}
 	}()
 
-	topic := "k8s-log-test-output-stdout"
+	topic := "kafka_topic_test"
 	for {
 		// rand key
 		randKey := make([]byte, 16)

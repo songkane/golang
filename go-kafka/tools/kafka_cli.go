@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Shopify/sarama"
-	cluster "github.com/bsm/sarama-cluster"
 	"gitlab.local.com/golang/go-kafka"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
+	cluster "gitlab.local.com/golang/go-kafka/pkg/sarama-cluster"
 )
 
 func main() {

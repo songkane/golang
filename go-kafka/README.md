@@ -1,12 +1,18 @@
 # go-kafka
-golang kafka封装，目前业界用的最多的Go kafka库是https://github.com/Shopify/sarama 但是sarama存在一些问题，所以基于https://github.com/bsm/sarama-cluster 封装了更`傻瓜`
-化的kafka调用
+golang kafka基础库, 目前业界用的最多的Go kafka库是[sarama](https://github.com/Shopify/sarama)和[](https://github.com/bsm/sarama-cluster )
+但是目前sarama存在一些问题，所以go-kafka基于sarama和sarama-cluster封装了更优化、功能更强大的API
 
 1. sarama存在几个问题
-    * 对consumer group支持不是很友好，没有提供友好的api调用
-    * consumer group不支持自动commit offset，导致程序重启的时候会从最新的消息开始消费，导致数据丢失
+    * 对consumer group支持不是很友好，没有提供优化的api调用
+    * consumer group没有及时commit offset，导致程序重启的时候会从最新的消息开始消费，导致数据丢失
     * 不支持rebalance机制
-2. sarama-cluster实现了上面提到的几个问题，提供友好的api调用，支持自动commit offset、支持rebalance机制
+    * sarama-cluster实现了上面提到的几个问题，提供优化的api调用，支持自动commit offset、支持rebalance机制
+2. go-kafka 基于sarama、sarama-cluster封装了一层更通用的API调用，支持以下功能
+    * 支持sync_producer和async_producer
+    * producer 每60s会定期refresh一次所有topic的metadata，当topic 扩partition的时候无须重启，可以保证数据能够写入新的partition
+    * 支持consumer group, 提供友好的api调用
+    * 支持自动commit offset
+    * consumer group支持rebalance机制，当topic 扩partition的时候无须重启，支持自动添加新的consumer 实例消费新的partition
 
 # kafka简介
 1. kafka的队列模型

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 func TestNewClient(t *testing.T) {

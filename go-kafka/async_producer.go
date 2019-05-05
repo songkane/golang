@@ -5,10 +5,9 @@ package kafka
 import (
 	"runtime/debug"
 	"strings"
-
 	"sync"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 	golog "gitlab.local.com/golang/go-log"
 )
 
@@ -76,8 +75,10 @@ func NewAsyncProducer(brokers string) (*AsyncProducer, error) {
 func (ap *AsyncProducer) Send(topic, key, value string) {
 	msg := &sarama.ProducerMessage{
 		Topic: topic,
-		Key:   sarama.StringEncoder(key),
 		Value: sarama.StringEncoder(value),
+	}
+	if key != "" {
+		msg.Key = sarama.StringEncoder(key)
 	}
 
 	// send 2 input channel
@@ -86,9 +87,16 @@ func (ap *AsyncProducer) Send(topic, key, value string) {
 
 // Close async producer
 func (ap *AsyncProducer) Close() error {
+	err := ap.producer.Close()
+	if err != nil {
+		return err
+	}
+
+	// close stopChan
 	close(ap.stopChan)
 	ap.wg.Wait()
-	return ap.producer.Close()
+
+	return nil
 }
 
 // receiveError receive from Success and Errors channel
@@ -106,8 +114,10 @@ func (ap *AsyncProducer) receiveError() {
 	for {
 		select {
 		case err := <-ap.producer.Errors():
-			golog.Error("AsyncProducer receive error",
-				golog.Object("error", err))
+			if err != nil {
+				golog.Error("AsyncProducer receive error",
+					golog.Object("error", err))
+			}
 		case <-ap.stopChan:
 			return
 		}

@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 // Client is a generic Kafka client. It manages connections to one or more Kafka brokers.

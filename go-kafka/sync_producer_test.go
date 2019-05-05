@@ -3,7 +3,9 @@
 package kafka
 
 import (
+	"fmt"
 	"testing"
+	"time"
 )
 
 func TestNewSyncProducer_case1(t *testing.T) {
@@ -52,5 +54,26 @@ func TestSyncProducer_Send(t *testing.T) {
 	}
 	if err != nil {
 		t.Fatal("TestSyncProducer_Send err != nil")
+	}
+}
+
+func TestSyncProducer_SendLoop(t *testing.T) {
+	brokers := "localhost:9092"
+	syncProducer, err := NewSyncProducer(brokers)
+	if err != nil {
+		t.Fatal("TestSyncProducer_SendLoop err != nil")
+	}
+	if syncProducer == nil {
+		t.Fatal("TestSyncProducer_SendLoop syncProducer == nil")
+	}
+	defer syncProducer.Close()
+
+	topic := "kafka_topic_test"
+	value := "{\"name\":\"cgl\", \"message\":\"TestSyncProducer_SendLoop\"}"
+
+	for {
+		partition, offset, err := syncProducer.Send(topic, "", value)
+		fmt.Println(partition, offset, err)
+		time.Sleep(200 * time.Millisecond)
 	}
 }

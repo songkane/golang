@@ -1,12 +1,13 @@
 package cluster
 
 import (
+	"runtime/debug"
 	"sort"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 // Consumer is a cluster group consumer
@@ -27,6 +28,8 @@ type Consumer struct {
 	coreTopics  []string
 	extraTopics []string
 
+	coreTopicsPartitions map[string][]int32
+
 	dying, dead chan none
 	closeOnce   sync.Once
 
@@ -35,6 +38,7 @@ type Consumer struct {
 	errors        chan error
 	partitions    chan PartitionConsumer
 	notifications chan *Notification
+	rebalances    chan map[string][]int32
 
 	commitMu sync.Mutex
 }
@@ -78,7 +82,8 @@ func NewConsumerFromClient(client *Client, groupID string, topics []string) (*Co
 		subs:     newPartitionMap(),
 		groupID:  groupID,
 
-		coreTopics: topics,
+		coreTopics:           topics,
+		coreTopicsPartitions: make(map[string][]int32),
 
 		dying: make(chan none),
 		dead:  make(chan none),
@@ -87,6 +92,7 @@ func NewConsumerFromClient(client *Client, groupID string, topics []string) (*Co
 		errors:        make(chan error, client.config.ChannelBufferSize),
 		partitions:    make(chan PartitionConsumer, 1),
 		notifications: make(chan *Notification),
+		rebalances:    make(chan map[string][]int32),
 	}
 	if err := c.client.RefreshCoordinator(groupID); err != nil {
 		client.release()
@@ -94,6 +100,8 @@ func NewConsumerFromClient(client *Client, groupID string, topics []string) (*Co
 	}
 
 	go c.mainLoop()
+	go c.refreshTopicsMetadata()
+
 	return c, nil
 }
 
@@ -310,6 +318,53 @@ func (c *Consumer) Close() (err error) {
 	return
 }
 
+func (c *Consumer) refreshTopicsMetadata() {
+	defer close(c.rebalances)
+
+	t := time.NewTicker(1 * time.Minute)
+	defer t.Stop()
+
+	for {
+		select {
+		case <-t.C:
+			// refresh core partitions metadata
+			c.client.RefreshMetadata(c.coreTopics...)
+
+			// get core partition partition
+			for _, topic := range c.coreTopics {
+				partition, err := c.client.Partitions(topic)
+				if err != nil {
+					continue
+				}
+
+				// check old partition
+				oldPartition, ok := c.coreTopicsPartitions[topic]
+				if !ok {
+					c.coreTopicsPartitions[topic] = partition
+				} else {
+					if len(oldPartition) < len(partition) {
+						topicAddPartition := make(map[string][]int32)
+						addPartition := make([]int32, 0)
+						for i := len(oldPartition); i < len(partition); i++ {
+							addPartition = append(addPartition, int32(i))
+						}
+						topicAddPartition[topic] = addPartition
+
+						// send 2 rebalances channel
+						c.rebalances <- topicAddPartition
+					}
+					// set c.coreTopicsPartitions[topic]
+					c.coreTopicsPartitions[topic] = partition
+				}
+			}
+		case _, ok := <-c.dead:
+			if !ok {
+				return
+			}
+		}
+	}
+}
+
 func (c *Consumer) mainLoop() {
 	defer close(c.dead)
 	defer atomic.StoreInt32(&c.consuming, 0)
@@ -387,10 +442,25 @@ func (c *Consumer) nextTick() {
 	tomb.Go(c.cmLoop)
 	atomic.StoreInt32(&c.consuming, 1)
 
+	// watch rebalance
+	go c.watchRebalance(tomb)
+
 	// Wait for signals
 	select {
 	case <-tomb.Dying():
 	case <-c.dying:
+	}
+}
+
+func (c *Consumer) watchRebalance(tomb *loopTomb) {
+	defer func() {
+		if err := recover(); err != nil {
+			debug.PrintStack()
+		}
+	}()
+
+	for topicAddPartition := range c.rebalances {
+		c.subscribe(tomb, topicAddPartition)
 	}
 }
 

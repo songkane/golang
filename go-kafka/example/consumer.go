@@ -19,8 +19,8 @@ func main() {
 	fmt.Println("Consumer start ...")
 
 	// new consumer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
-	topic := "k8s-log-test-output-stdout"
+	brokers := "localhost:9092,localhost:9092"
+	topic := "kafka_topic_test"
 	groupID := "consumer_example"
 	defaultOffset := kafka.OffsetNewset
 

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 func TestNewConsumer(t *testing.T) {
@@ -221,4 +221,47 @@ func TestConsumer_case2(t *testing.T) {
 	}()
 
 	time.Sleep(time.Second * 20)
+}
+
+func TestConsumer_consumeLoop(t *testing.T) {
+	topic := "kafka_topic_test"
+	groupID := "TestConsumer_consumeLoop"
+	brokers := "localhost:9092"
+	defaultOffset := OffsetNewset
+
+	consumer, err := NewConsumer(brokers, topic, groupID, defaultOffset)
+	if err != nil {
+		t.Fatal("TestConsumer_consumeLoop err != nil")
+	}
+	if consumer == nil {
+		t.Fatal("TestConsumer_consumeLoop consumer == nil")
+	}
+	defer consumer.Close()
+
+	// start consumer
+	msgChan := consumer.Messages()
+	errChan := consumer.Errors()
+
+	// goroutine
+	go func() {
+		for {
+			select {
+			case msg, ok := <-msgChan:
+				// channel has closed
+				if !ok {
+					return
+				}
+				fmt.Println(string(msg.Topic), msg.Partition, msg.Offset)
+				consumer.CommitOffset(msg)
+			case err, ok := <-errChan:
+				// channel has closed
+				if !ok {
+					return
+				}
+				fmt.Println(err.Error())
+			}
+		}
+	}()
+
+	time.Sleep(1000 * time.Second)
 }
