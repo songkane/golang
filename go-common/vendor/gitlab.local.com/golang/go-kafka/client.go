@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 // Client is a generic Kafka client. It manages connections to one or more Kafka brokers.
@@ -35,6 +35,11 @@ func NewClient(brokers string) (*Client, error) {
 		brokers: brokers,
 		client:  client,
 	}, nil
+}
+
+// Brokers returns the current set of active brokers as retrieved from cluster metadata.
+func (c *Client) Brokers() []*sarama.Broker {
+	return c.client.Brokers()
 }
 
 // Topics returns the set of available topics as retrieved from cluster metadata

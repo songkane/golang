@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Shopify/sarama"
-	cluster "github.com/bsm/sarama-cluster"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
+	cluster "gitlab.local.com/golang/go-kafka/pkg/sarama-cluster"
 )
 
 // Error define
@@ -49,6 +49,7 @@ func NewConsumer(brokers, topic, groupID string, defaultOffset int) (*Consumer, 
 	// new config
 	// default read from OffsetNewest
 	cfg := cluster.NewConfig()
+	// return errors
 	cfg.Consumer.Return.Errors = true
 
 	// 如果zk已经存在当前consumer group，则从上次中断的地方开始消费，例如程序重启
@@ -80,13 +81,15 @@ func NewConsumer(brokers, topic, groupID string, defaultOffset int) (*Consumer, 
 	}
 
 	// return consumer
-	return &Consumer{
+	c := &Consumer{
 		topic:         topic,
 		groupID:       groupID,
 		brokers:       brokers,
 		defaultOffset: defaultOffset,
 		consumer:      consumer,
-	}, nil
+	}
+
+	return c, nil
 }
 
 // Messages return message channel

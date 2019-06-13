@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync/atomic"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 var errClientInUse = errors.New("cluster: client is already used by another consumer")

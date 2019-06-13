@@ -25,6 +25,50 @@
 #   unused-packages = true
 
 
+[[constraint]]
+  name = "github.com/DataDog/zstd"
+  version = "1.4.0"
+
+[[constraint]]
+  name = "github.com/Shopify/sarama"
+  version = "1.22.1"
+
+[[constraint]]
+  name = "github.com/bsm/sarama-cluster"
+  version = "2.1.15"
+
+[[constraint]]
+  name = "github.com/davecgh/go-spew"
+  version = "1.1.1"
+
+[[constraint]]
+  name = "github.com/eapache/go-resiliency"
+  version = "1.1.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/eapache/go-xerial-snappy"
+
+[[constraint]]
+  name = "github.com/eapache/queue"
+  version = "1.1.0"
+
+[[constraint]]
+  name = "github.com/pierrec/lz4"
+  version = "2.2.3"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/rcrowley/go-metrics"
+
+[[constraint]]
+  branch = "master"
+  name = "gitlab.local.com/golang/go-log"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/net"
+
 [prune]
   go-tests = true
   unused-packages = true

@@ -3,7 +3,7 @@ package cluster
 import (
 	"sync"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 // OffsetStash allows to accumulate offsets and

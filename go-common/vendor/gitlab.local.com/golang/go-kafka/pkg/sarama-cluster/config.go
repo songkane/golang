@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 var minVersion = sarama.V0_9_0_0

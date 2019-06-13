@@ -150,6 +150,7 @@ func newAsyncProducer(client Client) (AsyncProducer, error) {
 	// launch our singleton dispatchers
 	go withRecover(p.dispatcher)
 	go withRecover(p.retryHandler)
+	go withRecover(p.refreshMetadata)
 
 	return p, nil
 }
@@ -288,6 +289,16 @@ func (p *asyncProducer) Close() error {
 
 func (p *asyncProducer) AsyncClose() {
 	go withRecover(p.shutdown)
+}
+
+// every 60s refresh all topics meta data
+func (p *asyncProducer) refreshMetadata() {
+	for {
+		topics, _ := p.client.Topics()
+		p.client.RefreshMetadata(topics...)
+
+		time.Sleep(1 * time.Minute)
+	}
 }
 
 // singleton
