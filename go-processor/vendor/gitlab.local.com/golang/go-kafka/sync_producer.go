@@ -5,7 +5,7 @@ package kafka
 import (
 	"strings"
 
-	"github.com/Shopify/sarama"
+	"gitlab.local.com/golang/go-kafka/pkg/sarama"
 )
 
 // SyncProducer sync producer client
@@ -67,8 +67,11 @@ func NewSyncProducer(brokers string) (*SyncProducer, error) {
 func (sp *SyncProducer) Send(topic, key, value string) (partition int32, offset int64, err error) {
 	msg := &sarama.ProducerMessage{
 		Topic: topic,
-		Key:   sarama.StringEncoder(key),
 		Value: sarama.StringEncoder(value),
+	}
+
+	if key != "" {
+		msg.Key = sarama.StringEncoder(key)
 	}
 
 	return sp.producer.SendMessage(msg)

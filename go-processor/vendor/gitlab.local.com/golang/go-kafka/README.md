@@ -1,12 +1,18 @@
 # go-kafka
-golang kafka封装，目前业界用的最低的kafka库是https://github.com/Shopify/sarama，但是sarama存在一些问题，所以基于https://github.com/bsm/sarama-cluster封装了更`傻瓜`
-化的kafka调用
+golang kafka基础库, 目前业界用的最多的Go kafka库是[sarama](https://github.com/Shopify/sarama)和[](https://github.com/bsm/sarama-cluster )
+但是目前sarama存在一些问题，所以go-kafka基于sarama和sarama-cluster封装了更优化、功能更强大的API
 
 1. sarama存在几个问题
     * 对consumer group支持不是很友好，没有提供优化的api调用
     * consumer group没有及时commit offset，导致程序重启的时候会从最新的消息开始消费，导致数据丢失
     * 不支持rebalance机制
-2. sarama-cluster实现了上诉提到的几个问题，提供优化的api调用，支持自动commit offset、支持rebalance机制
+    * sarama-cluster实现了上面提到的几个问题，提供优化的api调用，支持自动commit offset、支持rebalance机制
+2. go-kafka 基于sarama、sarama-cluster封装了一层更通用的API调用，支持以下功能
+    * 支持sync_producer和async_producer
+    * producer 每60s会定期refresh一次所有topic的metadata，当topic 扩partition的时候无须重启，可以保证数据能够写入新的partition
+    * 支持consumer group, 提供友好的api调用
+    * 支持自动commit offset
+    * consumer group支持rebalance机制，当topic 扩partition的时候无须重启，支持自动添加新的consumer 实例消费新的partition
 
 # kafka简介
 1. kafka的队列模型
@@ -52,7 +58,7 @@ func main() {
 	fmt.Println("Consumer start ...")
 
 	// new consumer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 	topic := "k8s-log-test-output-stdout"
 	groupID := "consumer_example"
 	defaultOffset := kafka.OffsetNewset
@@ -137,7 +143,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new sync producer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 
 	producer, err := kafka.NewSyncProducer(brokers)
 	if err != nil {
@@ -215,7 +221,7 @@ import (
 func main() {
 	fmt.Println("Producer start ...")
 	// new async producer
-	brokers := "192.168.0.1:9092,192.168.0.2:9092"
+	brokers := "localhost:9092,localhost:9092"
 
 	producer, err := kafka.NewAsyncProducer(brokers)
 	if err != nil {
@@ -271,35 +277,40 @@ func asyncProduce(producer *kafka.AsyncProducer) {
 kafka-cli is a console util tool to access kafka cluster.
 
 Usage:
-        kafak-cli [command]
+	kafak-cli [command]
 
 Available Commands:
-        -h      help about any command.
-        -l      list all topics.
-        -c      consume from kafka topic.
-        -p      produce message 2 kafka topic.
+	-h/-help	help about any command.
+	-list		list all topics.
+	-query		query topics info.
+	-consume	consume from kafka topic.
+	-produce	produce message 2 kafka topic.
+
 Options:
-        -brokers        broker list, like 127.0.0.1:9092,127.0.0.2:9092.
-        -topic          consume topic name.
-        -group          consume group name.
-        -partition      consume partition id, default read from partition 0.
-        -offset         consume offset 0=newest 1=oldest, default read from newest.
-        -key            produce message key.
-        -valu3          produce message value.
+	-brokers	broker list, like 127.0.0.1:9092,127.0.0.2:9092.
+	-topic		topic name.
+	-group		consumer group name.
+	-partition	partition count or partition id, default 0.
+	-replica	replica count, default 1.
+	-offset		consume offset 0=newest 1=oldest, default 0.
+	-key		produce message key.
+	-valu3		produce message value.
 ```
 
 1. 列出当前所有topics  
-   ./kafka_cli -l -brokers 192.168.0.1:9092,192.168.0.2:9092
-2. 消费某个topic  
-   ./kafka_cli -c -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
+   ./kafka_cli -list -brokers localhost:9092,localhost:9092
+2. 查询当前topic信息   
+   ./kafka_cli -query -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout
+3. 消费某个topic  
+   ./kafka_cli -consume -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout -group console_consumer -partition 0 -offset 2310
 
    -brokers: 必须字段  
    -topics: 必须字段  
    -group: 可选字段，默认随机生成  
    -partition: 可选字段，默认为0  
    -offset: 可选字段，默认从最新开始读
-3. 写数据到某个topic  
-   ./kafka_cli -p -brokers 192.168.0.1:9092,192.168.0.2:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
+4. 写数据到某个topic  
+   ./kafka_cli -produce -brokers localhost:9092,localhost:9092 -topic k8s-log-test-output-stdout -value "test kafka_cli by cgl"
 
 
 
