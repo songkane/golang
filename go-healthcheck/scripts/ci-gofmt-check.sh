@@ -9,7 +9,7 @@ echo '********** gofmt check start ... **********'
 # sed -i "bs" 's/Atl/Dog/g' example.txt 则会生成example.txtbs 的备份文件
 # sed -i "" 's/Atl/Dog/g' example.txt 如果这个字符串长度为0，就是说是个空串，那么不备份
 # 命令结果输出到变量errors，同时把标准错误也输出
-errors=$(go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/go-healthcheck/=./= | grep -v gitlab | xargs -n 1 gofmt -l 2>&1)
+errors=$(go list ./... | grep -v vendor | sed -e s=gitlab.local.com/golang/go-lrucache/=./= | grep -v gitlab | xargs -n 1 gofmt -l 2>&1)
 
 # grep errors has go file
 echo "${errors}" | grep "\.go"
