@@ -1,5 +1,5 @@
 # go-kafka
-golang kafka基础库, 目前业界用的最多的Go kafka库是[sarama](https://github.com/Shopify/sarama)和[sarama-cluster](https://github.com/bsm/sarama-cluster)
+golang kafka基础库, 目前业界用的最多的Go kafka库是[sarama](https://github.com/Shopify/sarama)和[](https://github.com/bsm/sarama-cluster )
 但是目前sarama存在一些问题，所以go-kafka基于sarama和sarama-cluster封装了更优化、功能更强大的API
 
 1. sarama存在几个问题
