@@ -1,4 +1,21 @@
-.idea
+# Created by .ignore support plugin (hsz.mobi)
 .idea/
+*.iml
+.DS_Store
 *.swp
-
+*.swo
+*.tmp
+.gd*
+tmp
+cscop*
+*.a
+.tags
+.tags_sorted_by_file
+*.log
+*.prof
+*.log.*
+dist/
+build/api/bin/*
+logs/
+cmd/*/debug
+.vscode
