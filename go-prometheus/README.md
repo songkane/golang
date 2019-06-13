@@ -7,14 +7,6 @@ golang prometheus API封装, prometheus支持4种Metrics类型
 4. Summary: 使用NewSummary创建Summary metrics，使用Observe来设置metrics数值
 
 # 使用
-```
-counterMonitor = prometheus.NewCounter("http_api_count_monitor", "http api count monitor", []string{"uri"})
-
-labels := make(prometheus.Labels)
-labels["uri"] = c.Request.RequestURI
-counterMonitor.Add(labels, 1)
-```
-
 只需要引用了当前package，prometheus client内部会自动生成以下几个服务本身监控metrics
 
 这些指标可以通过Grafana进行展示分析，主要包括以下3个部分
