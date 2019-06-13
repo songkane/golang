@@ -24,14 +24,14 @@ func NewHTTPClient(timeout time.Duration) *http.Client {
 // @body optional
 // @header optional
 // @retry required
-func Get(httpClient *http.Client, url string, body []byte,
+func Get(httpClient *http.Client, url string,
 	header map[string]string, retry int) (*http.Response, error) {
 
 	if retry <= 0 {
 		retry = 1
 	}
 
-	return request(httpClient, "GET", url, body, header, retry)
+	return request(httpClient, "GET", url, nil, header, retry)
 }
 
 // Post http post request

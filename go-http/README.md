@@ -15,13 +15,13 @@
 
 # 编译构建
 ## api
-$ cd cmd/api  
-$ sh build.sh pre  
-$ cd dist/bin  
+$ cd cmd/api
+$ sh build.sh pre
+$ cd dist/bin
 $ ./go-http-api version  (可以查看相关信息)
 
 ## internal
-$ cd cmd/internal  
-$ sh build.sh pre  
-$ cd dist/bin  
+$ cd cmd/internal
+$ sh build.sh pre
+$ cd dist/bin
 $ ./go-http-internal version  (可以查看相关信息)
