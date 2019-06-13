@@ -1,6 +1,5 @@
 # gitlab CI/CD pipeline配置文件
-# 默认使用本地定制过的带有golint的golang镜像
-image: golang:custom
+image: centos
 
 stages:
     - test
@@ -15,6 +14,7 @@ before_script:
 # job 1 test go vet
 job_govet:
     stage: test
+    image: machiel/go-golint:1.11
     script:
         - bash ./scripts/pipeline/test_stage/ci-govet-check.sh
     tags:
@@ -22,6 +22,7 @@ job_govet:
 # job 2 test go fmt
 job_gofmt:
     stage: test
+    image: machiel/go-golint:1.11
     script:
         - bash ./scripts/pipeline/test_stage/ci-gofmt-check.sh
     tags:
@@ -29,6 +30,7 @@ job_gofmt:
 # job 3 test go lint
 job_golint:
     stage: test
+    image: machiel/go-golint:1.11
     script:
         - bash ./scripts/pipeline/test_stage/ci-golint-check.sh
     tags:
@@ -36,6 +38,7 @@ job_golint:
 # job 4 test go unit test
 job_unit:
     stage: test
+    image: machiel/go-golint:1.11
     script:
         - bash ./scripts/pipeline/test_stage/ci-gotest-check.sh
     tags:
